@@ -1,0 +1,14 @@
+Package: DNAshapeR
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1
+Date: 2015-10-15
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+LazyData: TRUE
+Imports: Rcpp (>= 0.12.1)
+LinkingTo: Rcpp
+NeedsCompilation: yes
+Packaged: 2015-10-16 04:59:58 UTC; tsupeich
