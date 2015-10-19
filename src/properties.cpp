@@ -11,7 +11,7 @@ void properties::private_vector_ave_sd_calc(double_vector &v,double &ave,double 
 		sd=sqrt(sd/(v.size()-1));
 	}else
 		sd=0;
-} 
+}
 
 double_vector& properties::get_vector(std::string str){
   if (str=="minor")
@@ -34,7 +34,9 @@ double_vector& properties::get_vector(std::string str){
     return twist2_vector;
   //Tsu-Pei
   if (str=="ep")
-	return ep_vector;
+	  return ep_vector;
+  else
+    return minor_vector;
 }
 
 int properties::get_num(std::string str){
@@ -59,6 +61,8 @@ int properties::get_num(std::string str){
   //Tsu-Pei
   if (str=="ep")
     return ep_num;
+  else
+    return minor_num;
 }
 
 
@@ -69,7 +73,7 @@ double properties::get_ave(std::string str){
     return major_ave;
   if (str=="propel")
     return propel_ave;
-  if (str=="slide1")    
+  if (str=="slide1")
     return slide1_ave;
   if (str=="roll1")
     return roll1_ave;
@@ -84,6 +88,8 @@ double properties::get_ave(std::string str){
   //Tsu-Pei
   if (str=="ep")
     return ep_ave;
+  else
+    return minor_ave;
 }
 
 double properties::get_sd(std::string str){
@@ -107,7 +113,9 @@ double properties::get_sd(std::string str){
     return twist2_sd;
   //Tsu-Pei
   if (str=="ep")
-   return ep_sd;  
+    return ep_sd;
+  else
+    return minor_sd;
 }
 
 void properties::calc_ave_sd(bool debug){
@@ -137,7 +145,7 @@ void properties::calc_ave_sd(bool debug){
   private_vector_ave_sd_calc(twist2_vector,twist2_ave,twist2_sd);
   //Tsu-Pei
   private_vector_ave_sd_calc(ep_vector,ep_ave,ep_sd);
-}	   
+}
 
 void properties::load_data_from_vector(double_vector dv){
   minor_ave = dv[0];  minor_sd = dv[1]; minor_num = int(dv[2]);
