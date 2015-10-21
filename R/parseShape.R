@@ -28,7 +28,12 @@ parseShape <- function( filename ) {
 	records <- scan( filename, what = 'character' )	
 	recordStart <- grep( '>', records )
 	
-	tmp <- paste( records[ ( recordStart[ 1 ] + 1) : (recordStart[ 2 ] - 1) ], collapse = ',')
+	if( length( recordStart ) > 1 ) { #multiple records
+		tmp <- paste( records[ ( recordStart[ 1 ] + 1) : (recordStart[ 2 ] - 1) ], collapse = ',')
+	} else { #single record
+		tmp <- paste( records[ ( recordStart[ 1 ] + 1) : length(records) ], collapse = ',')
+	}
+	
 	expLen <- length( strsplit(tmp, ',')[[1]] )
 	message( 'Record length: ', expLen)
 	
