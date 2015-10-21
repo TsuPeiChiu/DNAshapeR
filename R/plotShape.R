@@ -155,7 +155,7 @@ trackShape <- function( filename, shapeList ) {
   helt <- append(helt, 0, after = length(helt)-1)
     
   mydf <- data.frame(mgw, prot, roll, helt) 
-  print(mydf)
+  #print(mydf)
   
   par( mfrow = c( 4, 1), oma=c(1,1,1,1), mar=c(3,4,1,1), cex.axis = 1.25, cex.lab = 1.25 )
 
