@@ -40,6 +40,7 @@ getShape <- function(filename, shapeType = 'All', parse = TRUE) {
       shapeList <- list( parseShape( ln ) )
       names( shapeList ) <- shapeType
     }
+    message( 'Done' )
     return( shapeList )
   }
 }
