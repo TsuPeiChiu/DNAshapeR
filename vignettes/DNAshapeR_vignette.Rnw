@@ -1,0 +1,204 @@
+%\VignetteIndexEntry{DNAshapeR}
+%\VignettePackage{DNAshapeR}
+
+\documentclass{article}
+
+\usepackage{Sweave}
+\usepackage[a4paper]{geometry}
+\usepackage{hyperref,graphicx}
+\usepackage{color}
+
+%\SweaveOpts{keep.source=TRUE,eps=TRUE,width=8,height=8.5}
+\newcommand{\Robject}[1]{\texttt{#1}}
+\newcommand{\ext}[1]{\texttt{#1}}
+\newcommand{\Rpackage}[1]{\textit{#1}}
+\newcommand{\Rclass}[1]{\textit{#1}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\disc}[1]{\color{red} #1 \color{black}}
+\renewcommand{\floatpagefraction}{0.7}
+\setkeys{Gin}{width=0.8\textwidth}
+
+\author{Tsu-Pei Chiu and Federico Comoglio\\
+Molecular and Computational Biology Program, Departments of Biological Sciences\\
+University of Southern California, Los Angeles, USA\\
+Department of Biosystems Science and Engineering\\
+ETH Z\"urich, Basel, Switzerland\\
+\texttt{tsupeich@usc.edu}\\
+\texttt{federico.comoglio@bsse.ethz.ch}}
+
+\title{\textsf{\textbf{The \Rpackage{DNAshapeR} package \\{\large (version 2.0)}}}}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+DNAshapeR predicts DNA shape features in an ultra-fast, high-throughput manner from genomic sequencing data. The package takes either nucleotide sequence or genomic intervals as input, and generates various graphical representations for further analysis. DNAshapeR further encodes DNA sequence and shape features for statistical learning applications by concatenating feature matrices with user-defined combinations of k-mer and DNA shape features that can be readily used as input for machine learning algorithms.
+\end{abstract}
+
+\tableofcontents
+
+%--------------------------------------------------
+\section{Importing DNA sequences into the R session}
+%--------------------------------------------------
+%
+The input data for the analysis can be nucleotide sequence in FASTA file format. This can be done by giving customer defined sequence file or retrieving fasta files from defining GRanges and BSgenome.
+%
+
+%%--------------------------------------------------
+\subsection{Get sequence from own fasta file}
+%%--------------------------------------------------
+
+%
+<<echo = T, eval=T>>=
+library(DNAshapeR)
+filename <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
+pred <- getShape(filename)
+@
+%
+
+%%--------------------------------------------------
+\subsection{Get sequence from defined GRanges and BSgenome}
+%%--------------------------------------------------
+Before getting the data, you need to use and install some packages
+%
+<<echo = T, eval=F>>=
+source("http://bioconductor.org/biocLite.R")
+library(GenomicRanges)
+library(BSgenome)
+biocLite("BSgenome.Scerevisiae.UCSC.sacCer3")
+library(BSgenome.Scerevisiae.UCSC.sacCer3)
+@
+
+Then you can get the fasta file and run prediction
+%
+<<echo = T, eval=F>>=
+gr <- GRanges(seqnames = c("chrI"),
+              strand = c("+","-","+"),
+              ranges = IRanges(start = c(100,200,300), width = 100))
+getFasta(gr, Scerevisiae, width = 100, filename = "tmp.fa")
+filename <- "tmp.fa"
+pred <- getShape(filename)
+@
+%
+
+
+%%--------------------------------------------------
+\subsection{Get sequence from public domain projects}
+%%--------------------------------------------------
+<<echo = T, eval=F>>=
+biocLite("AnnotationHub")
+library(AnnotationHub)
+ah <- AnnotationHub()
+ah <- subset(ah, species=="Homo sapiens")
+ah <- query(ah, c("H3K4me3", "Gm12878", "Roadmap"))
+
+getFasta(ah[[1]], Hsapiens, width=150, filename = "tmp.fa")
+filename <- "tmp.fa"
+pred <- getShape(filename)
+@
+%
+
+
+
+
+
+
+%--------------------------------------------------
+\section{Visulize the prediction result}
+%--------------------------------------------------
+%
+%%--------------------------------------------------
+\subsection{Plot}
+%%--------------------------------------------------
+%
+<<fig = TRUE>>=
+plotShape(pred$MGW)
+@
+%
+
+%
+%%--------------------------------------------------
+\subsection{Heat maps}
+%%--------------------------------------------------
+%
+<<fig = TRUE>>=
+library(fields)
+heatShape(pred$ProT, 20)
+@
+%
+
+%
+%%--------------------------------------------------
+\subsection{Genome Browser Tracks}
+%%--------------------------------------------------
+%
+<<fig = TRUE>>=
+filename2 <- system.file("extdata", "SingleSeqsample.fa", package = "DNAshapeR")
+pred2 <- getShape(filename2)
+trackShape(filename2, pred2)
+@
+%
+
+
+%%--------------------------------------------------
+\section{Feature Encoding}
+%%--------------------------------------------------
+
+<<echo=T, eval=F>>=
+library(Biostrings)
+featureNames <- c("1-mer","1-shape")
+featureVector <- encodeSeqShape(filename, pred, featureNames)
+@
+
+
+%%--------------------------------------------------
+\subsection{Usecase of Machine Learning Application}
+%%--------------------------------------------------
+
+<<echo=T, eval=F>>=
+filename3 <- system.file("extdata", "SELEXsample.s", package = "DNAshapeR")
+experimentalData <- read.table(filename3)
+df <- data.frame(affinity=experimentalData $V1, featureVector)
+
+library(caret)
+trainControl <- trainControl(method = "cv", number = 10, savePredictions = TRUE)
+model <- train (affinity~ ., data = df, trControl=trainControl, method="lm", preProcess=NULL)
+summary(model)
+@
+
+
+
+
+
+
+
+
+
+%%%--------------------------------------------------
+%\subsection{Visualizing DNAshapeR statistics and meta data}
+%%%--------------------------------------------------
+%
+%The size distribution of DNAshapeRs is visualized as a histogram and returned by the following function call
+%\begin{center}
+%\setkeys{Gin}{width=0.8\textwidth}
+%<<echo = TRUE, fig = TRUE>>=
+%plotStatistics( clusters = DNAshapeRs,
+%                 corMethod = "spearman",
+%                 lower = panel.smooth )
+%@
+%\end{center}
+
+\section{Session Info}
+<<session>>=
+sessionInfo()
+@
+%
+\begin{thebibliography}{}
+
+\bibitem{dnashape} T. Zhou, L. Yang, Y. Lu, I. Dror, A.C. Dantas Machado, T. Ghane, R. Di Felice, and R. Rohs (2013) DNAshape: a method for the high-throughput prediction of DNA structural features on a genome-wide scale.
+\textit{Nucleic Acids Res} {\bf 41}: W56-62
+
+
+
+\end{thebibliography}
+\end{document}
