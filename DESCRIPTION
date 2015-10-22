@@ -12,3 +12,5 @@ Imports: Rcpp (>= 0.12.1), fields
 LinkingTo: Rcpp
 NeedsCompilation: yes
 Packaged: 2015-10-20 18:10:44 UTC; tsupeich
+VignetteBuilder: knitr
+Suggests: knitr
