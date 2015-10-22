@@ -49,7 +49,7 @@ The input data for the analysis can be nucleotide sequence in FASTA file format.
 %%--------------------------------------------------
 
 %
-<<echo = T, eval=T>>=
+<<echo = T, eval=F>>=
 library(DNAshapeR)
 filename <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
 pred <- getShape(filename)
@@ -111,7 +111,7 @@ pred <- getShape(filename)
 \subsection{Plot}
 %%--------------------------------------------------
 %
-<<fig = TRUE>>=
+<<fig = TRUE, eval=F>>=
 plotShape(pred$MGW)
 @
 %
@@ -121,7 +121,7 @@ plotShape(pred$MGW)
 \subsection{Heat maps}
 %%--------------------------------------------------
 %
-<<fig = TRUE>>=
+<<fig = TRUE, eval=F>>=
 library(fields)
 heatShape(pred$ProT, 20)
 @
@@ -132,7 +132,7 @@ heatShape(pred$ProT, 20)
 \subsection{Genome Browser Tracks}
 %%--------------------------------------------------
 %
-<<fig = TRUE>>=
+<<fig = TRUE>, eval=F>=
 filename2 <- system.file("extdata", "SingleSeqsample.fa", package = "DNAshapeR")
 pred2 <- getShape(filename2)
 trackShape(filename2, pred2)
