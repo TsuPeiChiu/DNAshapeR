@@ -85,7 +85,7 @@ plotShape(pred$MGW)
 
 ### Ensemble representation: heatmap
 ```{r fig.width=7, fig.height=7, fig.align='center'}
-
+library(feilds)
 heatShape(pred$ProT, 20)
 #heatShape(pred$MGW, 20)
 #heatShape(pred$Roll[1:500, 1:1980], 20)
