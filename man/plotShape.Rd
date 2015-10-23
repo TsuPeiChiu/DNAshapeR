@@ -32,7 +32,7 @@ Called for its effects
 DNAshapeR can be used to generate various graphical representations for
 further analysis. The prediction result can be visualized in the form of
 plots (Comoglio, et al., 2015), heat maps (Yang, et al., 2014), or
-genome browser tracks (Chiu, et al., 2014) (right), or used for the
+genome browser tracks (Chiu, et al., 2014), or used for the
 assembly of feature vectors that include  a user-defined combination of
 k-mer and DNA shape features (Zhou, et al., 2015)
 }
