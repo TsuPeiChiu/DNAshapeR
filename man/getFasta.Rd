@@ -4,25 +4,34 @@
 \alias{getFasta}
 \title{Extract fasta sequence given a set of genomic intervals and a reference genome.}
 \usage{
-getFasta( GR, BSgenome, width = 1e3, filename = 'tmp.fa' )
+getFasta(GR, BSgenome, width = 1e3, filename = 'tmp.fa')
 }
 \arguments{
-\item{GR}{}
+\item{GR}{A GRanges object indicating genomic coordinates}
 
-\item{BSgenome}{}
+\item{BSgenome}{A BSgenome object indicating the genome of interest}
 
-\item{width}{}
+\item{width}{A number indicating a fixed width of sequences}
 
-\item{filename}{}
+\item{filename}{The Name of the input fasta format file, including
+full path to file if it is located outside the current working directory}
 }
 \value{
 writes a fasta file
 }
 \description{
-Extract fasta sequence given a set of genomic intervals and a reference genome. Intervals are resized to a fixed width.
+DNAshapeR can predict DNA shape features from custom FASTA files or directly
+from genomic coordinates in the form of a GRanges object within BioConductor
+(see <https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html>
+for more information).
 }
-\note{
-None
+\examples{
+gr <- GRanges(seqnames = c("chrI"),
+strand = c("+", "-", "+"),
+ranges = IRanges(start = c(100, 200, 300), width = 100))
+getFasta(gr, Scerevisiae, width = 100, filename = "tmp.fa")
+fn <- "tmp.fa"
+pred <- getShape(fn)
 }
 \author{
 Federico Comoglio

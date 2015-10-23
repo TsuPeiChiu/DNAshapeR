@@ -2,22 +2,27 @@
 % Please edit documentation in R/encodeSeqShape.R
 \name{encodeNstOrderShape}
 \alias{encodeNstOrderShape}
-\title{encode n-st order shape features}
+\title{Encode n-st order shape features}
 \usage{
-encodeNstOrderShape
+encodeNstOrderShape(n, shapeMatrix)
 }
 \arguments{
-\item{n}{n-st order shape}
+\item{n}{A number indicating n-st order shape encoding}
 
-\item{shapeMatrix}{DESCR}
+\item{shapeMatrix}{A matrix containing DNAshape prediction result}
 }
 \value{
-featureVector
+featureVector A matrix containing encoded features. shape feature is
+represented as continuous numbers
 }
 \description{
-encode n-st order shape features
+DNAshapeR can be used to generate feature vectors for a user-defined model.
+The model can be a shape model. There are four structural parameters
+including MGW, Roll, ProT and HelT. The second order shape features are
+product terms of values for the same category of shape features at adjacent
+positions.
 }
-\note{
-None
+\author{
+Tsu-Pei Chiu
 }
 

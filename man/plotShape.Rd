@@ -7,7 +7,7 @@
 plotShape(shapeMatrix, background = NULL, colDots = rgb( 0, 0, 1, 0.1), colDotsBg = rgb( 0, 0, 0, 0.1), colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ...)
 }
 \arguments{
-\item{shapeMatrix}{DESCR}
+\item{shapeMatrix}{A matrix containing DNAshape prediction result}
 
 \item{background}{DESCR}
 
@@ -29,10 +29,21 @@ plotShape(shapeMatrix, background = NULL, colDots = rgb( 0, 0, 1, 0.1), colDotsB
 Called for its effects
 }
 \description{
-Plot metaprofiles of DNA shape features
+DNAshapeR can be used to generate various graphical representations for
+further analysis. The prediction result can be visualized in the form of
+plots (Comoglio, et al., 2015), heat maps (Yang, et al., 2014), or
+genome browser tracks (Chiu, et al., 2014) (right), or used for the
+assembly of feature vectors that include  a user-defined combination of
+k-mer and DNA shape features (Zhou, et al., 2015)
 }
 \note{
 None.
+}
+\examples{
+plotShape(pred$MGW)
+plotShape(pred$ProT)
+plotShape(pred$Roll)
+plotShape(pred$HelT)
 }
 \author{
 Federico Comoglio

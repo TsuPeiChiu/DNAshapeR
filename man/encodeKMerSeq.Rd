@@ -2,22 +2,28 @@
 % Please edit documentation in R/encodeSeqShape.R
 \name{encodeKMerSeq}
 \alias{encodeKMerSeq}
-\title{encode k-mer DNA sequence features}
+\title{Encode k-mer DNA sequence features}
 \usage{
-encodeShape(filepath)
+encodeShape(k, dnaStringSet)
 }
 \arguments{
-\item{k}{k-mer sequence}
+\item{k}{A number indicating k-mer sequence encoding}
 
-\item{dnaStringSet}{}
+\item{dnaStringSet}{A DNAStringSet object of the inputted fasta file}
 }
 \value{
-featureVector
+featureVector A matrix containing encoded features. Sequence
+feature is represented as binary numbers
 }
 \description{
-encode k-mer DNA sequence features
+DNAshapeR can be used to generate feature vectors for a user-defined model.
+The model can be a k-mer sequence. Sequence is encoded in four binary
+features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine,
+0100 for guanine, and 1000 for thymine) at each nucleotide position
+(Zhou, et al., 2015). The function permits an encoding of 2-mers and 3-mers
+(16 and 64 binary features at each position, respectively).
 }
-\note{
-None
+\author{
+Tsu-Pei Chiu
 }
 

@@ -7,7 +7,7 @@
 heatShape(shapeMatrix, nBins, ordRow = NULL, useRaster = TRUE, ... )
 }
 \arguments{
-\item{shapeMatrix}{DESCR}
+\item{shapeMatrix}{A matrix containing DNAshape prediction result}
 
 \item{nBins}{DESCR}
 
@@ -25,6 +25,13 @@ Plot heatmap of DNA shape features
 }
 \note{
 None.
+}
+\examples{
+library(fields)
+heatShape(pred$ProT, 20)
+heatShape(pred$MGW, 20)
+heatShape(pred$Roll[1:500, 1:1980], 20)
+heatShape(pred$HelT[1:500, 1:1980], 20)
 }
 \author{
 Federico Comoglio
