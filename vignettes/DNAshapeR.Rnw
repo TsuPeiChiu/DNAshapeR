@@ -111,7 +111,7 @@ pred <- getShape(filename)
 \subsection{Plot}
 %%--------------------------------------------------
 %
-<<fig = TRUE, eval=F>>=
+<<fig = TRUE>>=
 plotShape(pred$MGW)
 @
 %
