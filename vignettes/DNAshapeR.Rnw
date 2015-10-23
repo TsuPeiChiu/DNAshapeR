@@ -1,0 +1,74 @@
+%\VignetteIndexEntry{DNAshapeR}
+%\VignettePackage{DNAshapeR}
+
+\documentclass{article}
+
+\usepackage{Sweave}
+\usepackage[a4paper]{geometry}
+\usepackage{hyperref,graphicx}
+\usepackage{color}
+
+%\SweaveOpts{keep.source=TRUE,eps=TRUE,width=8,height=8.5}
+\newcommand{\Robject}[1]{\texttt{#1}}
+\newcommand{\ext}[1]{\texttt{#1}}
+\newcommand{\Rpackage}[1]{\textit{#1}}
+\newcommand{\Rclass}[1]{\textit{#1}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\disc}[1]{\color{red} #1 \color{black}}
+\renewcommand{\floatpagefraction}{0.7}
+\setkeys{Gin}{width=0.8\textwidth}
+
+\author{Tsu-Pei Chiu and Federico Comoglio\\
+Molecular and Computational Biology Program, Departments of Biological Sciences\\
+University of Southern California, Los Angeles, USA\\
+Department of Biosystems Science and Engineering\\
+ETH Z\"urich, Basel, Switzerland\\
+\texttt{tsupeich@usc.edu}\\
+\texttt{federico.comoglio@bsse.ethz.ch}}
+
+\title{\textsf{\textbf{The \Rpackage{DNAshapeR} package \\{\large (version 2.0)}}}}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+DNAshapeR predicts DNA shape features in an ultra-fast, high-throughput manner from genomic sequencing data. The package takes either nucleotide sequence or genomic intervals as input, and generates various graphical representations for further analysis. DNAshapeR further encodes DNA sequence and shape features for statistical learning applications by concatenating feature matrices with user-defined combinations of k-mer and DNA shape features that can be readily used as input for machine learning algorithms.
+\end{abstract}
+
+\tableofcontents
+
+
+
+
+
+
+
+
+%%%--------------------------------------------------
+%\subsection{Visualizing DNAshapeR statistics and meta data}
+%%%--------------------------------------------------
+%
+%The size distribution of DNAshapeRs is visualized as a histogram and returned by the following function call
+%\begin{center}
+%\setkeys{Gin}{width=0.8\textwidth}
+%<<echo = TRUE, fig = TRUE>>=
+%plotStatistics( clusters = DNAshapeRs,
+%                 corMethod = "spearman",
+%                 lower = panel.smooth )
+%@
+%\end{center}
+
+\section{Session Info}
+<<session>>=
+sessionInfo()
+@
+%
+\begin{thebibliography}{}
+
+\bibitem{dnashape} T. Zhou, L. Yang, Y. Lu, I. Dror, A.C. Dantas Machado, T. Ghane, R. Di Felice, and R. Rohs (2013) DNAshape: a method for the high-throughput prediction of DNA structural features on a genome-wide scale.
+\textit{Nucleic Acids Res} {\bf 41}: W56-62
+
+
+
+\end{thebibliography}
+\end{document}
