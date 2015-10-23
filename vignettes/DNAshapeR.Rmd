@@ -11,31 +11,42 @@ vignette: >
 
 DNAshapeR predicts DNA shape features in an ultra-fast, high-throughput manner from genomic sequencing data. The package takes either nucleotide sequence or genomic intervals as input, and generates various graphical representations for further analysis. DNAshapeR further encodes DNA sequence and shape features for statistical learning applications by concatenating feature matrices with user-defined combinations of k-mer and DNA shape features that can be readily used as input for machine learning algorithms.
 
-## Prepare the input
-### Get Sequences from given file
+##Loading DNAshapeR
+
+```{r eval=TRUE}
+library(DNAshapeR)
+```
+
+## Predict DNA shape features
+
+DNAshapeR can predict DNA shape features from custom FASTA files or directly from genomic coordinates in the form of a GRanges object within BioConductor (see <https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html> for more information). 
+
+### From FASTA file
+
+To predict DNA shape features from a FASTA file
 
 ```{r eval=TRUE}
 library(DNAshapeR)
 fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
 pred <- getShape(fn)
-
 ```
 
-### Get sequences from user-defined GRanges and BSgenome
+### From genomic intervals (e.g. TFs binding sites, CpG islands, replication origins, ...)
+
+To predict DNA shape from genomic intervals stored as GRanges object, a reference genome is required. Several reference genomes are available within BioConductor as BSgenome objects (see <http://bioconductor.org/packages/release/bioc/html/BSgenome.html>). For example, the sacCer3 release of the S.Cerevisiae genome can be retrieved by
 
 ```{r eval=FALSE}
 # Install Bioconductor packages
 source("http://bioconductor.org/biocLite.R")
-biocLite()
-library(GenomicRanges)
-library(BSgenome)
 biocLite("BSgenome.Scerevisiae.UCSC.sacCer3")
+
 library(BSgenome.Scerevisiae.UCSC.sacCer3)
 ```
 
+Given a reference genome, the getFasta function first extracts the DNA sequences based on the provided genomic coordinates, and then performs shape predictions within a user-defined window (of size equal to width, 100 bp in the example below) computed from the center of each genomic interval:
 
 ```{r eval=FALSE}
-library(DNAshapeR)
+# Create a query GRanges object
 gr <- GRanges(seqnames = c("chrI"),
               strand = c("+", "-", "+"),
               ranges = IRanges(start = c(100, 200, 300), width = 100))
@@ -44,15 +55,11 @@ fn <- "tmp.fa"
 pred <- getShape(fn)
 ```
 
-### Get sequences from public domain project
+### From public domain projects
 
 ```{r eval=FALSE}
 # Install Bioconductor packages
-source("http://bioconductor.org/biocLite.R")
-biocLite()
-library(GenomicRanges)
-library(BSgenome)
-biocLite("BSgenome.Hsapiens.UCSC.hg19")
+
 library(BSgenome.Hsapiens.UCSC.hg19)
 library(AnnotationHub)
 ```
@@ -66,8 +73,9 @@ fn <- "tmp.fa"
 pred <- getShape(fn)
 ```
 
-## Visulize the prediction
-### Plot
+## Visualize DNA shape prediction
+
+### Ensemble representation: metashape plot
 ```{r fig.width=7, fig.height=7, fig.align='center'}
 plotShape(pred$MGW)
 #plotShape(pred$ProT)
@@ -75,9 +83,9 @@ plotShape(pred$MGW)
 #plotShape(pred$HelT)
 ```
 
-### Heatmap
+### Ensemble representation: heatmap
 ```{r fig.width=7, fig.height=7, fig.align='center'}
-library(fields)
+
 heatShape(pred$ProT, 20)
 #heatShape(pred$MGW, 20)
 #heatShape(pred$Roll[1:500, 1:1980], 20)
@@ -85,7 +93,7 @@ heatShape(pred$ProT, 20)
 ```
 
 
-### Genome browser tracks
+### Individual representation: genome browser-like tracks
 ```{r fig.width=7, fig.height=7, fig.align='center'}
 fn2 <- system.file("extdata", "SingleSeqsample.fa", package = "DNAshapeR")
 pred2 <- getShape(fn2)
@@ -100,7 +108,7 @@ featureVector <- encodeSeqShape(fn, pred, featureNames)
 featureVector[1:10, 1:10]
 ```
 
-### Usecase of Machine Learning application
+### Showcase of Machine Learning application
 ```{r eval=FALSE}
 filename3 <- system.file("extdata", "SELEXsample.s", package = "DNAshapeR")
 experimentalData <- read.table(filename3)
@@ -113,11 +121,16 @@ summary(model)
 ```
 
 
-## Seesion Info
+## Session Info
 ```{r eval=TRUE}
 sessionInfo()
 ```
 
-## Reference
+## References
+
+If you use DNAshapeR for your work, please cite
+
+* T-P. Chiu , F. Comoglio, T. Zhou, L. Yang, R. Paro, and R. Rohs*: DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding (2015). Submitted
+
 * T. Zhou, L. Yang, Y. Lu, I. Dror, A.C. Dantas Machado, T. Ghane, R. Di Felice, and R. Rohs*: DNAshape: a method for the high-throughput prediction of DNA structural features on a genome-wide scale. Nucleic Acids Res. 41, W56-62 (2013)
 

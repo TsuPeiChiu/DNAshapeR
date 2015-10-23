@@ -13,5 +13,4 @@ LinkingTo: Rcpp
 NeedsCompilation: yes
 Packaged: 2015-10-20 18:10:44 UTC; tsupeich
 VignetteBuilder: knitr
-Suggests: knitr,
-    rmarkdown
+Suggests: AnnotationHub, knitr, rmarkdown, BSgenome.Scerevisiae.UCSC.sacCer3, BSgenome.Hsapiens.UCSC.hg19
