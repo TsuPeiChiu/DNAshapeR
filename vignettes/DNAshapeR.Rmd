@@ -9,7 +9,19 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-DNAshapeR predicts DNA shape features in an ultra-fast, high-throughput manner from genomic sequencing data. The package takes either nucleotide sequence or genomic intervals as input, and generates various graphical representations for further analysis. DNAshapeR further encodes DNA sequence and shape features for statistical learning applications by concatenating feature matrices with user-defined combinations of k-mer and DNA shape features that can be readily used as input for machine learning algorithms.
+##Introduction
+DNAshapeR [1] predicts DNA shape features in an ultra-fast, high-throughput manner from genomic sequencing data. The package takes either nucleotide sequence or genomic intervals as input, and generates various graphical representations for further analysis. DNAshapeR further encodes DNA sequence and shape features for statistical learning applications by concatenating feature matrices with user-defined combinations of k-mer and DNA shape features that can be readily used as input for machine learning algorithms.
+
+In this vignette, you will learn: 
+
+* how to load/install DNAshapeR
+
+* how to predict DNA shape features
+
+* how to visualize DNA shapre prediction
+
+* how to encode sequence and shape features, and apply them
+
 
 ##Load DNAshapeR
 
@@ -18,7 +30,7 @@ library(DNAshapeR)
 ```
 
 ## Predict DNA shape features
-The DNA prediction uses a sliding pentamer window where structural features unique to each of the 512 distinct pentamers define a vector of minor groove width (MGW), Roll, propeller twist (ProT), and helix twist (HelT) at each nucleotide position [2]. MGW and ProT define base-pair parameter whereas Roll and HelT represent base pair-step parameters.
+The core of DNAshapeR (DNAshape[2]) uses a sliding pentamer window where structural features unique to each of the 512 distinct pentamers define a vector of minor groove width (MGW), Roll, propeller twist (ProT), and helix twist (HelT) at each nucleotide position. MGW and ProT define base-pair parameter whereas Roll and HelT represent base pair-step parameters.
 
 DNAshapeR can predict DNA shape features from custom FASTA files or directly from genomic coordinates in the form of a GRanges object within BioConductor (see <https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html> for more information). 
 
@@ -34,7 +46,7 @@ pred <- getShape(fn)
 
 ### From genomic intervals (e.g. TFs binding sites, CpG islands, replication origins, ...)
 
-To predict DNA shape from genomic intervals stored as GRanges object, a reference genome is required. Several reference genomes are available within BioConductor as BSgenome objects (see <http://bioconductor.org/packages/release/bioc/html/BSgenome.html>). For example, the sacCer3 release of the S.Cerevisiae genome can be retrieved by
+To predict DNA shape from genomic intervals stored as GRanges object, a reference genome is required. Several reference genomes are available within BioConductor as BSgenome objects (see <http://bioconductor.org/packages/release/bioc/html/BSgenome.html> for more information). For example, the sacCer3 release of the *S.Cerevisiae* genome can be retrieved by
 
 ```{r eval=FALSE}
 # Install Bioconductor packages
@@ -44,7 +56,7 @@ biocLite("BSgenome.Scerevisiae.UCSC.sacCer3")
 library(BSgenome.Scerevisiae.UCSC.sacCer3)
 ```
 
-Given a reference genome, the getFasta function first extracts the DNA sequences based on the provided genomic coordinates, and then performs shape predictions within a user-defined window (of size equal to width, 100 bp in the example below) computed from the center of each genomic interval:
+Given a reference genome, the **getFasta** function first extracts the DNA sequences based on the provided genomic coordinates, and then performs shape predictions within a user-defined window (of size equal to width, 100 bp in the example below) computed from the center of each genomic interval:
 
 ```{r eval=FALSE}
 # Create a query GRanges object
@@ -58,11 +70,15 @@ pred <- getShape(fn)
 
 ### From public domain projects
 
+The genomic intervals can also be obtained from public domain projects, including ENCODE, NCBI, Ensembl, etc. The AnnotationHub package (see <http://bioconductor.org/packages/release/bioc/html/AnnotationHub.html> for more information) provides an interface to retrieve genomic intervals from these multiple online project resources.
+
 ```{r eval=FALSE}
 # Install Bioconductor packages
 library(BSgenome.Hsapiens.UCSC.hg19)
 library(AnnotationHub)
 ```
+
+The genomic intervals of interest can be selected progressively through the functions of **sebset** and **query** with keywords, and can be subjected as an input of GRanges object to **getFasta** function.
 
 ```{r eval=FALSE}
 ah <- AnnotationHub()
@@ -74,12 +90,12 @@ pred <- getShape(fn)
 ```
 
 ## Visualize DNA shape prediction
-DNAshapeR can be used to generate various graphical representations for further analysis. The prediction result can be visualized in the form of plots [3], heat maps [4], or genome browser tracks [5].
+DNAshapeR can be used to generate various graphical representations for further analyses. The prediction result can be visualized in the form of plots [3], heat maps [4], or genome browser tracks [5].
 
 ### Ensemble representation: metashape plot
-The prediction result can be visualized in the metaprofiles of DNA shape features
+The prediction result can be visualized in the metaprofiles of DNA shape features.
 
-```{r fig.width=7, fig.height=7, fig.align='center'}
+```{r fig.width=7, fig.height=7, fig.align='center', eval=TRUE}
 plotShape(pred$MGW)
 #plotShape(pred$ProT)
 #plotShape(pred$Roll)
@@ -87,9 +103,9 @@ plotShape(pred$MGW)
 ```
 
 ### Ensemble representation: heatmap
-The prediction result can be visualized in the heatmap of DNA shape features
+The prediction result can be visualized in the heatmap of DNA shape features.
 
-```{r fig.width=7, fig.height=7, fig.align='center'}
+```{r fig.width=7, fig.height=7, fig.align='center', eval=TRUE}
 library(fields)
 heatShape(pred$ProT, 20)
 #heatShape(pred$MGW, 20)
@@ -99,19 +115,21 @@ heatShape(pred$ProT, 20)
 
 
 ### Individual representation: genome browser-like tracks
-The prediction result can be visualized in the form genome browser tracks.
-Note that the input data should only contain one sequence.
+The prediction result can be visualized in the form of genome browser tracks.
 
-```{r fig.width=7, fig.height=7, fig.align='center'}
+*Note that the input data should only contain one sequence.
+
+```{r fig.width=7, fig.height=7, fig.align='center', eval=TRUE}
 fn2 <- system.file("extdata", "SingleSeqsample.fa", package = "DNAshapeR")
 pred2 <- getShape(fn2)
 trackShape(fn2, pred2) # Only for single sequence file
 ```
 
-## Encode Sequence and Shape fetures
-DNAshapeR can be used to generate feature vectors for a user-defined model. These models can be sequence (1-mer, 2-mer, 3-mer, or higher) or shape (MGW, Roll, ProT, HelT) models or any combination thereof. Sequence is encoded in four binary features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine, 0100 for guanine, and 1000 for thymine) at each nucleotide position [6]. The function permits an encoding of higher order sequence features, for example, 2-mers and 3-mers (16 and 64 binary features at each position, respectively). Shape features include first and second order values for the four structural parameters MGW, Roll, ProT and HelT. The second order shape features are product terms of values for the same category of shape features at adjacent positions. The function permits the generation of any subset of these features, either only a selected shape category or first order shape features, and any combination with shape or sequence features.
+## Encode Sequence and Shape features
+DNAshapeR can be used to generate feature vectors for a user-defined model. The model can be a sequence (k-mer) or shape (n-st order of MGW, Roll, ProT, HelT) model or any combination thereof. Sequence is encoded in four binary features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine, 0100 for guanine, and 1000 for thymine) at each nucleotide position [6]. The function permits an encoding of higher order sequence features, for example, 2-mers and 3-mers (16 and 64 binary features at each position, respectively). Shape features include first and second order values for the four structural parameters MGW, Roll, ProT and HelT. The second order shape features are product terms of values for the same category of shape features at adjacent positions. The function permits the generation of any subset of these features, either only a selected shape category or first order shape features, and any combination with shape or sequence features.
 
-Before running the encoding process, a feature type vector should be defined. The vector can be any combination of characters of "k-mer", "n-shape", "n-MGW", "n-ProT", "n-Roll", "n-HelT" (k, n are integers).
+### Encoding process
+A feature type vector should be defined before encoding. The vector can be any combination of characters of "k-mer", "n-shape", "n-MGW", "n-ProT", "n-Roll", "n-HelT" (k, n are integers).
 
 ```{r eval=FALSE}
 library(Biostrings)
@@ -121,17 +139,17 @@ featureVector
 ```
 
 ### Showcase of Machine Learning application
-The result of the feature encoding is a concatenated feature vector list for each sequence, which result in a feature matrix for a dataset of multiple sequences, which in turn can serve as input for any statistical machine learning method. Here we demostrate Multiple linear regression method to model high-throughput SELEX example dataset which containing sequence probes with binding affinity.
+The result of the feature encoding is a matrix consisted of concatenated feature vectors from given sequences. The matrix can serve as an input for statistical machine learning methods. The application of modeling by multiple linear regression (MLR) upon high-throughput SELEX-seq testing data is demonstrated below.
 
-First, we combine the encoded feature vector with the binding affinity values as a dataframe structure.
+First, combine the binding affinity values with respect encoded feature vectors, forming a dataframe structure.
+
 ```{r eval=FALSE}
 filename3 <- system.file("extdata", "SELEXsample.s", package = "DNAshapeR")
 experimentalData <- read.table(filename3)
 df <- data.frame(affinity=experimentalData $V1, featureVector)
 ```
 
-Then, here we use a macine learning package, caret (http://caret.r-forge.r-project.org/).
-By setting the modeling parameters (here is ten-fold cross validation), the train model can be built and access the performance.
+Then, apply a macine learning package (can be any tools). Here caret package (see <http://caret.r-forge.r-project.org/> for more information) is employed.
 
 ```{r eval=FALSE}
 library(caret)
