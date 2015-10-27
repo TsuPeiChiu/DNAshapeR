@@ -19,7 +19,7 @@ In this vignette, you will learn:
 
 * how to predict DNA shape features
 
-* how to visualize DNA shapre prediction
+* how to visualize DNA shape prediction
 
 * how to encode sequence and shape features, and apply them
 
@@ -127,7 +127,7 @@ trackShape(fn2, pred2) # Only for single sequence file
 ```
 
 ## Encode Sequence and Shape features
-DNAshapeR can be used to generate feature vectors for a user-defined model. The model can be a sequence (k-mer) or shape (n-st order of MGW, Roll, ProT, HelT) model or any combination thereof. Sequence is encoded in four binary features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine, 0100 for guanine, and 1000 for thymine) at each nucleotide position [6]. The function permits an encoding of higher order sequence features, for example, 2-mers and 3-mers (16 and 64 binary features at each position, respectively). Shape features include first and second order values for the four structural parameters MGW, Roll, ProT and HelT. The second order shape features are product terms of values for the same category of shape features at adjacent positions. The function permits the generation of any subset of these features, either only a selected shape category or first order shape features, and any combination with shape or sequence features.
+DNAshapeR can be used to generate feature vectors for a user-defined model. The model can be a sequence (k-mer) or shape (n-st order of MGW, Roll, ProT, HelT) model or any combination thereof. Sequence is encoded in four binary features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine, 0100 for guanine, and 1000 for thymine) at each nucleotide position [6]. The function permits an encoding of higher order sequence features, for example, 2-mers and 3-mers (16 and 64 binary features at each position, respectively). Shape features include first and second order values for the four structural parameters MGW, Roll, ProT and HelT. The second order shape features are product terms of values for the same category of shape features at adjacent positions. The function allows to generate any subset of these features, ranging from a single selected shape category or first order shape features, to any combination of shape and sequence features.
 
 ### Encoding process
 A feature type vector should be defined before encoding. The vector can be any combination of characters of "k-mer", "n-shape", "n-MGW", "n-ProT", "n-Roll", "n-HelT" (k, n are integers).
@@ -140,20 +140,21 @@ featureVector
 ```
 
 ### Showcase of Machine Learning application
-The result of the feature encoding is a matrix consisted of concatenated feature vectors from given sequences. The matrix can serve as an input for statistical machine learning methods. The application of modeling by multiple linear regression (MLR) upon high-throughput SELEX-seq testing data is demonstrated below.
+The result of the feature encoding is a matrix consisting of concatenated feature vectors from given sequences. The matrix can serve as an input for statistical machine learning methods. For example, the application of modeling by multiple linear regression (MLR) using high-throughput SELEX-seq testing data is demonstrated below.
 
-First, combine the binding affinity values with respect encoded feature vectors, forming a dataframe structure.
+First, pre-computed binding affinity values are combined with experimental information in a dataframe structure.
 
 ```{r eval=FALSE}
 filename3 <- system.file("extdata", "SELEXsample.s", package = "DNAshapeR")
 experimentalData <- read.table(filename3)
-df <- data.frame(affinity=experimentalData $V1, featureVector)
+df <- data.frame(affinity=experimentalData$V1, featureVector)
 ```
 
-Then, apply a macine learning package (can be any tools). Here caret package (see <http://caret.r-forge.r-project.org/> for more information) is employed.
+Then, a machine learning package (can be any tools) is used to train a MLR model using 10-fold cross-validation. In this example, we used the caret package (see <http://caret.r-forge.r-project.org/> for more information).
 
 ```{r eval=FALSE}
 library(caret)
+
 trainControl <- trainControl(method = "cv", number = 10, savePredictions = TRUE)
 model <- train (affinity~ ., data = df, trControl=trainControl, method="lm", preProcess=NULL)
 summary(model)
