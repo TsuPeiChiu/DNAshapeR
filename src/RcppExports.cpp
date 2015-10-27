@@ -13,7 +13,7 @@ BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< std::string >::type fastaFilePath(fastaFilePathSEXP);
     Rcpp::traits::input_parameter< std::string >::type shapeType(shapeTypeSEXP);
-    __result = Rcpp::wrap(getShape(fastaFilePath, shapeType));
+    __result = Rcpp::wrap(getDNAShape(fastaFilePath, shapeType));
     return __result;
 END_RCPP
 }
