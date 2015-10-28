@@ -1,26 +1,46 @@
 #2015 - Federico Comoglio & Tsu-Pei Chiu
 
+
 #' Extract fasta sequence given a set of genomic intervals and a reference genome.
-#' 
-#' Extract fasta sequence given a set of genomic intervals and a reference genome. Intervals are resized to a fixed width.
-#' 
-#' @usage getFasta( GR, BSgenome, width = 1e3, filename = 'tmp.fa' )
-#' @param GR
-#' @param BSgenome
-#' @param width
-#' @param filename
+#'
+#' DNAshapeR can predict DNA shape features from custom FASTA files or directly
+#' from genomic coordinates in the form of a GRanges object within BioConductor
+#' (see <https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html>
+#' for more information).
+#'
+#' @usage getFasta(GR, BSgenome, width = 1e3, filename = 'tmp.fa')
+#'
+#' @param GR A GRanges object indicating genomic coordinates
+#' @param BSgenome A BSgenome object indicating the genome of interest
+#' @param width A number indicating a fixed width of sequences
+#' @param filename The Name of the input fasta format file, including
+#' full path to file if it is located outside the current working directory
 #' @return writes a fasta file
-#'
-#' @note None
-#'
 #' @author Federico Comoglio
-#'
 #' @seealso \code{\link{}}
-#'
 #' @keywords core
 #'
+#' @examples
+#'
+#' gr <- GRanges(seqnames = c("chrI"),
+#' strand = c("+", "-", "+"),
+#' ranges = IRanges(start = c(100, 200, 300), width = 100))
+#' getFasta(gr, Scerevisiae, width = 100, filename = "tmp.fa")
+#' fn <- "tmp.fa"
+#' pred <- getShape(fn)
+#'
 #' @export getFasta
-
+# Extract fasta sequence given a set of genomic intervals and a reference
+# genome. Intervals are resized to a fixed width.
+#
+# Args:
+#   GR: character, the filename and/or path to it
+#   BSgenome: character, the type of shape parameter of interest
+#   width:
+#   filename:
+#
+# Error handling
+#   ...
 getFasta <- function( GR, BSgenome, width = 1e3, filename = 'tmp.fa' ) {
 	GR <- resize( GR, width = width, fix = 'center' )
 	seqlengths( GR ) <- seqlengths( BSgenome )[ names( seqlengths( GR ) ) ]
