@@ -190,15 +190,15 @@ trackShape <- function( filename, shapeList ) {
     pos2 = pos+0.5
 
 
-    par( mfrow = c( 4, 1), oma=c(1,1,1,1), mar=c(3,4,1,1), cex.axis = 1.25, cex.lab = 1.25)
+    par( mfrow = c( 4, 1), oma=c(2,2,2,2), mar=c(4,5,2,2), cex.axis = 1.25, cex.lab = 1.25)
 
-    barplot(mydf$mgw, space = 0, col = "#F59547", border = NA, names.arg = seq, ylab = 'MGW', cex.names = 1.2, offset = 2.5 )
-    barplot(mydf$prot, space = 0, col = "#99BA5B", border = NA, names.arg = seq, ylab = 'ProT', cex.names = 1.2 )
+    barplot(mydf$mgw, space = 0, col = "#F59547", border = NA, names.arg = seq, ylab = 'MGW (angstrom)', cex.names = 1.2, offset = 2.5 )
+    barplot(mydf$prot, space = 0, col = "#99BA5B", border = NA, names.arg = seq, ylab = 'ProT (degree)', cex.names = 1.2 )
 
-    rollP <- barplot(mydf$roll, space = 0, col = "#A1ACE6", border = NA, ylab = 'Roll', cex.names = 1.2 )
+    rollP <- barplot(mydf$roll, space = 0, col = "#A1ACE6", border = NA, ylab = 'Roll (degree)', cex.names = 1.2 )
     axis(1, at=rollP-(rollP[2]-rollP[1])/2,las=2, labels=seq, tick = FALSE, las=0)
 
-    helTP <- barplot(mydf$helt, space = 0, col = "#7F64A1", border = NA, ylab = 'HelT', cex.names = 1.2, offset = 30 )
+    helTP <- barplot(mydf$helt, space = 0, col = "#7F64A1", border = NA, ylab = 'HelT (degree)', cex.names = 1.2, offset = 30 )
     axis(1, at=helTP-(helTP[2]-helTP[1])/2,las=2, labels=seq, tick = FALSE, las=0)
   }
 }
