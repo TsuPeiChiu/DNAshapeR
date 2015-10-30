@@ -1,6 +1,6 @@
 ---
-title: "The DNAshapeR package"
-author: "Tsu-Pei Chiu and Federico Comoglio"
+title: "Bioconductor Package Vignette"
+author: "Tsu-Pei Chiu, Federico Comoglio and Remo Rohs"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -11,7 +11,7 @@ vignette: >
 
 ## Introduction
 
-DNAshapeR [1] predicts DNA shape features in an ultra-fast, high-throughput manner from genomic sequencing data. The package takes either nucleotide sequence or genomic intervals as input, and generates various graphical representations for further analysis. DNAshapeR further encodes DNA sequence and shape features for statistical learning applications by concatenating feature matrices with user-defined combinations of k-mer and DNA shape features that can be readily used as input for machine learning algorithms.
+DNAshapeR predicts DNA shape features in an ultra-fast, high-throughput manner from genomic sequencing data. The package takes either nucleotide sequence or genomic intervals as input, and generates various graphical representations for further analysis. DNAshapeR further encodes DNA sequence and shape features for statistical learning applications by concatenating feature matrices with user-defined combinations of k-mer and DNA shape features that can be readily used as input for machine learning algorithms.
 
 In this vignette, you will learn: 
 
@@ -19,7 +19,7 @@ In this vignette, you will learn:
 
 * how to predict DNA shape features
 
-* how to visualize DNA shape prediction
+* how to visualize DNA shape predictions
 
 * how to encode sequence and shape features, and apply them
 
@@ -31,9 +31,9 @@ library(DNAshapeR)
 ```
 
 ## Predict DNA shape features
-The core of DNAshapeR (DNAshape[2]) uses a sliding pentamer window where structural features unique to each of the 512 distinct pentamers define a vector of minor groove width (MGW), Roll, propeller twist (ProT), and helix twist (HelT) at each nucleotide position. MGW and ProT define base-pair parameter whereas Roll and HelT represent base pair-step parameters.
+The core of DNAshapeR, the DNAshape method (Zhou, et al., 2013), uses a sliding pentamer window where structural features unique to each of the 512 distinct pentamers define a vector of minor groove width (MGW), Roll, propeller twist (ProT), and helix twist (HelT) at each nucleotide position. MGW and ProT define base-pair parameters whereas Roll and HelT represent base pair-step parameters.
 
-DNAshapeR can predict DNA shape features from custom FASTA files or directly from genomic coordinates in the form of a GRanges object within BioConductor (see <https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html> for more information). 
+DNAshapeR can predict DNA shape features from custom FASTA files or directly from genomic coordinates in the form of a GRanges object within Bioconductor (see <https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html> for more information). 
 
 ### From FASTA file
 
@@ -91,7 +91,7 @@ pred <- getShape(fn)
 ```
 
 ## Visualize DNA shape prediction
-DNAshapeR can be used to generate various graphical representations for further analyses. The prediction result can be visualized in the form of plots [3], heat maps [4], or genome browser tracks [5].
+DNAshapeR can be used to generate various graphical representations for further analyses. The prediction result can be visualized in the form of scatter plots (Comoglio, et al., 2015), heat maps (Yang, et al., 2014), or genome browser tracks (Chiu, et al., 2014).
 
 ### Ensemble representation: metashape plot
 The prediction result can be visualized in the metaprofiles of DNA shape features.
@@ -103,7 +103,7 @@ plotShape(pred$MGW)
 #plotShape(pred$HelT)
 ```
 
-### Ensemble representation: heatmap
+### Ensemble representation: heat map
 The prediction result can be visualized in the heatmap of DNA shape features.
 
 ```{r fig.width=7, fig.height=7, fig.align='center', eval=TRUE}
@@ -126,11 +126,11 @@ pred2 <- getShape(fn2)
 trackShape(fn2, pred2) # Only for single sequence file
 ```
 
-## Encode Sequence and Shape features
-DNAshapeR can be used to generate feature vectors for a user-defined model. The model can be a sequence (k-mer) or shape (n-st order of MGW, Roll, ProT, HelT) model or any combination thereof. Sequence is encoded in four binary features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine, 0100 for guanine, and 1000 for thymine) at each nucleotide position [6]. The function permits an encoding of higher order sequence features, for example, 2-mers and 3-mers (16 and 64 binary features at each position, respectively). Shape features include first and second order values for the four structural parameters MGW, Roll, ProT and HelT. The second order shape features are product terms of values for the same category of shape features at adjacent positions. The function allows to generate any subset of these features, ranging from a single selected shape category or first order shape features, to any combination of shape and sequence features.
+## Encode sequence and shape features
+DNAshapeR can be used to generate feature vectors for a user-defined model. These models can consist of either sequence features (1-mer, 2-mer, 3-mer), shape features (MGW, Roll, ProT, HelT), or any combination of those two. For 1-mer features, sequence is encoded in form of four binary numbers (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine, 0100 for guanine, and 1000 for thymine) at each nucleotide position (Zhou, et al., 2015). The encoding function of the DNAshapeR package enables the determination of higher order sequence features, for example, 2-mers and 3-mers (16 and 64 binary features at each position, respectively). The user can also choose to include second order shape features in the generated feature vector. The second order shape features are product terms of values for the same category of shape features (MGW, Roll, ProT or HelT) at adjacent positions. The feature encoding function of DNAshapeR enables the generation of any subset of these features, either only a selected shape category or first order shape features, and any combination with shape or sequence features. The result of feature encoding for each sequence is a chimera feature vector.
 
 ### Encoding process
-A feature type vector should be defined before encoding. The vector can be any combination of characters of "k-mer", "n-shape", "n-MGW", "n-ProT", "n-Roll", "n-HelT" (k, n are integers).
+A feature type vector should be defined before encoding. The vector can be any combination of characters of “k-mer”, “n-shape”, “n-MGW”, “n-ProT”, “n-Roll”, “n-HelT” (k, n are integers) where “1-shape” refers to first order and “2-shape” to second order shape features.
 
 ```{r eval=FALSE}
 library(Biostrings)
@@ -139,10 +139,10 @@ featureVector <- encodeSeqShape(fn, pred, featureType)
 featureVector
 ```
 
-### Showcase of Machine Learning application
-The result of the feature encoding is a matrix consisting of concatenated feature vectors from given sequences. The matrix can serve as an input for statistical machine learning methods. For example, the application of modeling by multiple linear regression (MLR) using high-throughput SELEX-seq testing data is demonstrated below.
+### Showcase of statistical machine learning application
+Feature encoding of multiple sequences thus results in a feature matrix, which can be used as input for variety of statistical machine learning methods. For example, an application is the quantitative modeling of SELEX-seq derived protein-DNA binding by linear regression as demonstrated below.
 
-First, pre-computed binding affinity values are combined with experimental information in a dataframe structure.
+First, pre-computed binding affinity values are combined with experimental information in a data frame structure.
 
 ```{r eval=FALSE}
 filename3 <- system.file("extdata", "SELEXsample.s", package = "DNAshapeR")
@@ -150,7 +150,7 @@ experimentalData <- read.table(filename3)
 df <- data.frame(affinity=experimentalData$V1, featureVector)
 ```
 
-Then, a machine learning package (can be any tools) is used to train a MLR model using 10-fold cross-validation. In this example, we used the caret package (see <http://caret.r-forge.r-project.org/> for more information).
+Then, a machine learning package (which can be any learning tools) is used to train a multiple linear regression (MLR) model based on 10-fold cross-validation. In this example, we used the caret package  (see <http://caret.r-forge.r-project.org/> for more information).
 
 ```{r eval=FALSE}
 library(caret)
@@ -168,18 +168,17 @@ sessionInfo()
 
 ## References
 
-If you use DNAshapeR for your work, please cite
 
-1. T-P. Chiu , F. Comoglio, T. Zhou, L. Yang, R. Paro, and R. Rohs*: DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding (2015). Submitted
+Chiu, T.P., et al. GBshape: a genome browser database for DNA shape annotations. Nucleic Acids Res 2014.
 
-1. T. Zhou, L. Yang, Y. Lu, I. Dror, A.C. Dantas Machado, T. Ghane, R. Di Felice, and R. Rohs*: DNAshape: a method for the high-throughput prediction of DNA structural features on a genome-wide scale. Nucleic Acids Res. 41, W56-62 (2013)
+Comoglio, F., et al. High-resolution profiling of Drosophila replication start sites reveals a DNA shape and chromatin signature of metazoan origins. Cell reports 2015;11(5):821-834.
 
-1. F. Comoglio, T. Schlumpf, V. Schmid, R. Rohs, C. Beisel, and R. Paro: High-resolution profiling of Drosophila replication start sites reveals a DNA shape and chromatin signature of metazoan origins. Cell Rep. 11, 821-834 (2015)
+Yang, L., et al. TFBSshape: a motif database for DNA shape features of transcription factor binding sites. Nucleic Acids Res 2014;42(Database issue):D148-155.
 
-1. L. Yang, T. Zhou, I. Dror, A. Mathelier, W.W. Wasserman, R. Gordân, and R. Rohs*: TFBSshape: a motif database for DNA shape features of transcription factor binding sites. Nucleic Acids Res. 42, D148-155 (2014)
+Zhou, T., et al. DNAshape: a method for the high-throughput prediction of DNA structural features on a genomic scale. Nucleic Acids Res 2013;41(Web Server issue):W56-62.
 
-1. T.P. Chiu, L. Yang, T. Zhou, B.J. Main, S.C. Parker, S.V. Nuzhdin, T.D. Tullius, and R. Rohs*: GBshape: a genome browser database for DNA shape annotations.
-Nucleic Acids Res. 43, D103-109 (2015)
+If you use DNAshapeR for your work, please cite the following publication:
 
-1. T. Zhou, N. Shen, L. Yang, N. Abe, J. Horton, R.S. Mann, H.J. Bussemaker, R. Gordân*, and R. Rohs*: Quantitative modeling of transcription factor binding specificities using DNA shape. Proc. Natl. Acad. Sci. USA 112, 4654-4659 (2015)
+Chiu, T-P., et al. DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding (2015). Submitted
+
 
