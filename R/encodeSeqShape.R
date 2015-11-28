@@ -1,30 +1,30 @@
 # 2015 - Tsu-Pei Chiu, Rohs Lab, USC
 
 
-#' Encode k-mer DNA sequence and n-st order DNA Shape features
+#' Encode k-mer DNA sequence and n-th order DNA Shape features
 #'
 #' DNAshapeR can be used to generate feature vectors for a user-defined model.
-#' These models can be sequence (1-mer, 2-mer, 3-mer) or shape (MGW, Roll,
-#' ProT, HelT) models or any combination thereof. Sequence is encoded in four
-#' binary features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for
-#' cytosine, 0100 for guanine, and 1000 for thymine) at each nucleotide
-#' position (Zhou, et al., 2015). The function permits an encoding of 2-mers
-#' and 3-mers (16 and 64 binary features at each position, respectively).
+#' These models can be based on DNA sequence (1-mer, 2-mer, 3-mer) or DNA shape (MGW, Roll,
+#' ProT, HelT) features or any combination thereof. Sequence is encoded as four
+#' binary features (i.e., 0001 for adenine, 0010 for
+#' cytosine, 0100 for guanine, and 1000 for thymine, for encoding of 1-mers) at each nucleotide
+#' position (Zhou, et al., 2015). Encoding of 2-mers
+#' and 3-mers (16 and 64 binary features at each position, respectively) is also supported.
 #' Shape features include first and second order (or higher order) values for
 #' the four structural parameters MGW, Roll, ProT and HelT. The second order
 #' shape features are product terms of values for the same category of shape
-#' features at adjacent positions. The function permits the generation of any
-#' subset of these features, either only a selected shape category or first
-#' order shape features, and any combination with shape or sequence features.
-#' The result of the feature encoding is a concatenated feature vector list
-#' for each sequence, which results in a feature matrix for a dataset of
-#' multiple sequences, which in turn can serve as input for any statistical
+#' features at adjacent positions. The function allows to generate any
+#' subset of these features, e.g. a given shape category or first
+#' order shape features, and any desired combination of shape and sequence features.
+#' Feature encoding returns a feature matrix for a dataset of
+#' multiple sequences, in which each sequence generates a concatenated feature vector.
+#' The output of this function can be used directly for any statistical
 #' machine learning method.
 #'
 #'
 #' @usage encodeSeqShape(fastaFileName, shapeMatrix, featureNames)
 #'
-#' @param fastaFileName The Name of the input fasta format file, including
+#' @param fastaFileName A character name of the input fasta format file, including
 #' full path to file if it is located outside the current working directory.
 #' @param shapeMatrix A matrix containing DNAshape prediction result
 #' @param featureNames A vector containing a combination of user-defined
@@ -50,15 +50,16 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames){
 # Generate sequence and shape feature matrix
 #
 # Args:
-#   fastaFileName: character, the filename and/or path to it
-#   shapeMatrix: a matrix containing shape prediction result
+#   fastaFileName: A character name of the input fasta format file, including
+#' full path to file if it is located outside the current working directory.
+#   shapeMatrix: A matrix containing DNAshape prediction result
 #
 # Returns:
 #   a matrix of encoded features
 #
 # Error handling
 #   ...
-  ds <- Biostrings::readDNAStringSet(fastaFileName, "fasta")
+  ds <- readDNAStringSet(fastaFileName, "fasta")
 
   featureVector <- c()
   for( i in 1:length( featureNames ) ){

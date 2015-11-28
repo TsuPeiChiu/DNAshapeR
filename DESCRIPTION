@@ -8,7 +8,7 @@ Maintainer: Tsu-Pei Chiu <tsupeich@usc.edu>
 Description: DNAshapeR is an R/BioConductor package for ultra-fast, high-throughput predictions of DNA shape features. The package allows to predict, visualize and encode DNA shape features for statistical learning.
 License: GPL-2
 LazyData: TRUE
-Imports: Rcpp (>= 0.12.1), fields
+Imports: Rcpp (>= 0.12.1), Biostrings, fields
 LinkingTo: Rcpp
 NeedsCompilation: yes
 Packaged: 2015-10-20 18:10:44 UTC; tsupeich
