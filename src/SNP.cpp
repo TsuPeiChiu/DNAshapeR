@@ -28,9 +28,9 @@ void SNP_distribution(DNA_to_properties &onemap){
 		  }
 		  std::cout << std::fixed;
 		  for (int c1=0; c1<4; c1++)
-		    for (int c2=0; c2<4; c2++) 
+		    for (int c2=0; c2<4; c2++)
 		      if (c1!=c2){
-			
+
 			std::cout <<  (left_flank+alphabet[c1]+"/"+alphabet[c2]+right_flank);
 			std::cout << std::setw(8) <<std::setprecision(3) <<pairwise_Euclidean(matrix[c1],matrix[c2]);
 			//std::cout << pairwise_Euclidean(matrix,c);
@@ -39,14 +39,14 @@ void SNP_distribution(DNA_to_properties &onemap){
 			//  std::cout << std::setw(7) <<std::setprecision(3) << matrix[c][i];
 			std::cout << std::endl;
 
-		      }	    
+		      }
 		}
 }
 
 void predict_mgw_to_vector(DNA_to_properties &onemap,std::string fragment,double_vector &d_vector){
   d_vector.clear();
   std::string pentamer;
-  for (int i=2;i<fragment.size()-2;i++){
+  for (unsigned int i=2;i<fragment.size()-2;i++){
     pentamer=fragment.substr(i-2,5);
     if (found_str_in_map(pentamer,onemap))
       d_vector.push_back(onemap[pentamer].get_ave("minor"));
@@ -56,12 +56,12 @@ void predict_mgw_to_vector(DNA_to_properties &onemap,std::string fragment,double
 }
 
 double pairwise_Euclidean(double_vector &v1,double_vector &v2){
-  double sum;  
+  double sum;
   int len = v1.size();
-  sum = 0;  
+  sum = 0;
   for (int k=0;k<len;k++)
     sum +=  pow(v1[k]-v2[k],2);
-  sum = sqrt(sum);  
+  sum = sqrt(sum);
   return sum;
 
 }

@@ -16,7 +16,7 @@ void parse_string_to_list(std::string str,std::string token,string_vector &list)
   list.clear();
   int pos_of_last_token=-1;
   int status=2;    //  1--token" ,;"     2--non-token
-  for (int i=0;i<str.length();i++){
+  for (unsigned int i=0;i<str.length();i++){
 
     if (token.find_first_of(str[i])!=string::npos){   //current pos is token
       if (status==2){        //previous one is non-token
@@ -103,7 +103,7 @@ void remove_terminal_space(std::string &str){
 }
 
 bool is_DNA(std::string str){
-  for (int i=0;i<str.size();i++){
+  for (unsigned int i=0;i<str.size();i++){
     if (str.substr(i,1).find_first_of("ATGC")==std::string::npos)
       return false;
   }
@@ -111,7 +111,7 @@ bool is_DNA(std::string str){
 }
 
 bool is_NUM(std::string str){
-  for (int i=0; i<str.size();i++){
+  for (unsigned int i=0; i<str.size();i++){
       if (str.substr(i,1).find_first_of("0123456789.")==std::string::npos)
 	return false;
     }
@@ -120,7 +120,7 @@ bool is_NUM(std::string str){
 
 bool string_vector_to_double_vector(string_vector str_v,double_vector &double_v){
   double_v.clear();
-  for (int i=0;i<str_v.size();i++){
+  for (unsigned int i=0;i<str_v.size();i++){
     double double_num;
     std::istringstream buffer(str_v[i]);
     if (!(buffer>>double_num))

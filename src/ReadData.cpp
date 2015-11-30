@@ -26,7 +26,7 @@ void read_fasta(std::ifstream& inf,string_vector &sequence_list,string_vector &n
 	first_line=true;
       }
       else
-	if (!line.empty()){	
+	if (!line.empty()){
 	  convert_to_uppercase(line);
 	  if (first_line){
 	    sequence_list.push_back(line);
@@ -51,8 +51,8 @@ void read_fasta(std::ifstream& inf,string_vector &sequence_list,string_vector &n
   }
 
   //covert_to_uppercase
-  for (int i=0; i<sequence_list.size(); i++)
-    convert_to_uppercase(sequence_list[i]);  
+  for (unsigned int i=0; i<sequence_list.size(); i++)
+    convert_to_uppercase(sequence_list[i]);
 
   //verify if all sequence is composed of A,T,G,C
   /*
@@ -66,7 +66,7 @@ void read_fasta(std::ifstream& inf,string_vector &sequence_list,string_vector &n
 
   if (debug){
     std::cout<<std::endl;
-    for (int i=0; i<sequence_list.size(); i++){
+    for (unsigned int i=0; i<sequence_list.size(); i++){
       std::cout<<name_list[i]<<std::endl;
       std::cout<<sequence_list[i]<<std::endl;
     }
@@ -85,23 +85,23 @@ void convert_sequence_list(string_vector& sequence_list,std::vector<pointers_vec
 			   std::vector<int_vector> &int_matrix,DNA_to_properties& onemap){
 
   pointers_vector pointers_row;
-  int_vector int_row;  
+  int_vector int_row;
   int int_v;      //   0 -- illegal      1  exists in pentamer table      -1  its complementary exists in pentamer table
   properties *pointer_v;
   std::string fragment;
   std::string heptamer;
 
   pointers_matrix.clear();
-  int_matrix.clear();  
+  int_matrix.clear();
 
-  for (int i=0;i<sequence_list.size();i++){
+  for (unsigned int i=0;i<sequence_list.size();i++){
     pointers_row.clear();
     int_row.clear();
-    for (int j=0;j<sequence_list[i].size()-4;j++){
+    for (unsigned int j=0;j<sequence_list[i].size()-4;j++){
       fragment=sequence_list[i].substr(j,5);
       if (fragment.find_first_not_of("ATGC")!=std::string::npos){
 		pointer_v = 0;
-		int_v = 0;       
+		int_v = 0;
       }
       else if (found_str_in_map(fragment,onemap)){
 		pointer_v = &onemap[fragment];
@@ -126,7 +126,7 @@ void convert_sequence_list(string_vector& sequence_list,std::vector<pointers_vec
     int_matrix.push_back(int_row);
   }
 }
-     
+
 
 
 

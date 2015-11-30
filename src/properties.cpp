@@ -1,12 +1,12 @@
 #include "properties.h"
 
 void properties::private_vector_ave_sd_calc(double_vector &v,double &ave,double &sd){
-	for (int i=0;i<v.size();i++)
+	for (unsigned int i=0;i<v.size();i++)
 		ave+=v[i];
 	ave=ave/v.size();
 
 	if (v.size()>1){
-		for (int i=0; i<v.size(); i++)
+		for (unsigned int i=0; i<v.size(); i++)
 			sd+=pow(v[i]-ave,2);
 		sd=sqrt(sd/(v.size()-1));
 	}else

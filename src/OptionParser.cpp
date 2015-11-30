@@ -8,7 +8,7 @@ void OptionParser::add_option(std::string name, std::string descrip, \
   req_data_vector.push_back(req_data);
   val_vector.push_back(default_val);
 }
-  
+
 
 int OptionParser::return_index_of_option(std::string name){
   for(int i=0;i<number_of_options;i++)
@@ -53,13 +53,13 @@ void OptionParser::get_option(std::string name, bool &val){
     exit(1);
   }
 }
-    
+
 void OptionParser::print_descrip(){
   using std::cout;
   cout <<"\n";
   cout<<"Name \n";
   cout <<"\t High-throughput Genome-wide DNA shape prediction\n";
-  cout <<"\t Author:  Tianyin Zhou ( zhoutianyin@hotmail.com)\n"; 
+  cout <<"\t Author:  Tianyin Zhou ( zhoutianyin@hotmail.com)\n";
   cout << "\n";
   cout <<"SYNOPSIS \n";
   cout <<"\n";
@@ -70,7 +70,7 @@ void OptionParser::print_descrip(){
   for (int i=0; i<number_of_options; i++){
     if (req_data_vector[i])
       cout <<"\t"<<name_vector[i]<<" [value]\n";
-    else 
+    else
       cout <<"\t"<<name_vector[i]<<"\n";
     cout << "\t"<<descrip_vector[i]<<"\n";
     cout << "\n";
@@ -83,7 +83,7 @@ void OptionParser::print_descrip(){
 void OptionParser::parse(string_vector &arg){
   int waiting_option_index=-1;
   bool option_waiting=false;
-  for (int i=0; i<arg.size(); i++){
+  for (unsigned int i=0; i<arg.size(); i++){
     if ((arg[i][0]=='-') and (is_option(arg[i]))){
 
 	if (option_waiting){
@@ -123,12 +123,12 @@ void OptionParser::parse(string_vector &arg){
 
 
 }
-      
-	
-	  
 
 
-    
+
+
+
+
 
 
 
