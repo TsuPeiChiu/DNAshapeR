@@ -15,8 +15,9 @@ int OptionParser::return_index_of_option(std::string name){
     if (name_vector[i]==name)
       return i;
 
-  std::cerr<< "Cannot find the Option \n";
-  exit(1);
+  //std::cerr<< "Cannot find the Option \n";
+  //exit(1);
+  return -1;
 }
 
 bool OptionParser::is_option(std::string name){
@@ -49,34 +50,34 @@ void OptionParser::get_option(std::string name, bool &val){
   else if (value=="false")
     val=false;
   else {
-    std::cerr<<"Bool Option got an invalid value\n";
-    exit(1);
+    //std::cerr<<"Bool Option got an invalid value\n";
+    //exit(1);
   }
 }
 
 void OptionParser::print_descrip(){
-  using std::cout;
-  cout <<"\n";
-  cout<<"Name \n";
-  cout <<"\t High-throughput Genome-wide DNA shape prediction\n";
-  cout <<"\t Author:  Tianyin Zhou ( zhoutianyin@hotmail.com)\n";
-  cout << "\n";
-  cout <<"SYNOPSIS \n";
-  cout <<"\n";
-  cout <<"\t[program] [OPTIONS] ";
-  cout<<"\n";
-  cout<<"OPTIONS\n";
-  cout<<"\n";
-  for (int i=0; i<number_of_options; i++){
-    if (req_data_vector[i])
-      cout <<"\t"<<name_vector[i]<<" [value]\n";
-    else
-      cout <<"\t"<<name_vector[i]<<"\n";
-    cout << "\t"<<descrip_vector[i]<<"\n";
-    cout << "\n";
-  }
-  cout <<"\n";
-  exit(0);
+  //using std::cout;
+  //cout <<"\n";
+  //cout<<"Name \n";
+  //cout <<"\t High-throughput Genome-wide DNA shape prediction\n";
+  //cout <<"\t Author:  Tianyin Zhou ( zhoutianyin@hotmail.com)\n";
+  //cout << "\n";
+  //cout <<"SYNOPSIS \n";
+  //cout <<"\n";
+  //cout <<"\t[program] [OPTIONS] ";
+  //cout<<"\n";
+  //cout<<"OPTIONS\n";
+  //cout<<"\n";
+  //for (int i=0; i<number_of_options; i++){
+  //  if (req_data_vector[i])
+  //    cout <<"\t"<<name_vector[i]<<" [value]\n";
+  //  else
+  //    cout <<"\t"<<name_vector[i]<<"\n";
+  //  cout << "\t"<<descrip_vector[i]<<"\n";
+  //  cout << "\n";
+  //}
+  //cout <<"\n";
+  //exit(0);
 }
 
 
@@ -87,8 +88,8 @@ void OptionParser::parse(string_vector &arg){
     if ((arg[i][0]=='-') and (is_option(arg[i]))){
 
 	if (option_waiting){
-	  std::cerr<<"Cannot parse the argument 1 "<<arg[i]<<"\n";
-	  exit(1);
+	  //std::cerr<<"Cannot parse the argument 1 "<<arg[i]<<"\n";
+	  //exit(1);
 	}
 
 	int index = return_index_of_option(arg[i]);
@@ -102,8 +103,8 @@ void OptionParser::parse(string_vector &arg){
       }
       else {
 	if (!option_waiting){
-	  std::cerr<<"Cannot parse the argument 2 "<<arg[i]<<"\n";
-	  exit(1);
+	  //std::cerr<<"Cannot parse the argument 2 "<<arg[i]<<"\n";
+	  //exit(1);
 	}
 
 	val_vector[waiting_option_index]=arg[i];
@@ -111,8 +112,8 @@ void OptionParser::parse(string_vector &arg){
       }
   }
   if (option_waiting){
-    std::cerr<<"Cannot parse the end argment\n";
-    exit(1);
+    //std::cerr<<"Cannot parse the end argment\n";
+    //exit(1);
   }
 
   //test code

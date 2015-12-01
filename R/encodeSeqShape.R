@@ -4,28 +4,29 @@
 #' Encode k-mer DNA sequence and n-th order DNA Shape features
 #'
 #' DNAshapeR can be used to generate feature vectors for a user-defined model.
-#' These models can be based on DNA sequence (1-mer, 2-mer, 3-mer) or DNA shape (MGW, Roll,
-#' ProT, HelT) features or any combination thereof. Sequence is encoded as four
-#' binary features (i.e., 0001 for adenine, 0010 for
-#' cytosine, 0100 for guanine, and 1000 for thymine, for encoding of 1-mers) at each nucleotide
-#' position (Zhou, et al., 2015). Encoding of 2-mers
-#' and 3-mers (16 and 64 binary features at each position, respectively) is also supported.
-#' Shape features include first and second order (or higher order) values for
-#' the four structural parameters MGW, Roll, ProT and HelT. The second order
-#' shape features are product terms of values for the same category of shape
-#' features at adjacent positions. The function allows to generate any
-#' subset of these features, e.g. a given shape category or first
-#' order shape features, and any desired combination of shape and sequence features.
-#' Feature encoding returns a feature matrix for a dataset of
-#' multiple sequences, in which each sequence generates a concatenated feature vector.
-#' The output of this function can be used directly for any statistical
+#' These models can be based on DNA sequence (1-mer, 2-mer, 3-mer) or DNA
+#' shape (MGW, Roll, ProT, HelT) features or any combination thereof. Sequence
+#' is encoded as four binary features (i.e., 0001 for adenine, 0010 for
+#' cytosine, 0100 for guanine, and 1000 for thymine, for encoding of 1-mers)
+#' at each nucleotide position (Zhou, et al., 2015). Encoding of 2-mers and
+#' 3-mers (16 and 64 binary features at each position, respectively) is also
+#' supported. Shape features include first and second order (or higher order)
+#' values for the four structural parameters MGW, Roll, ProT and HelT. The
+#' second order shape features are product terms of values for the same
+#' category of shape features at adjacent positions. The function allows to
+#' generate any subset of these features, e.g. a given shape category or first
+#' order shape features, and any desired combination of shape and sequence
+#' features. Feature encoding returns a feature matrix for a dataset of
+#' multiple sequences, in which each sequence generates a concatenated feature
+#' vector. The output of this function can be used directly for any statistical
 #' machine learning method.
 #'
 #'
 #' @usage encodeSeqShape(fastaFileName, shapeMatrix, featureNames)
 #'
-#' @param fastaFileName A character name of the input fasta format file, including
-#' full path to file if it is located outside the current working directory.
+#' @param fastaFileName A character name of the input fasta format file,
+#' including full path to file if it is located outside the current working
+#' directory.
 #' @param shapeMatrix A matrix containing DNAshape prediction result
 #' @param featureNames A vector containing a combination of user-defined
 #' sequence and shape parameters. The parameters can be any combination of
@@ -38,10 +39,9 @@
 #' @keywords core
 #' @examples
 #'
-#' library(DNAshapeR)
-#' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
+#' fn <- system.file("extdata", "CGRsample_short.fa", package = "DNAshapeR")
 #' pred <- getShape(fn)
-#' featureNames <- c("1-mer", "1-shape")
+#' featureNames <- c("1-shape")
 #' featureVector <- encodeSeqShape(fn, pred, featureNames)
 #'
 #' @export encodeSeqShape
@@ -51,7 +51,7 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames){
 #
 # Args:
 #   fastaFileName: A character name of the input fasta format file, including
-#' full path to file if it is located outside the current working directory.
+#  full path to file if it is located outside the current working directory.
 #   shapeMatrix: A matrix containing DNAshape prediction result
 #
 # Returns:
@@ -59,140 +59,157 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames){
 #
 # Error handling
 #   ...
-  ds <- readDNAStringSet(fastaFileName, "fasta")
+    ds <- readDNAStringSet(fastaFileName, "fasta")
 
-  featureVector <- c()
-  for( i in 1:length( featureNames ) ){
-    featureName <- unlist(strsplit(featureNames[i], "-"))
-    switch( featureName[2],
-            mer = { featureVector <- cbind( featureVector, encodeKMerSeq( as.numeric( featureName[1] ), ds ) ) },
-            hbond = { featureVector <- cbind( featureVector, encodeKMerHbond( as.numeric( featureName[1] ), ds ) ) },
-            MGW = { featureVector <- cbind( featureVector, encodeNstOrderShape( as.numeric( featureName[1] ), shapeMatrix$MGW ) ) },
-            ProT = { featureVector <- cbind( featureVector, encodeNstOrderShape( as.numeric( featureName[1] ), shapeMatrix$ProT ) ) },
-            Roll = { featureVector <- cbind( featureVector, encodeNstOrderShape( as.numeric( featureName[1] ), shapeMatrix$Roll ) ) },
-            HelT = { featureVector <- cbind( featureVector, encodeNstOrderShape( as.numeric( featureName[1] ), shapeMatrix$HelT ) ) },
+    featureVector <- c()
+    for( i in 1:length( featureNames ) ){
+        featureName <- unlist(strsplit(featureNames[i], "-"))
+        switch( featureName[2],
+            mer = { featureVector <- cbind( featureVector,
+                    encodeKMerSeq( as.numeric( featureName[1] ), ds ) ) },
+            #hbond = { featureVector <- cbind( featureVector,
+            #       encodeKMerHbond( as.numeric( featureName[1] ), ds ) ) },
+            MGW = { featureVector <- cbind( featureVector,
+                    encodeNstOrderShape( as.numeric( featureName[1] ),
+                                         shapeMatrix$MGW ) ) },
+            ProT = { featureVector <- cbind( featureVector,
+                    encodeNstOrderShape( as.numeric( featureName[1] ),
+                                         shapeMatrix$ProT ) ) },
+            Roll = { featureVector <- cbind( featureVector,
+                    encodeNstOrderShape( as.numeric( featureName[1] ),
+                                         shapeMatrix$Roll ) ) },
+            HelT = { featureVector <- cbind( featureVector,
+                    encodeNstOrderShape( as.numeric( featureName[1] ),
+                                         shapeMatrix$HelT ) ) },
             shape = {
-              featureVector <- cbind( featureVector,
-                                      encodeNstOrderShape( as.numeric( featureName[1] ), shapeMatrix$MGW ),
-                                      encodeNstOrderShape( as.numeric( featureName[1] ), shapeMatrix$ProT ),
-                                      encodeNstOrderShape( as.numeric( featureName[1] ), shapeMatrix$Roll ),
-                                      encodeNstOrderShape( as.numeric( featureName[1] ), shapeMatrix$HelT ) )
+                    featureVector <- cbind( featureVector,
+                    encodeNstOrderShape( as.numeric( featureName[1] ),
+                                         shapeMatrix$MGW ),
+                    encodeNstOrderShape( as.numeric( featureName[1] ),
+                                         shapeMatrix$ProT ),
+                    encodeNstOrderShape( as.numeric( featureName[1] ),
+                                         shapeMatrix$Roll ),
+                    encodeNstOrderShape( as.numeric( featureName[1] ),
+                                         shapeMatrix$HelT ) )
             }
-    )
-  }
+        )
+    }
 
-  return (featureVector)
+    return (featureVector)
 }
 
 
-#' Encode k-mer DNA sequence features
-#'
-#' DNAshapeR can be used to generate feature vectors for a user-defined model.
-#' The model can be a k-mer sequence. Sequence is encoded in four binary
-#' features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine,
-#' 0100 for guanine, and 1000 for thymine) at each nucleotide position
-#' (Zhou, et al., 2015). The function permits an encoding of 2-mers and 3-mers
-#' (16 and 64 binary features at each position, respectively).
-#'
-#' @usage encodeShape(k, dnaStringSet)
-#'
-#' @param k A number indicating k-mer sequence encoding
-#' @param dnaStringSet A DNAStringSet object of the inputted fasta file
-#' @return featureVector A matrix containing encoded features. Sequence
-#' feature is represented as binary numbers
-#' @author Tsu-Pei Chiu
-#'
-#' @export encodeKMerSeq
+# Encode k-mer DNA sequence features
+#
+# DNAshapeR can be used to generate feature vectors for a user-defined model.
+# The model can be a k-mer sequence. Sequence is encoded in four binary
+# features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine,
+# 0100 for guanine, and 1000 for thymine) at each nucleotide position
+# (Zhou, et al., 2015). The function permits an encoding of 2-mers and 3-mers
+# (16 and 64 binary features at each position, respectively).
+#
+# @usage encodeKMerSeq(k, dnaStringSet)
+#
+# @param k A number indicating k-mer sequence encoding
+# @param dnaStringSet A DNAStringSet object of the inputted fasta file
+# @return featureVector A matrix containing encoded features. Sequence
+# feature is represented as binary numbers
+# @author Tsu-Pei Chiu
+#
 
 encodeKMerSeq <- function( k, dnaStringSet ){
-  # create a lookup table
-  lookupTable <- diag( 4**k )
-  row.names( lookupTable ) <- mkAllStrings( c( "A", "C", "G", "T" ), k )
+    # create a lookup table
+    lookupTable <- diag( 4**k )
+    row.names( lookupTable ) <- mkAllStrings( c( "A", "C", "G", "T" ), k )
 
-  featureVector <- c()
+    featureVector <- c()
 
-  for( j in 1 : length( dnaStringSet ) ){
-    # encode k-mer feature
-    features <- c()
-    seq <- toString( dnaStringSet[j] )
-    for ( j in 1 : ( nchar( seq )-k+1) ){
-      if( is.na( match( substr( toupper( seq ), j, j+k-1), row.names( lookupTable ) ) ) ){
-        features <- c( features, rep( 0, 4**k ) )
+    for( j in 1 : length( dnaStringSet ) ){
+        # encode k-mer feature
+        features <- c()
+        seq <- toString( dnaStringSet[j] )
+        for ( j in 1 : ( nchar( seq )-k+1) ){
+            if( is.na( match( substr( toupper( seq ), j, j+k-1),
+                        row.names( lookupTable ) ) ) ){
+                features <- c( features, rep( 0, 4**k ) )
 
-      }else{
-        features <- c( features, lookupTable[ substr( toupper( seq ), j, j+k-1), ] )
-      }
+            }else{
+                features <- c( features,
+                       lookupTable[ substr( toupper( seq ), j, j+k-1), ] )
+            }
+        }
+
+        featureVector <- rbind( featureVector, features )
     }
+    row.names( featureVector ) <- names( dnaStringSet )
 
-    featureVector <- rbind( featureVector, features )
-  }
-  row.names( featureVector ) <- names( dnaStringSet )
-
-  return ( featureVector )
+    return ( featureVector )
 }
 
 
-#' Encode n-st order shape features
-#'
-#' DNAshapeR can be used to generate feature vectors for a user-defined model.
-#' The model can be a shape model. There are four structural parameters
-#' including MGW, Roll, ProT and HelT. The second order shape features are
-#' product terms of values for the same category of shape features at adjacent
-#' positions.
-#'
-#' @usage encodeNstOrderShape(n, shapeMatrix)
-#'
-#' @param n A number indicating n-st order shape encoding
-#' @param shapeMatrix A matrix containing DNAshape prediction result
-#' @return  featureVector A matrix containing encoded features. shape feature is
-#' represented as continuous numbers
-#' @author Tsu-Pei Chiu
-#'
-#' @export encodeNstOrderShape
+# Encode n-st order shape features
+#
+# DNAshapeR can be used to generate feature vectors for a user-defined model.
+# The model can be a shape model. There are four structural parameters
+# including MGW, Roll, ProT and HelT. The second order shape features are
+# product terms of values for the same category of shape features at adjacent
+# positions.
+#
+# @usage encodeNstOrderShape(n, shapeMatrix)
+#
+# @param n A number indicating n-st order shape encoding
+# @param shapeMatrix A matrix containing DNAshape prediction result
+# @return  featureVector A matrix containing encoded features. shape feature is
+# represented as continuous numbers
+# @author Tsu-Pei Chiu
+#
 
 encodeNstOrderShape <- function( n, shapeMatrix ){
-  # trim end columns with NA
-  shapeMatrix[ is.na( shapeMatrix ) ] <- 0
-  for( i in c( ncol( shapeMatrix ), ncol( shapeMatrix )-1, 2, 1 ) ){
-    if( all( shapeMatrix[ , i ] == 0 ) == TRUE )
-      shapeMatrix <- shapeMatrix[ , -i ]
-  }
+    # trim end columns with NA
+    shapeMatrix[ is.na( shapeMatrix ) ] <- 0
+       for( i in c( ncol( shapeMatrix ), ncol( shapeMatrix )-1, 2, 1 ) ){
+           if( all( shapeMatrix[ , i ] == 0 ) == TRUE )
+               shapeMatrix <- shapeMatrix[ , -i ]
+       }
 
-  # encode k-st feature
-  featureVector <- NULL
-  if( n == 1 ){
-    featureVector = shapeMatrix
+    # encode k-st feature
+    featureVector <- NULL
+    if( n == 1 ){
+        featureVector = shapeMatrix
 
-  }else{
-    m <- ncol( shapeMatrix )
-    # normalization
-    shapeMatrix <- ( shapeMatrix - min( shapeMatrix ) ) / ( max( shapeMatrix ) - min( shapeMatrix ))
+    }else{
+        m <- ncol( shapeMatrix )
+        # normalization
+        shapeMatrix <- ( shapeMatrix - min( shapeMatrix ) ) /
+          ( max( shapeMatrix ) - min( shapeMatrix ))
 
-    for ( i in 1 : ( m-n+1 )){
-      feature <- shapeMatrix[, i]
-      for ( j in ( i+1 ) : ( i+n-1 ) )
-        feature <- feature * shapeMatrix[, j]
+        for ( i in 1 : ( m-n+1 )){
+            feature <- shapeMatrix[, i]
+            for ( j in ( i+1 ) : ( i+n-1 ) )
+                feature <- feature * shapeMatrix[, j]
 
-      featureVector <- cbind( featureVector, unlist( feature ) )
+            featureVector <- cbind( featureVector, unlist( feature ) )
+        }
     }
-  }
 
-  return ( featureVector )
+    return ( featureVector )
 }
 
 
-##' encode Hbond
-##'
-##' @usage encodeKmerHbond (filepath)
-##' @param k k-mer sequence
-##' @param dnaStringSet
-##' @return featureVector
+## encode Hbond
+##
+## @usage encodeKmerHbond (filepath)
+## @param k k-mer sequence
+## @param dnaStringSet
+## @return featureVector
 
 #encodeKmerHbond <- function ( k, dnaStringSet ){
 #  # create a lookup table
 #  k <- 1
-#  lookupTable <- rbind( c(1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1), c(0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0),
-#                        c(1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0), c(0,0,0,1,1,0,0,0,0,1,0,0,1,0,0,0) )
+#  lookupTable <- rbind( c(1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1),
+#                        c(0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0),
+#                        c(1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0),
+#                        c(0,0,0,1,1,0,0,0,0,1,0,0,1,0,0,0) )
 #  row.names( lookupTable ) <- mkAllStrings( c( "A", "C", "G", "T" ), k )
 #
 #  featureVector <- c()
@@ -202,11 +219,13 @@ encodeNstOrderShape <- function( n, shapeMatrix ){
 #    features <- c()
 #    seq <- toString( dnaStringSet[j] )
 #    for ( j in 1 : ( nchar( seq )-k+1) ){
-#      if( is.na( match( substr( toupper( seq ), j, j+k-1), row.names( lookupTable ) ) ) ){
+#      if( is.na( match( substr( toupper( seq ), j, j+k-1),
+#          row.names( lookupTable ) ) ) ){
 #        features <- c( features, rep( 0, 16**k ) )
 #
 #      }else{
-#        features <- c( features, lookupTable[ substr( toupper( seq ), j, j+k-1), ] )
+#        features <- c( features,
+#       lookupTable[ substr( toupper( seq ), j, j+k-1), ] )
 #      }
 #    }
 #

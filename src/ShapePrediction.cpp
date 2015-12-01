@@ -44,13 +44,13 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
         //convert sequence_list to pointers_list
         std::vector <pointers_vector> pointers_matrix;
         std::vector <int_vector> status_matrix;
-        std::cout << "Indexing the input sequence......"<<std::endl;
+        //std::cout << "Indexing the input sequence......"<<std::endl;
         convert_sequence_list(sequence_list,pointers_matrix,status_matrix,pentamers_map);
-        std::cout << "Indexing complete"<<std::endl;
+        //std::cout << "Indexing complete"<<std::endl;
 
         //run prediction
         std::stringstream current_ss;
-        std::cout << "Processing......"<<std::endl;
+        //std::cout << "Processing......"<<std::endl;
 
         int output_width = 30;
         char delimiter = ',';
@@ -91,7 +91,7 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
         output_stringstream_to_file(current_ss,outputFile);
       }
 
-      std::cout << "done"<< std::endl;
+      //std::cout << "done"<< std::endl;
 
     }else{
       Rcout << "Cannot recogize the shape type(MGW/Roll/HelT/ProT):" << shapeType << std::endl;

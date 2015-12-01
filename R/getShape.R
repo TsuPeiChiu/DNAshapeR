@@ -15,7 +15,7 @@
 #' Carlo simulations were analyzed with a modified Curves approach
 #' (Zhou, et al., 2013). Through data mining, average values for each shape
 #' feature were calculated for the on average 44 occurrences of each pentamer
-#' in an ensemble of Monte Carlo trajectories for 2,121 DNA fragments of 12−27
+#' in an ensemble of Monte Carlo trajectories for 2,121 DNA fragments of 12-27
 #' base pairs in length. DNAshapeR predicts four DNA shape features, which were
 #' observed in various co-crystal structures playing an important role in
 #' specific protein-DNA binding. The core prediction algorithm enables
@@ -59,32 +59,32 @@ getShape <- function(filename, shapeType = 'All', parse = TRUE) {
 #
 # Error handling
 #   ...
-  opts <- c( 'MGW', 'HelT', 'ProT', 'Roll' )
-  stopifnot( shapeType %in% c( opts, 'All' ) )
+    opts <- c( 'MGW', 'HelT', 'ProT', 'Roll' )
+    stopifnot( shapeType %in% c( opts, 'All' ) )
 
-  if( shapeType != 'All' ) {
-    getDNAShape(filename, 'MGW')
+    if( shapeType != 'All' ) {
+        getDNAShape(filename, 'MGW')
 
-  } else {
-    getDNAShape(filename, 'MGW')
-    getDNAShape(filename, 'HelT')
-    getDNAShape(filename, 'ProT')
-    getDNAShape(filename, 'Roll')
-  }
-
-  if( parse ) {
-    message( 'Parsing files......' )
-    if( shapeType == 'All' ) {
-      ln <- paste0( filename, '.', opts )
-      shapeList <- lapply( ln, parseShape )
-      names( shapeList ) <- opts
     } else {
-      ln <- paste0( filename, '.', shapeType )
-      shapeList <- list( parseShape( ln ) )
-      names( shapeList ) <- shapeType
+        getDNAShape(filename, 'MGW')
+        getDNAShape(filename, 'HelT')
+        getDNAShape(filename, 'ProT')
+        getDNAShape(filename, 'Roll')
     }
-    message( 'Done' )
-    return( shapeList )
-  }
+
+    if( parse ) {
+        message( 'Parsing files......' )
+        if( shapeType == 'All' ) {
+            ln <- paste0( filename, '.', opts )
+            shapeList <- lapply( ln, parseShape )
+            names( shapeList ) <- opts
+        } else {
+            ln <- paste0( filename, '.', shapeType )
+            shapeList <- list( parseShape( ln ) )
+            names( shapeList ) <- shapeType
+        }
+        message( 'Done' )
+        return( shapeList )
+    }
 }
 

@@ -70,8 +70,9 @@ char get_opposite_base(char ch){
   case 'C':
     return 'G';
   default:
-    std::cerr<<"Failed to find opposite base"<<std::endl;
-    exit(1);
+    //std::cerr<<"Failed to find opposite base"<<std::endl;
+    //exit(1);
+    return '-';
   }
 }
 

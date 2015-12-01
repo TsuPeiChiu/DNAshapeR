@@ -529,8 +529,8 @@ void add_groove_width_to_pentamers_table(std::string filename,DNA_to_properties 
   std::ifstream in_file(filename.c_str());
 
   if (!in_file){
-    if (debug)
-      std::cout << "Cannot open the file: " << filename << std::endl;
+    //if (debug)
+    //  std::cout << "Cannot open the file: " << filename << std::endl;
     in_file.close();
     return;
   }
@@ -555,14 +555,14 @@ void add_groove_width_to_pentamers_table(std::string filename,DNA_to_properties 
 
   int no_of_positions = sequence.size();
 
-  if (debug){
-    for (unsigned int i=0;i<matrix.size();i++){
-      for (unsigned int j=0;j<matrix[i].size();j++)
-	std::cout <<"\t"<<matrix[i][j];
-      std::cout<<"\n";
-    }
-    std::cout<<"No of positions: "<<no_of_positions<<std::endl;
-  }
+  //if (debug){
+  //  for (unsigned int i=0;i<matrix.size();i++){
+  //    for (unsigned int j=0;j<matrix[i].size();j++)
+	//std::cout <<"\t"<<matrix[i][j];
+  //    std::cout<<"\n";
+  //  }
+  //  std::cout<<"No of positions: "<<no_of_positions<<std::endl;
+  //}
 
   std::vector<int> num_of_levels;     //num of levels for each ResId
   for (int i=0;i<=no_of_positions;i++)
@@ -687,8 +687,8 @@ void add_ep_to_pentamers_table(std::string filename,DNA_to_properties &onemap,st
   std::ifstream in_file(filename.c_str());
 
   if (!in_file){
-    if (debug)
-      std::cout << "Cannot open the file: " << filename << std::endl;
+    //if (debug)
+      //std::cout << "Cannot open the file: " << filename << std::endl;
     in_file.close();
     return;
   }
@@ -712,14 +712,14 @@ void add_ep_to_pentamers_table(std::string filename,DNA_to_properties &onemap,st
 
   int no_of_positions = sequence.size();
 
-  if (debug){
-    for (unsigned int i=0;i<matrix.size();i++){
-      for (unsigned int j=0;j<matrix[i].size();j++)
-		std::cout <<"\t"<<matrix[i][j];
-		std::cout<<"\n";
-    }
-    std::cout<<"No of positions: "<<no_of_positions<<std::endl;
-  }
+  //if (debug){
+  //  for (unsigned int i=0;i<matrix.size();i++){
+  //    for (unsigned int j=0;j<matrix[i].size();j++)
+		//std::cout <<"\t"<<matrix[i][j];
+		//std::cout<<"\n";
+  //  }
+    //std::cout<<"No of positions: "<<no_of_positions<<std::endl;
+  //}
 
 
   unsigned int start_pos = 0;  //start from the second position
@@ -735,32 +735,32 @@ void add_ep_to_pentamers_table(std::string filename,DNA_to_properties &onemap,st
       if (found_str_in_map(current_pentamer,onemap)){
 		if(current_value<=0 && current_value>=-20){ //put constrains
 			onemap[current_pentamer].push(current_value,object_name);
-			if (debug){
-				std::cout<<"ep pentamer verify:"<<current_pentamer<<":"<<current_value<<":"<<filename<<":"<<i+3<<":"<<sequence<<":"<<std::endl;
-            }
+			//if (debug){
+				//std::cout<<"ep pentamer verify:"<<current_pentamer<<":"<<current_value<<":"<<filename<<":"<<i+3<<":"<<sequence<<":"<<std::endl;
+      //      }
 		}else{
-			if (debug){
-				std::cout<<"ep pentamer verify:"<<current_pentamer<<":"<<current_value<<":"<<filename<<":"<<i+3<<":"<<sequence<<":eliminated"<<std::endl;
-            }
+			//if (debug){
+				//std::cout<<"ep pentamer verify:"<<current_pentamer<<":"<<current_value<<":"<<filename<<":"<<i+3<<":"<<sequence<<":eliminated"<<std::endl;
+      //      }
 		}
 
 	  }else{
 		if(current_value<=0 && current_value>=-20){ //put constrains
 			onemap[opposite_strand(current_pentamer)].push(current_value,object_name);
-			if (debug){
-                 std::cout<<"ep pentamer verify:"<<opposite_strand(current_pentamer)<<":"<<current_value<<":"<<filename<<":"<<i+3<<":"<<sequence<<":opposite_strand"<<std::endl;
-            }
+			//if (debug){
+                 //std::cout<<"ep pentamer verify:"<<opposite_strand(current_pentamer)<<":"<<current_value<<":"<<filename<<":"<<i+3<<":"<<sequence<<":opposite_strand"<<std::endl;
+      //      }
 		}else{
-			if (debug){
-				 std::cout<<"ep pentamer verify:"<<opposite_strand(current_pentamer)<<":"<<current_value<<":"<<filename<<":"<<i+3<<":"<<sequence<<":opposite_strand,eliminated"<<std::endl;
-            }
+			//if (debug){
+				 //std::cout<<"ep pentamer verify:"<<opposite_strand(current_pentamer)<<":"<<current_value<<":"<<filename<<":"<<i+3<<":"<<sequence<<":opposite_strand,eliminated"<<std::endl;
+      //      }
 		}
 	  }
 
-		if (debug){
-			std::cout<<	"current_pentamer:" << current_pentamer << "\t";
-			std::cout<<	"current_value:" << current_value << std::endl;
-		}
+		//if (debug){
+			//std::cout<<	"current_pentamer:" << current_pentamer << "\t";
+			//std::cout<<	"current_value:" << current_value << std::endl;
+		//}
     }
   }
 
@@ -796,21 +796,21 @@ void add_step_info_to_pentamers_table(DNA_to_properties& onemap, std::string fil
 	    matrix.push_back(double_row);
 	  }
 	  else if (string_row.size()>0){
-	    std::cout << "Error: Cannot parse the line: "<<line<<std::endl;
+	    //std::cout << "Error: Cannot parse the line: "<<line<<std::endl;
 	    return;
 	  }
 	}while (string_row.size()==8);
 	break;
       }
     }
-    if (debug){
-      std::cout<<"Block |D|"<<std::endl;
-      for (unsigned int i=0;i<matrix.size();i++){
-	for (unsigned int j=0;j<matrix[i].size();j++)
-	  std::cout << "\t"<<matrix[i][j];
-	std::cout << std::endl;
-      }
-    }
+    //if (debug){
+      //std::cout<<"Block |D|"<<std::endl;
+      //for (unsigned int i=0;i<matrix.size();i++){
+	//for (unsigned int j=0;j<matrix[i].size();j++)
+	  //std::cout << "\t"<<matrix[i][j];
+	//std::cout << std::endl;
+      //}
+    //}
     if (matrix.size()>0){
       add_propel_to_table(onemap,sequence,matrix,4,"propel",verbose,debug);
 
@@ -835,8 +835,8 @@ void add_step_info_to_pentamers_table(DNA_to_properties& onemap, std::string fil
 	      matrix.push_back(double_row);
 	    }
 	    else if (string_row.size()>0){
-	      std::cout << "Cannot parse the line: "<<line<<std::endl;
-	      exit(1);
+	      //std::cout << "Cannot parse the line: "<<line<<std::endl;
+	      //exit(1);
 	    }
 
 	  }while (string_row.size()==7);
@@ -844,14 +844,14 @@ void add_step_info_to_pentamers_table(DNA_to_properties& onemap, std::string fil
       }
     }
 
-    if (debug){
-      std::cout<<"Block |H|:"<<std::endl;
-      for (unsigned int i=0;i<matrix.size();i++){
-	for (unsigned int j=0; j<matrix[i].size(); j++)
-	  std::cout << "\t"<<matrix[i][j];
-	std::cout <<std::endl;
-      }
-    }
+    //if (debug){
+      //std::cout<<"Block |H|:"<<std::endl;
+      //for (unsigned int i=0;i<matrix.size();i++){
+	//for (unsigned int j=0; j<matrix[i].size(); j++)
+	  //std::cout << "\t"<<matrix[i][j];
+	//std::cout <<std::endl;
+      //}
+    //}
 
     if (matrix.size()>0){
       add_one_step_info(onemap,sequence,matrix,1,"slide",verbose,debug);
@@ -860,8 +860,8 @@ void add_step_info_to_pentamers_table(DNA_to_properties& onemap, std::string fil
     }
   }
   else
-    if (debug)
-      std::cout<<"Cannot open the cclis file: " <<filename<<std::endl;
+    //if (debug)
+      //std::cout<<"Cannot open the cclis file: " <<filename<<std::endl;
 
     cclis_inf.close();
   }
@@ -872,8 +872,8 @@ void add_step_info_to_pentamers_table(DNA_to_properties& onemap, std::string fil
 void add_one_step_info(DNA_to_properties& onemap,std::string sequence,std::vector<double_vector> &matrix,int object_index, \
 		       std::string object_name, bool verbose, bool debug){
   if (matrix.size()!=sequence.size()-1){
-    if (debug)
-      std::cout << "Error: Size of step info matrix does not equal to (len(sequence)-1)"<<std::endl;
+    //if (debug)
+      //std::cout << "Error: Size of step info matrix does not equal to (len(sequence)-1)"<<std::endl;
     return;
   }
   //discard the first 2 step and last 2
@@ -901,8 +901,8 @@ void add_one_step_info(DNA_to_properties& onemap,std::string sequence,std::vecto
 void add_propel_to_table(DNA_to_properties& onemap,std::string sequence, std::vector<double_vector> &matrix,int object_index,\
 			  std::string object_name,bool verbose,bool debug){
    if (matrix.size()!=sequence.size()){
-     if (debug)
-       std::cout << "Error: Size of Global Base-Base Parameters does not equal to len(sequence)"<<std::endl;
+     //if (debug)
+       //std::cout << "Error: Size of Global Base-Base Parameters does not equal to len(sequence)"<<std::endl;
      return;
    }
    //discard the first 2 liens and last 2
@@ -976,8 +976,8 @@ void add_groove_width_to_inosine_table(std::string filename,DNA_to_properties &o
   std::ifstream in_file(filename.c_str());
 
   if (!in_file){
-    if (debug)
-      std::cout << "Cannot open the file: " << filename << std::endl;
+    //if (debug)
+      //std::cout << "Cannot open the file: " << filename << std::endl;
     in_file.close();
     return;
   }
@@ -1002,14 +1002,14 @@ void add_groove_width_to_inosine_table(std::string filename,DNA_to_properties &o
 
   int no_of_positions = sequence.size();
 
-  if (debug){
-    for (unsigned int i=0;i<matrix.size();i++){
-      for (unsigned int j=0;j<matrix[i].size();j++)
-	std::cout <<"\t"<<matrix[i][j];
-      std::cout<<"\n";
-    }
-    std::cout<<"No of positions: "<<no_of_positions<<std::endl;
-  }
+  //if (debug){
+    //for (unsigned int i=0;i<matrix.size();i++){
+      //for (unsigned int j=0;j<matrix[i].size();j++)
+	//std::cout <<"\t"<<matrix[i][j];
+      //std::cout<<"\n";
+    //}
+    //std::cout<<"No of positions: "<<no_of_positions<<std::endl;
+  //}
 
   std::vector<int> num_of_levels;     //num of levels for each ResId
   for (int i=0;i<=no_of_positions;i++)

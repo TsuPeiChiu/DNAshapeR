@@ -65,16 +65,16 @@ void read_fasta(std::ifstream& inf,string_vector &sequence_list,string_vector &n
   */
 
   if (debug){
-    std::cout<<std::endl;
+    //std::cout<<std::endl;
     for (unsigned int i=0; i<sequence_list.size(); i++){
-      std::cout<<name_list[i]<<std::endl;
-      std::cout<<sequence_list[i]<<std::endl;
+      //std::cout<<name_list[i]<<std::endl;
+      //std::cout<<sequence_list[i]<<std::endl;
     }
   }
 
   if (name_list.size()!=sequence_list.size()){
-    std::cerr << "Incorrect Fasta Format\n";
-    exit(1);
+    //std::cerr << "Incorrect Fasta Format\n";
+    //exit(1);
   }
 
 }

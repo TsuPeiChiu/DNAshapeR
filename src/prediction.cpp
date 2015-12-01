@@ -40,8 +40,8 @@ void predict_groove_width(std::stringstream &outs,std::vector<pointers_vector> &
 
 void predict_step_parameters(std::stringstream &outs,std::vector<pointers_vector> &pointers_matrix,std::vector<int_vector> &status_matrix,string_vector &namelist, \
 			     bool debug,DNA_to_properties &pentamers_map,std::string objectname,int width,char delimiter){
-  if (debug)
-    std::cout << "Predicting step parameter: "<<objectname << std::endl;
+  //if (debug)
+  //  std::cout << "Predicting step parameter: "<<objectname << std::endl;
 
   int f1_index,f2_index;
   std::string object1,object2;

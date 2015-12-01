@@ -11,7 +11,10 @@
 #' k-mer and DNA shape features (Zhou, et al., 2015)
 #'
 #'
-#' @usage plotShape(shapeMatrix, background = NULL, colDots = rgb( 0, 0, 1, 0.1), colDotsBg = rgb( 0, 0, 0, 0.1), colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ...)
+#' @usage plotShape(shapeMatrix, background = NULL,
+#' colDots = rgb( 0, 0, 1, 0.1),
+#' colDotsBg = rgb( 0, 0, 0, 0.1),
+#' colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ...)
 #'
 #' @param shapeMatrix A matrix containing DNAshape prediction result
 #' @param background DESCR
@@ -29,6 +32,8 @@
 #' @keywords core
 #' @examples
 #'
+#' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
+#' pred <- getShape(fn)
 #' plotShape(pred$MGW)
 #' plotShape(pred$ProT)
 #' plotShape(pred$Roll)
@@ -36,50 +41,56 @@
 #'
 #' @export plotShape
 
-plotShape <- function( shapeMatrix, background = NULL, colDots = rgb( 0, 0, 1, 0.1), colDotsBg = rgb( 0, 0, 0, 0.1), colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ... ) {
-	n <- nrow( shapeMatrix )
-	mu <- colMeans( shapeMatrix, na.rm = TRUE )
-	m <- length( mu )
-	span <- round( m / 2)
+plotShape <- function( shapeMatrix, background = NULL,
+                        colDots = rgb( 0, 0, 1, 0.1),
+                        colDotsBg = rgb( 0, 0, 0, 0.1),
+                        colLine = 'steelblue',
+                        colLineBg = 'gray50', cex = 0.5, lwd = 2, ... ) {
+    n <- nrow( shapeMatrix )
+    mu <- colMeans( shapeMatrix, na.rm = TRUE )
+    m <- length( mu )
+    span <- round( m / 2)
 
-	if( is.null( background ) ) {
-		yrange <- range( mu, na.rm = TRUE )
+    if( is.null( background ) ) {
+        yrange <- range( mu, na.rm = TRUE )
 
-		plot( mu,
-			  col = colDots,
-			  pch = 19,
-			  cex = cex,
-			  xaxt = 'n',
-		 	  xlab = '',
-		 	  ylab = paste0( 'Mean value (n=', n, ')'),
-		 	  ylim = yrange,
-		 	  ... )
-		axis( 1, at = c( 0, span, m ), labels = c( -span, 'Center', paste0( '+', span ) ) )
-		abline( v = span, lty = 2, col = 'gray30' )
-		lines( lowess( mu, f = 1/10 ), col = colLine, lwd = lwd )
-	 }
+        plot( mu,
+            col = colDots,
+            pch = 19,
+            cex = cex,
+            xaxt = 'n',
+            xlab = '',
+            ylab = paste0( 'Mean value (n=', n, ')'),
+            ylim = yrange,
+            ... )
+        axis( 1, at = c( 0, span, m ),
+          labels = c( -span, 'Center', paste0( '+', span ) ) )
+          abline( v = span, lty = 2, col = 'gray30' )
+          lines( lowess( mu, f = 1/10 ), col = colLine, lwd = lwd )
+    }
 
-	 else { #shape of random sample is provided
-	 	mu1 <- mu
-	 	mu2 <- colMeans( background, na.rm = TRUE )
-		yrange <- range( mu1, mu2, na.rm = TRUE )
+    else { #shape of random sample is provided
+        mu1 <- mu
+        mu2 <- colMeans( background, na.rm = TRUE )
+        yrange <- range( mu1, mu2, na.rm = TRUE )
 
-		plot( mu1,
-			  col = colDots,
-			  pch = 19,
-			  cex = cex,
-			  xaxt = 'n',
-		 	  xlab = '',
-		 	  ylab = paste0( 'Mean value (n=', n, ')'),
-		 	  ylim = yrange,
-			  ... )
+        plot( mu1,
+            col = colDots,
+            pch = 19,
+            cex = cex,
+            xaxt = 'n',
+            xlab = '',
+            ylab = paste0( 'Mean value (n=', n, ')'),
+            ylim = yrange,
+            ... )
 
-		points( mu2, pch = 19, cex = cex, col = colDotsBg )
-		axis( 1, at = c( 0, span, m ), labels = c( -span, 'Center', paste0( '+', span ) ) )
-		abline( v = span, lty = 2, col = 'gray30' )
-		lines( lowess( mu1, f = 1/10 ), col = colLine, lwd = lwd )
-		lines( lowess( mu2, f = 1/10 ), col = colLineBg, lwd = lwd )
-	 }
+        points( mu2, pch = 19, cex = cex, col = colDotsBg )
+        axis( 1, at = c( 0, span, m ),
+            labels = c( -span, 'Center', paste0( '+', span ) ) )
+        abline( v = span, lty = 2, col = 'gray30' )
+        lines( lowess( mu1, f = 1/10 ), col = colLine, lwd = lwd )
+        lines( lowess( mu2, f = 1/10 ), col = colLineBg, lwd = lwd )
+    }
 }
 
 #' Plot heatmap of DNA shape features
@@ -98,40 +109,43 @@ plotShape <- function( shapeMatrix, background = NULL, colDots = rgb( 0, 0, 1, 0
 #' @keywords core
 #' @examples
 #'
+#' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
+#' pred <- getShape(fn)
 #' library(fields)
-#' heatShape(pred$ProT, 20)
 #' heatShape(pred$MGW, 20)
-#' heatShape(pred$Roll[1:500, 1:1980], 20)
-#' heatShape(pred$HelT[1:500, 1:1980], 20)
 #'
 #' @export heatShape
-heatShape <- function( shapeMatrix, nBins, ordRow = NULL, useRaster = TRUE, ... ) {
-	nc <- ncol( shapeMatrix )
-	nr <- nrow( shapeMatrix )
+heatShape <- function( shapeMatrix, nBins, ordRow = NULL,
+                        useRaster = TRUE, ... ) {
+    nc <- ncol( shapeMatrix )
+    nr <- nrow( shapeMatrix )
 
-	if( (nc %% nBins) != 0 )
-		stop( 'The number of bases must be a multiple of the number of bins.' )
+    if( (nc %% nBins) != 0 )
+        stop( 'The number of bases must be a multiple of the number of bins.' )
 
-	d <- nc / nBins
-	by <- rep( 1 : nBins, each = d * nr )
-	matByBins <- split( shapeMatrix, by)
-	matByBins <- lapply( matByBins, function(x) matrix( x, ncol = d, byrow = FALSE ) )
-	bins <- do.call( 'cbind', lapply( matByBins, rowMeans, na.rm = TRUE ) )
+    d <- nc / nBins
+    by <- rep( 1 : nBins, each = d * nr )
+    matByBins <- split( shapeMatrix, by)
+    matByBins <- lapply( matByBins,
+                    function(x) matrix( x, ncol = d, byrow = FALSE ) )
+    bins <- do.call( 'cbind', lapply( matByBins, rowMeans, na.rm = TRUE ) )
 
-	if( is.null( ordRow ) ) {
-		sdRow <- apply( bins, 1, sd )
-    		meanRow <- rowMeans( bins )
-    		cvRow <- abs( sdRow/meanRow )
-    		ordRow <- order( cvRow, decreasing = FALSE )
-	}
+    if( is.null( ordRow ) ) {
+        sdRow <- apply( bins, 1, sd )
+        meanRow <- rowMeans( bins )
+        cvRow <- abs( sdRow/meanRow )
+        ordRow <- order( cvRow, decreasing = FALSE )
+    }
 
-	palCol <- c( 'navyblue', 'white', 'red4' )
-	pal <- colorRampPalette( palCol )( 64 )
-	span <- round( nc / 2 )
+    palCol <- c( 'navyblue', 'white', 'red4' )
+    pal <- colorRampPalette( palCol )( 64 )
+    span <- round( nc / 2 )
 
-	image.plot( t( bins[ rev( ordRow ), ] ), axes = FALSE, col = pal, legend.shrink = 0.2, useRaster = useRaster, ... )
+    image.plot( t( bins[ rev( ordRow ), ] ), axes = FALSE, col = pal,
+        legend.shrink = 0.2, useRaster = useRaster, ... )
     abline(v = 0.5, lwd = 2, lty = 2, col = "white")
-	axis( 1, at = c( 0, 0.5, 1 ), labels = c( -span, 'Center', paste0( '+', span ) ) )
+    axis( 1, at = c( 0, 0.5, 1 ),
+        labels = c( -span, 'Center', paste0( '+', span ) ) )
 }
 
 # 2015 - Tsu-Pei Chiu, Rohs Lab, USC
@@ -158,47 +172,57 @@ heatShape <- function( shapeMatrix, nBins, ordRow = NULL, useRaster = TRUE, ... 
 
 trackShape <- function( filename, shapeList ) {
 
-  records <- scan( filename, what = 'character' )
-  recordStart <- grep( '>', records )
+    records <- scan( filename, what = 'character' )
+    recordStart <- grep( '>', records )
 
-  if( length( recordStart ) > 1 ) { #multiple records
-    stop("Only one sequence file is allowed!")
+    if( length( recordStart ) > 1 ) { #multiple records
+        stop("Only one sequence file is allowed!")
 
-  }else{
-    seq <- unlist(strsplit(scan(filename, what="character", sep="" , comment.char = ">" ), ""))
+    }else{
+        seq <- unlist(strsplit(scan(filename,
+            what="character", sep="" , comment.char = ">" ), ""))
 
-    mgw <- as.vector( shapeList$MGW )
-    prot <- as.vector( shapeList$ProT )
-    roll <- as.vector( shapeList$Roll )
-    helt <- as.vector( shapeList$HelT )
+        mgw <- as.vector( shapeList$MGW )
+        prot <- as.vector( shapeList$ProT )
+        roll <- as.vector( shapeList$Roll )
+        helt <- as.vector( shapeList$HelT )
 
-    mgw <- mgw-2.5
-    helt <- helt-30
+        mgw <- mgw-2.5
+        helt <- helt-30
 
-    mgw[is.na(mgw)] <- 0
-    prot[is.na(prot)] <- 0
-    roll[is.na(roll)] <- 0
-    helt[is.na(helt)] <- 0
+        mgw[is.na(mgw)] <- 0
+        prot[is.na(prot)] <- 0
+        roll[is.na(roll)] <- 0
+        helt[is.na(helt)] <- 0
 
-    roll <- append(roll, 0, after = length(roll)-1)
-    helt <- append(helt, 0, after = length(helt)-1)
+        roll <- append(roll, 0, after = length(roll)-1)
+        helt <- append(helt, 0, after = length(helt)-1)
 
-    mydf <- data.frame(mgw, prot, roll, helt)
-    #print(mydf)
+        mydf <- data.frame(mgw, prot, roll, helt)
+        #print(mydf)
 
-    pos = seq(1, length(seq), 1)
-    pos2 = pos+0.5
+        pos = seq(1, length(seq), 1)
+        pos2 = pos+0.5
 
 
-    par( mfrow = c( 4, 1), oma=c(2,2,2,2), mar=c(4,5,2,2), cex.axis = 1.25, cex.lab = 1.25)
+        par( mfrow = c( 4, 1), oma=c(2,2,2,2), mar=c(4,5,2,2),
+            cex.axis = 1.25, cex.lab = 1.25)
 
-    barplot(mydf$mgw, space = 0, col = "#F59547", border = NA, names.arg = seq, ylab = 'MGW (angstrom)', cex.names = 1.2, offset = 2.5 )
-    barplot(mydf$prot, space = 0, col = "#99BA5B", border = NA, names.arg = seq, ylab = 'ProT (degree)', cex.names = 1.2 )
+        barplot(mydf$mgw, space = 0, col = "#F59547", border = NA,
+            names.arg = seq, ylab = 'MGW (angstrom)',
+                cex.names = 1.2, offset = 2.5 )
+        barplot(mydf$prot, space = 0, col = "#99BA5B", border = NA,
+            names.arg = seq, ylab = 'ProT (degree)',
+                cex.names = 1.2 )
 
-    rollP <- barplot(mydf$roll, space = 0, col = "#A1ACE6", border = NA, ylab = 'Roll (degree)', cex.names = 1.2 )
-    axis(1, at=rollP-(rollP[2]-rollP[1])/2,las=2, labels=seq, tick = FALSE, las=0)
+        rollP <- barplot(mydf$roll, space = 0, col = "#A1ACE6", border = NA,
+            ylab = 'Roll (degree)', cex.names = 1.2 )
+                axis(1, at=rollP-(rollP[2]-rollP[1])/2,las=2,
+                labels=seq, tick = FALSE, las=0)
 
-    helTP <- barplot(mydf$helt, space = 0, col = "#7F64A1", border = NA, ylab = 'HelT (degree)', cex.names = 1.2, offset = 30 )
-    axis(1, at=helTP-(helTP[2]-helTP[1])/2,las=2, labels=seq, tick = FALSE, las=0)
-  }
+        helTP <- barplot(mydf$helt, space = 0, col = "#7F64A1", border = NA,
+                ylab = 'HelT (degree)', cex.names = 1.2, offset = 30 )
+        axis(1, at=helTP-(helTP[2]-helTP[1])/2,las=2,
+                labels=seq, tick = FALSE, las=0)
+    }
 }

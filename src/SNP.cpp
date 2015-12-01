@@ -26,18 +26,18 @@ void SNP_distribution(DNA_to_properties &onemap){
 		    predict_mgw_to_vector(onemap,fragment,d_vector);
 		    matrix.push_back(d_vector);
 		  }
-		  std::cout << std::fixed;
+		  //std::cout << std::fixed;
 		  for (int c1=0; c1<4; c1++)
 		    for (int c2=0; c2<4; c2++)
 		      if (c1!=c2){
 
-			std::cout <<  (left_flank+alphabet[c1]+"/"+alphabet[c2]+right_flank);
-			std::cout << std::setw(8) <<std::setprecision(3) <<pairwise_Euclidean(matrix[c1],matrix[c2]);
+			//std::cout <<  (left_flank+alphabet[c1]+"/"+alphabet[c2]+right_flank);
+			//std::cout << std::setw(8) <<std::setprecision(3) <<pairwise_Euclidean(matrix[c1],matrix[c2]);
 			//std::cout << pairwise_Euclidean(matrix,c);
 			//Calculate the minor groove width of central position
 			//for (int i=0; i<matrix[c].size(); i++)
 			//  std::cout << std::setw(7) <<std::setprecision(3) << matrix[c][i];
-			std::cout << std::endl;
+			//std::cout << std::endl;
 
 		      }
 		}

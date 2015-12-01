@@ -4,16 +4,16 @@
 void output_pentamers_map(DNA_to_properties &pentamers_map,string_vector &object_list,bool inosine){
   DNA_to_properties::const_iterator end = pentamers_map.end();
   for (DNA_to_properties::iterator it = pentamers_map.begin(); it != end; ++it){
-    std::cout<<std::setw(7)<<it->first;
+    //std::cout<<std::setw(7)<<it->first;
     if (!inosine)
-      std::cout <<std::setw(7)<<opposite_strand(it->first);
-    std::cout << std::fixed;
+      //std::cout <<std::setw(7)<<opposite_strand(it->first);
+    //std::cout << std::fixed;
     for (unsigned int i = 0; i < object_list.size(); i++){
-      std::cout << std::setw(7)<< std::setprecision(2)<<it->second.get_ave(object_list[i]);
-      std::cout << std::setw(7)<< std::setprecision(2)<<it->second.get_sd(object_list[i]);
-      std::cout << std::setw(7)<< std::setprecision(2)<<it->second.get_occurence(object_list[i]);
+      //std::cout << std::setw(7)<< std::setprecision(2)<<it->second.get_ave(object_list[i]);
+      //std::cout << std::setw(7)<< std::setprecision(2)<<it->second.get_sd(object_list[i]);
+      //std::cout << std::setw(7)<< std::setprecision(2)<<it->second.get_occurence(object_list[i]);
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
   }
 }
 
@@ -109,16 +109,15 @@ void step_parameters_distribution(DNA_to_properties &pentamers_map,std::string p
     }
   }
 
-  for (Dimer_to_index::iterator it = dimer_map.begin(); it!=dimer_end; ++it){
-    std::cout<<std::endl<<it->first<<"\t"<<value_matrix[it->second].size()<<std::endl;
-    std::cout << std::fixed;
-    for (unsigned int i=0; i<value_matrix[it->second].size(); i++){
-      std::cout << std::setw(7)<< std::setprecision(2)<<value_matrix[it->second][i];
-      std::cout << std::setw(7)<< std::setprecision(2)<<sd_matrix[it->second][i];\
-      std::cout << std::endl;
-    }
-  }
-
+  //for (Dimer_to_index::iterator it = dimer_map.begin(); it!=dimer_end; ++it){
+    //std::cout<<std::endl<<it->first<<"\t"<<value_matrix[it->second].size()<<std::endl;
+    //std::cout << std::fixed;
+  //  for (unsigned int i=0; i<value_matrix[it->second].size(); i++){
+      //std::cout << std::setw(7)<< std::setprecision(2)<<value_matrix[it->second][i];
+      //std::cout << std::setw(7)<< std::setprecision(2)<<sd_matrix[it->second][i];
+      //std::cout << std::endl;
+  //  }
+  //}
 
 }
 
