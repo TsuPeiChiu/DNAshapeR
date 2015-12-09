@@ -4,7 +4,7 @@
 \alias{encodeSeqShape}
 \title{Encode k-mer DNA sequence and n-th order DNA Shape features}
 \usage{
-encodeSeqShape(fastaFileName, shapeMatrix, featureNames)
+encodeSeqShape(fastaFileName, shapeMatrix, featureNames, normalization)
 }
 \arguments{
 \item{fastaFileName}{A character name of the input fasta format file,
@@ -17,6 +17,9 @@ directory.}
 sequence and shape parameters. The parameters can be any combination of
 "k-mer", "n-shape", "n-MGW", "n-ProT", "n-Roll", "n-HelT" (k, n are
 integers)}
+
+\item{normalization}{A boolean value indicate whether to perform
+normalization}
 }
 \value{
 featureVector A matrix containing encoded features. Sequence
