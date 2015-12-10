@@ -1,20 +1,3 @@
-importMethodsFrom(GenomicRanges, resize)
-importMethodsFrom(GenomicRanges, trim)
-
+exportPattern("^[[:alpha:]]+")
 importFrom(Rcpp, evalCpp)
-importFrom(Biostrings, readDNAStringSet)
-importFrom(Biostrings, mkAllStrings)
-importFrom(Biostrings, writeXStringSet)
-importFrom(Biostrings, getSeq)
-
-importFrom(fields, image.plot)
 useDynLib(DNAshapeR)
-
-export(
-    encodeSeqShape,
-    getFasta,
-    getShape,
-    heatShape,
-    plotShape,
-    trackShape
-)
