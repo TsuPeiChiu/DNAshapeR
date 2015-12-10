@@ -8,7 +8,6 @@ importFrom(Biostrings, writeXStringSet)
 importFrom(Biostrings, getSeq)
 
 importFrom(fields, image.plot)
-useDynLib(DNAshapeR)
 
 export(
     encodeSeqShape,
