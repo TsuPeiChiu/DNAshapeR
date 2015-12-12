@@ -29,7 +29,6 @@
 #' derived from different experimental or computational sources will become
 #' available, the package has a flexible modular design that easily allows
 #' future expansions.
-
 #'
 #' @usage getShape(filename, shapeType = 'All', parse = TRUE)
 #'
@@ -73,11 +72,11 @@ getShape <- function(filename, shapeType = 'All', parse = TRUE) {
         message( 'Parsing files......' )
         if( shapeType == 'All' ) {
             ln <- paste0( filename, '.', opts )
-            shapeList <- lapply( ln, parseShape )
+            shapeList <- lapply( ln, readShape )
             names( shapeList ) <- opts
         } else {
             ln <- paste0( filename, '.', shapeType )
-            shapeList <- list( parseShape( ln ) )
+            shapeList <- list( readShape( ln ) )
             names( shapeList ) <- shapeType
         }
         message( 'Done' )
@@ -85,16 +84,31 @@ getShape <- function(filename, shapeType = 'All', parse = TRUE) {
     }
 }
 
-parseShape <- function( filename ) {
+#' Read (parse) DNA shape predictions
+#'
+#' Read DNA shape predictions
+#'
+#' @usage readShape(filename)
+#'
+#' @param filename character name of the file containing shape predictions, including
+#' full path to file if it is located outside the current working directory.
+#'
+#' @return shapeMatrix matrix containing the shape prediction result
+#'
+#' @author Federico Comoglio & Tsu-Pei Chiu
+#'
+#' @keywords core
+#'
+#' @examples
+#'
+#' library(DNAshapeR)
+#' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
+#' pred <- getShape(fn)
+#'
+#' @export readShape
 
-    #extract single record, count entries per record, delete tmp file
-    #cmd <- paste( 'sed -n \'2,/>/p\'', filename, '> tmpsed.txt' )
-    #system( cmd )
-    #expLen <- length( strsplit( paste( readLines( 'tmpsed.txt' ),
-    # collapse = ',' ), ',' )[[ 1 ]] ) - 1
-    #cmd <- 'rm tmpsed.txt'
-    #system( cmd )
-
+readShape <- function( filename ) {
+	
     #read file and parse
     records <- scan( filename, what = 'character' )
     recordStart <- grep( '>', records )

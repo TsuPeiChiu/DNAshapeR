@@ -27,6 +27,7 @@ Suggests:
     AnnotationHub,
     knitr,
     rmarkdown,
+	testthat,
     BSgenome.Scerevisiae.UCSC.sacCer3,
     BSgenome.Hsapiens.UCSC.hg19
 RoxygenNote: 5.0.1
