@@ -1,6 +1,10 @@
-#2015 - Federico Comoglio, D-BSSE, ETH Zurich & Tsu-Pei Chiu, Rohs Lab, USC
-#'
-#'
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# DNAshapeR
+# 2015 
+# Tsu-Pei Chiu, Rohs Lab, USC
+# Federico Comoglio, Green lab, CIMR
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 #' Plot metaprofiles of DNA shape features
 #'
 #' DNAshapeR can be used to generate various graphical representations for
@@ -27,9 +31,11 @@
 #' @param ... DESCR
 #'
 #' @return Called for its effects
-#' @note None.
+#'
 #' @author Federico Comoglio
+#'
 #' @keywords core
+#'
 #' @examples
 #'
 #' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
@@ -104,9 +110,11 @@ plotShape <- function( shapeMatrix, background = NULL,
 #' @param ... DESCR
 #'
 #' @return Called for its effects
-#' @note None.
+#'
 #' @author Federico Comoglio
+#'
 #' @keywords core
+#'
 #' @examples
 #'
 #' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
@@ -115,6 +123,7 @@ plotShape <- function( shapeMatrix, background = NULL,
 #' heatShape(pred$MGW, 20)
 #'
 #' @export heatShape
+
 heatShape <- function( shapeMatrix, nBins, ordRow = NULL,
                         useRaster = TRUE, ... ) {
     nc <- ncol( shapeMatrix )

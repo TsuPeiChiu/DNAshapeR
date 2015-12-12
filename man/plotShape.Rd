@@ -39,9 +39,6 @@ genome browser tracks (Chiu, et al., 2014), or used for the
 assembly of feature vectors that include  a user-defined combination of
 k-mer and DNA shape features (Zhou, et al., 2015)
 }
-\note{
-None.
-}
 \examples{
 
 fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")

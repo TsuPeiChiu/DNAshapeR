@@ -43,20 +43,15 @@ derived from different experimental or computational sources will become
 available, the package has a flexible modular design that easily allows
 future expansions.
 }
+\examples{
+
+library(DNAshapeR)
+fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
+pred <- getShape(fn)
+
+}
 \author{
 Federico Comoglio & Tsu-Pei Chiu
 }
-\keyword{"CGRsample.fa",}
-\keyword{"DNAshapeR")}
-\keyword{#'}
-\keyword{<-}
-\keyword{=}
-\keyword{@examples}
 \keyword{core}
-\keyword{fn}
-\keyword{getShape(fn)}
-\keyword{library(DNAshapeR)}
-\keyword{package}
-\keyword{pred}
-\keyword{system.file("extdata",}
 

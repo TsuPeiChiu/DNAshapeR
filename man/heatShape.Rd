@@ -23,9 +23,6 @@ Called for its effects
 \description{
 Plot heatmap of DNA shape features
 }
-\note{
-None.
-}
 \examples{
 
 fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")

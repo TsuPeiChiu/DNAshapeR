@@ -1,5 +1,9 @@
-#2015 - Federico Comoglio & Tsu-Pei Chiu
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# DNAshapeR
+# 2015 
+# Tsu-Pei Chiu, Rohs Lab, USC
+# Federico Comoglio, Green lab, CIMR
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #' Extract fasta sequence given a set of genomic intervals and a reference
 #' genome.
@@ -18,7 +22,9 @@
 #' @param filename The Name of the input fasta format file, including
 #' full path to file if it is located outside the current working directory
 #' @return writes a fasta file
+#'
 #' @author Federico Comoglio
+#'
 #' @keywords core
 #'
 #' @examples
@@ -32,17 +38,7 @@
 #' pred <- getShape(fn)
 #'
 #' @export getFasta
-# Extract fasta sequence given a set of genomic intervals and a reference
-# genome. Intervals are resized to a fixed width.
-#
-# Args:
-#   GR: character, the filename and/or path to it
-#   BSgenome: character, the type of shape parameter of interest
-#   width:
-#   filename:
-#
-# Error handling
-#   ...
+
 getFasta <- function( GR, BSgenome, width = 1e3, filename = 'tmp.fa' ) {
     GR <- resize( GR, width = width, fix = 'center' )
     seqlengths( GR ) <- seqlengths( BSgenome )[ names( seqlengths( GR ) ) ]
