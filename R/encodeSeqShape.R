@@ -26,7 +26,7 @@
 #' machine learning method.
 #'
 #'
-#' @usage encodeSeqShape(fastaFileName, shapeMatrix, featureNames, normalize)
+#' @usage encodeSeqShape(fastaFileName, shapeMatrix, featureNames, normalization)
 #'
 #' @param fastaFileName A character name of the input fasta format file,
 #' including full path to file if it is located outside the current working
@@ -36,7 +36,7 @@
 #' sequence and shape parameters. The parameters can be any combination of
 #' "k-mer", "n-shape", "n-MGW", "n-ProT", "n-Roll", "n-HelT" (k, n are
 #' integers)
-#' @param normalize A boolean value indicate whether to perform
+#' @param normalization A boolean value indicate whether to perform
 #' normalization. Default to TRUE.
 #' @return featureVector A matrix containing encoded features. Sequence
 #' features are represented as binary numbers, while shape features are
@@ -55,7 +55,7 @@
 #'
 #' @export encodeSeqShape
 
-encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize = TRUE ) {
+encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalization = TRUE ) {
 
     ds <- readDNAStringSet(fastaFileName, "fasta")
 
@@ -71,26 +71,26 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$MGW, "MGW" ), as.numeric( featureName[1] ),
-                            "MGW" , normalize) )
+                            "MGW" , normalization) )
             },
             ProT = { featureVector <- cbind( featureVector,
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$ProT, "ProT" ), as.numeric( featureName[1] ),
-                            "ProT" , normalize) )
+                            "ProT" , normalization) )
             },
             Roll = { featureVector <- cbind( featureVector,
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$Roll, "Roll" ), as.numeric( featureName[1] ),
-                            "Roll" , normalize) )
+                            "Roll" , normalization) )
             },
 
             HelT = { featureVector <- cbind( featureVector,
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$HelT, "HelT" ), as.numeric( featureName[1] ),
-                            "HelT" , normalize) )
+                            "HelT" , normalization) )
             },
 
 
@@ -99,22 +99,22 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$MGW, "MGW" ), as.numeric( featureName[1] ),
-                            "MGW" , normalize ),
+                            "MGW" , normalization ),
 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$ProT, "ProT" ), as.numeric( featureName[1] ),
-                            "ProT" , normalize ),
+                            "ProT" , normalization ),
 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$Roll, "Roll" ), as.numeric( featureName[1] ),
-                            "Roll" , normalize ),
+                            "Roll" , normalization ),
 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$HelT, "HelT" ), as.numeric( featureName[1] ),
-                            "HelT" , normalize )
+                            "HelT" , normalization )
                     )
             }
         )
@@ -206,7 +206,7 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
     }else{
         m <- ncol( shapeMatrix )
         # normalization
-        shapeMatrix <- normalizeShape( featureVector = shapeMatrix, thOrder = 1, shapeType = shapeType, normalize = TRUE )
+        shapeMatrix <- normalizeShape( featureVector = shapeMatrix, thOrder = 1, shapeType = shapeType, normalization = TRUE )
 
         for ( i in 1 : ( m-n+1 )){
             feature <- shapeMatrix[, i]
@@ -223,17 +223,17 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
 
 # normalized n-st order shape features
 #
-# @usage normalizeShape(featureVector, thOrder, shapeType, normalize)
+# @usage normalizeShape(featureVector, thOrder, shapeType, normalization)
 #
 # @param featureVector A matrix containing encoded features.
 # @param thOrder A number indicating n-st order shape encoding
 # @param shapeType A character name of shape (MGW, Roll, ProT, HelT) features
-# @param normalize
+# @param normalization
 # @return featureVector A matrix containing encoded features. shape feature is
 # represented as continuous numbers
 # @author Tsu-Pei Chiu
 #
-normalizeShape <- function( featureVector, thOrder, shapeType, normalize ){
+normalizeShape <- function( featureVector, thOrder, shapeType, normalization ){
     minMGW <- 2.85
     maxMGW <- 6.2
     minProT <- -16.51
@@ -243,7 +243,7 @@ normalizeShape <- function( featureVector, thOrder, shapeType, normalize ){
     minHelT <- 30.94
     maxHelT <- 38.05
 
-    if ( normalize  ){
+    if ( normalization  ){
         if( thOrder == 1){
             switch( shapeType,
                     MGW = {
