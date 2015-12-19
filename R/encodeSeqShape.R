@@ -194,6 +194,9 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
     # trim end columns with NA
     shapeMatrix[ is.na( shapeMatrix ) ] <- 0
     
+    if( nrow(shapeMatrix)[1] == 1 )
+        singleSeq <- TRUE
+    
     if( shapeType == "MGW" || shapeType == "ProT" ){
         shapeMatrix <- shapeMatrix[, -c(1, 2, ncol( shapeMatrix )-1, 
             ncol( shapeMatrix ))]
@@ -201,6 +204,9 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
     }else if( shapeType == "Roll" || shapeType == "HelT" ){
       shapeMatrix <- shapeMatrix[, -c(1, ncol( shapeMatrix ))]
     }
+    
+    if(singleSeq)
+        shapeMatrix <- t(shapeMatrix)
 
     # encode k-st feature
     featureVector <- NULL
