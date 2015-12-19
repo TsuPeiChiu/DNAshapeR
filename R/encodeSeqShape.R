@@ -193,10 +193,14 @@ encodeKMerSeq <- function( k, dnaStringSet ){
 encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
     # trim end columns with NA
     shapeMatrix[ is.na( shapeMatrix ) ] <- 0
-       for( i in c( ncol( shapeMatrix ), ncol( shapeMatrix )-1, 2, 1 ) ){
-           if( all( shapeMatrix[ , i ] == 0 ) == TRUE )
-               shapeMatrix <- shapeMatrix[ , -i ]
-       }
+    
+    if( shapeType == "MGW" || shapeType == "ProT" ){
+        shapeMatrix <- shapeMatrix[, -c(1, 2, ncol( shapeMatrix )-1, 
+            ncol( shapeMatrix ))]
+
+    }else if( shapeType == "Roll" || shapeType == "HelT" ){
+      shapeMatrix <- shapeMatrix[, -c(1, ncol( shapeMatrix ))]
+    }
 
     # encode k-st feature
     featureVector <- NULL
