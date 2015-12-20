@@ -194,6 +194,7 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
     # trim end columns with NA
     shapeMatrix[ is.na( shapeMatrix ) ] <- 0
     
+    singleSeq <- FALSE
     if( nrow(shapeMatrix)[1] == 1 )
         singleSeq <- TRUE
     
