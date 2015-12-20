@@ -4,3 +4,4 @@ DNAshapeR 0.99.0
 FIRST STABLE RELEASE
 
 *  DNA shape feature matrix returned by encodeSeqShape is now normalized by default.
+*  Completed documentation

@@ -7,28 +7,24 @@
 
 #' Plot metaprofiles of DNA shape features
 #'
-#' DNAshapeR can be used to generate various graphical representations for
-#' further analysis. The prediction result can be visualized in the form of
-#' plots (Comoglio, et al., 2015), heat maps (Yang, et al., 2014), or
-#' genome browser tracks (Chiu, et al., 2014), or used for the
-#' assembly of feature vectors that include  a user-defined combination of
-#' k-mer and DNA shape features (Zhou, et al., 2015)
-#'
+#' DNA shape features can be visualized as
+#' aggregated line plots (also known as metaprofiles, see Comoglio et al., 2015), heat maps (Yang et al., 2014) and
+#' genome browser tracks (Chiu et al., 2014). 
 #'
 #' @usage plotShape(shapeMatrix, background = NULL,
 #' colDots = rgb( 0, 0, 1, 0.1),
 #' colDotsBg = rgb( 0, 0, 0, 0.1),
 #' colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ...)
 #'
-#' @param shapeMatrix A matrix containing DNAshape prediction result
-#' @param background DESCR
-#' @param colDots DESCR
-#' @param colDotsBg DESCR
-#' @param colLine DESCR
-#' @param colLineBg DESCR
-#' @param cex DESCR
-#' @param lwd DESCR
-#' @param ... DESCR
+#' @param shapeMatrix A matrix containing DNAshape prediction results
+#' @param background A matrix containing DNAshape prediction results for a set of background regions. Default to NULL, i.e. background not provided.
+#' @param colDots A character vector specifying the color of the points representing the column mean of shapeMatrix. Default to rgb( 0, 0, 1, 0.1).
+#' @param colDotsBg A character vector specifying the color of the points representing the column mean of background. Default to rgb( 0, 0, 0, 0.1).
+#' @param colLine A character string giving the color name of line representing the column mean of shapeMatrix. Default to 'steelblue'.
+#' @param colLineBg A character string giving the color name of line representing the column mean of background. Default to 'gray50'.
+#' @param cex A numerical value giving the amount by which plotting text and symbols should be magnified relative to the default. Default to 0.5.
+#' @param lwd A numerical valus specifying the line width. Default to 2.
+#' @param ... Additional parameters to be passed to the R plot function.
 #'
 #' @return Called for its effects
 #'
@@ -103,11 +99,11 @@ plotShape <- function( shapeMatrix, background = NULL,
 #'
 #' @usage heatShape(shapeMatrix, nBins, ordRow = NULL, useRaster = TRUE, ... )
 #'
-#' @param shapeMatrix A matrix containing DNAshape prediction result
-#' @param nBins DESCR
-#' @param ordRow DESCR
-#' @param useRaster DESCR
-#' @param ... DESCR
+#' @param shapeMatrix A matrix containing DNAshape prediction results.
+#' @param nBins An integer specifying the number of equally-sized bins in which shape predictions should be aggregated. Summarized predictions can be visualized by setting nBins=1.
+#' @param ordRow A numeric vector (of the same length as the number of rows of shapeMatrix) defining the permutation of the rows of shapeMatrix to be used for plotting. Default to NULL, i.e. rows are ordered by coefficients of variation.
+#' @param useRaster Logical, if TRUE a bitmap raster is used to plot the image instead of polygons (see ?graphics::image for details).
+#' @param ... Additional parameters to be passed to the image.plot function (see ?fields::image.plot for details).
 #'
 #' @return Called for its effects
 #'
@@ -163,16 +159,19 @@ heatShape <- function( shapeMatrix, nBins, ordRow = NULL,
 #'
 #' @usage trackShape( filename, shapeList )
 #'
-#' @param filename The Name of the input fasta format file, including
+#' @param filename The name of the input fasta format file, including
 #' full path to file if it is located outside the current working directory
 #' @param shapeList A list containing four DNAshape prediction results
 #'
 #' @return Called for its effects
-#' @note None.
-#' @author Tsu-Pei Chiu
-#' @keywords core
-#' @examples
 #'
+#' @note None.
+#'
+#' @author Tsu-Pei Chiu
+#'
+#' @keywords core
+#'
+#' @examples
 #' fn2 <- system.file("extdata", "SingleSeqsample.fa", package = "DNAshapeR")
 #' pred2 <- getShape(fn2)
 #' trackShape(fn2, pred2) # Only for single sequence file
