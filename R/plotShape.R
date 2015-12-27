@@ -23,7 +23,8 @@
 #' @param colLine A character string giving the color name of line representing the column mean of shapeMatrix. Default to 'steelblue'.
 #' @param colLineBg A character string giving the color name of line representing the column mean of background. Default to 'gray50'.
 #' @param cex A numerical value giving the amount by which plotting text and symbols should be magnified relative to the default. Default to 0.5.
-#' @param lwd A numerical valus specifying the line width. Default to 2.
+#' @param lwd A numerical value specifying the line width. Default to 2.
+#' @param ylim A numerical vector of size 2 specifying the y-axis plot range.
 #' @param ... Additional parameters to be passed to the R plot function.
 #'
 #' @return Called for its effects
@@ -47,14 +48,15 @@ plotShape <- function( shapeMatrix, background = NULL,
                         colDots = rgb( 0, 0, 1, 0.1),
                         colDotsBg = rgb( 0, 0, 0, 0.1),
                         colLine = 'steelblue',
-                        colLineBg = 'gray50', cex = 0.5, lwd = 2, ... ) {
+                        colLineBg = 'gray50', cex = 0.5, lwd = 2, ylim, ... ) {
     n <- nrow( shapeMatrix )
     mu <- colMeans( shapeMatrix, na.rm = TRUE )
     m <- length( mu )
     span <- round( m / 2)
 
     if( is.null( background ) ) {
-        yrange <- range( mu, na.rm = TRUE )
+        if( missing( ylim ) ) 
+			ylim <- range( mu, na.rm = TRUE )
 
         plot( mu,
             col = colDots,
@@ -63,7 +65,7 @@ plotShape <- function( shapeMatrix, background = NULL,
             xaxt = 'n',
             xlab = '',
             ylab = paste0( 'Mean value (n=', n, ')'),
-            ylim = yrange,
+            ylim = ylim,
             ... )
         axis( 1, at = c( 0, span, m ),
           labels = c( -span, 'Center', paste0( '+', span ) ) )
@@ -74,7 +76,9 @@ plotShape <- function( shapeMatrix, background = NULL,
     else { #shape of random sample is provided
         mu1 <- mu
         mu2 <- colMeans( background, na.rm = TRUE )
-        yrange <- range( mu1, mu2, na.rm = TRUE )
+		
+        if( missing( ylim ) ) 
+			ylim <- range( mu1, mu2, na.rm = TRUE )
 
         plot( mu1,
             col = colDots,
@@ -83,7 +87,7 @@ plotShape <- function( shapeMatrix, background = NULL,
             xaxt = 'n',
             xlab = '',
             ylab = paste0( 'Mean value (n=', n, ')'),
-            ylim = yrange,
+            ylim = ylim,
             ... )
 
         points( mu2, pch = 19, cex = cex, col = colDotsBg )

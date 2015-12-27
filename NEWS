@@ -3,5 +3,6 @@ DNAshapeR 0.99.0
 
 FIRST STABLE RELEASE
 
+*  The y-axis plot range in plotShape can now be user-defined.
+*  Completed package documentation.
 *  DNA shape feature matrix returned by encodeSeqShape is now normalized by default.
-*  Completed documentation
