@@ -1,6 +1,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # DNAshapeR
-# 2015 
+# 2015
 # Tsu-Pei Chiu, Rohs Lab, USC
 # Federico Comoglio, Green lab, CIMR
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -38,6 +38,7 @@
 #' integers)
 #' @param normalize A logical indicating whether to perform
 #' normalization. Default to TRUE.
+#' @param genomeName A character name of the reference genome in UCSC genome browser
 #' @return featureVector A matrix containing encoded features. Sequence
 #' features are represented as binary numbers, while shape features are
 #' represented as real numbers.
@@ -55,13 +56,13 @@
 #'
 #' @export encodeSeqShape
 
-encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize = TRUE ) {
+encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize = TRUE, genomeName = NULL ) {
 
     ds <- readDNAStringSet(fastaFileName, "fasta")
 
     featureVector <- c()
-	n <- length( featureNames )
-	
+	  n <- length( featureNames )
+
     for( i in seq_len(n) ){
         featureName <- unlist(strsplit(featureNames[i], "-"))
         switch( featureName[2],
@@ -71,26 +72,26 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$MGW, "MGW" ), as.numeric( featureName[1] ),
-                            "MGW" , normalize) )
+                            "MGW" , normalize, genomeName) )
             },
             ProT = { featureVector <- cbind( featureVector,
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$ProT, "ProT" ), as.numeric( featureName[1] ),
-                            "ProT" , normalize) )
+                            "ProT" , normalize, genomeName) )
             },
             Roll = { featureVector <- cbind( featureVector,
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$Roll, "Roll" ), as.numeric( featureName[1] ),
-                            "Roll" , normalize) )
+                            "Roll" , normalize, genomeName) )
             },
 
             HelT = { featureVector <- cbind( featureVector,
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$HelT, "HelT" ), as.numeric( featureName[1] ),
-                            "HelT" , normalize) )
+                            "HelT" , normalize, genomeName) )
             },
 
 
@@ -99,22 +100,22 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$MGW, "MGW" ), as.numeric( featureName[1] ),
-                            "MGW" , normalize ),
+                            "MGW" , normalize, genomeName ),
 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$ProT, "ProT" ), as.numeric( featureName[1] ),
-                            "ProT" , normalize ),
+                            "ProT" , normalize, genomeName ),
 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$Roll, "Roll" ), as.numeric( featureName[1] ),
-                            "Roll" , normalize ),
+                            "Roll" , normalize, genomeName ),
 
                         normalizeShape(
                             encodeNstOrderShape( as.numeric( featureName[1] ),
                             shapeMatrix$HelT, "HelT" ), as.numeric( featureName[1] ),
-                            "HelT" , normalize )
+                            "HelT" , normalize, genomeName )
                     )
             }
         )
@@ -185,31 +186,32 @@ encodeKMerSeq <- function( k, dnaStringSet ){
 # @param n A number indicating n-st order shape encoding
 # @param shapeMatrix A matrix containing DNAshape prediction result
 # @param shapeType A character name of shape (MGW, Roll, ProT, HelT) features
+# @param genomeName A character name of reference genome in UCSC genome browser
 # @return featureVector A matrix containing encoded features. shape feature is
 # represented as continuous numbers
 # @author Tsu-Pei Chiu
 #
 
-encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
+encodeNstOrderShape <- function( n, shapeMatrix, shapeType, genomeName ){
     # trim end columns with NA
     shapeMatrix[ is.na( shapeMatrix ) ] <- 0
-    
+
     singleSeq <- FALSE
     if( nrow(shapeMatrix)[1] == 1 )
         singleSeq <- TRUE
-    
+
     if( shapeType == "MGW" || shapeType == "ProT" ){
-        shapeMatrix <- shapeMatrix[, -c(1, 2, ncol( shapeMatrix )-1, 
+        shapeMatrix <- shapeMatrix[, -c(1, 2, ncol( shapeMatrix )-1,
             ncol( shapeMatrix ))]
 
     }else if( shapeType == "Roll" || shapeType == "HelT" ){
       shapeMatrix <- shapeMatrix[, -c(1, ncol( shapeMatrix ))]
     }
-    
+
     if(singleSeq)
         shapeMatrix <- t(shapeMatrix)
 
-    # encode k-st feature
+    # encode n-st feature
     featureVector <- NULL
     if( n == 1 ){
         featureVector = shapeMatrix
@@ -217,7 +219,9 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
     }else{
         m <- ncol( shapeMatrix )
         # normalization
-        shapeMatrix <- normalizeShape( featureVector = shapeMatrix, thOrder = 1, shapeType = shapeType, normalize = TRUE )
+        shapeMatrix <- normalizeShape( featureVector = shapeMatrix, thOrder = 1, shapeType = shapeType, normalize = TRUE, genomeName )
+
+
 
         for ( i in 1 : ( m-n+1 )){
             feature <- shapeMatrix[, i]
@@ -240,12 +244,13 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
 # @param thOrder A number indicating n-st order shape encoding
 # @param shapeType A character name of shape (MGW, Roll, ProT, HelT) features
 # @param normalize A logical indicating whether to perform
-#' normalization. Default to TRUE.
+# normalization. Default to TRUE.
+# @param genomeName A character name of reference genome in UCSC genome browser
 # @return featureVector A matrix containing encoded features. shape feature is
 # represented as continuous numbers
 # @author Tsu-Pei Chiu
 #
-normalizeShape <- function( featureVector, thOrder, shapeType, normalize ){
+normalizeShape <- function( featureVector, thOrder, shapeType, normalize, genomeName ){
     minMGW <- 2.85
     maxMGW <- 6.2
     minProT <- -16.51
@@ -273,7 +278,22 @@ normalizeShape <- function( featureVector, thOrder, shapeType, normalize ){
                 )
 
         }else{
-            featureVector <- normalize( featureVector, max(featureVector), min(featureVector) )
+            if( is.null(genomeName) ){
+                featureVector <- normalize( featureVector, max(featureVector), min(featureVector) )
+
+            }else{
+                fn <- system.file("extdata", "2nd_order_reference.dat", package = "DNAshapeR")
+                genomeTable <- read.table(fn)
+                minValue <- genomeTable[ genomeTable$V1 == paste(genomeName, shapeType, "Min", sep = "."), "V2" ]
+                maxValue <- genomeTable[ genomeTable$V1 == paste(genomeName, shapeType, "Max", sep = "."), "V2" ]
+
+                if( is.null(minValue) || is.null(maxValue) ){
+                    featureVector <- normalize( featureVector, max(featureVector), min(featureVector) )
+
+                }else{
+                    featureVector <- normalize( featureVector, maxValue, minValue )
+                }
+            }
         }
     }
 

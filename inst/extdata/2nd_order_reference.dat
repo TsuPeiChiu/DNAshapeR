@@ -1,0 +1,16 @@
+hg19.MGW.Min  0.0218
+hg19.MGW.Max  1
+hg19.ProT.Min 0.0090
+hg19.ProT.Max 0.09515
+hg19.Roll.Min 0.0123
+hg19.Roll.Max 0.7301
+hg19.HelT.Min 0.0024
+hg19.HelT.Max 0.9528
+araTha10.MGW.Min  0.0218
+araTha10.MGW.Max  1
+araTha10.ProT.Min 0.0090
+araTha10.ProT.Max 0.9217
+araTha10.Roll.Min 0.0123
+araTha10.Roll.Max 0.8445
+araTha10.HelT.Min 0.0024
+araTha10.HelT.Max 0.9706
