@@ -18,7 +18,6 @@ Read DNA shape predictions
 }
 \examples{
 
-library(DNAshapeR)
 fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
 pred <- getShape(fn)
 

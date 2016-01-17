@@ -1,14 +1,15 @@
 Package: DNAshapeR
 Type: Package
 Title: High-throughput prediction of DNA shape features
-Version: 0.99.0
-Date: 2015-12-20
+Version: 0.99.1
+Date: 2016-01-17
 Author: Tsu-Pei Chiu and Federico Comoglio
 Maintainer: Tsu-Pei Chiu <tsupeich@usc.edu>
 Description: DNAhapeR is an R/BioConductor package for ultra-fast,
     high-throughput predictions of DNA shape features.
     The package allows to predict,
-    visualize and encode DNA shape features for statistical learning.
+    visualize and encode DNA shape features 
+    for statistical learning.
 License: GPL-2
 biocViews: Software
 LazyData: TRUE
@@ -27,7 +28,7 @@ Suggests:
     AnnotationHub,
     knitr,
     rmarkdown,
-	testthat,
+    testthat,
     BSgenome.Scerevisiae.UCSC.sacCer3,
     BSgenome.Hsapiens.UCSC.hg19
 RoxygenNote: 5.0.1

@@ -7,7 +7,7 @@
 trackShape( filename, shapeList )
 }
 \arguments{
-\item{filename}{The Name of the input fasta format file, including
+\item{filename}{The name of the input fasta format file, including
 full path to file if it is located outside the current working directory}
 
 \item{shapeList}{A list containing four DNAshape prediction results}
@@ -22,7 +22,6 @@ Plot track view of DNA shape features
 None.
 }
 \examples{
-
 fn2 <- system.file("extdata", "SingleSeqsample.fa", package = "DNAshapeR")
 pred2 <- getShape(fn2)
 trackShape(fn2, pred2) # Only for single sequence file

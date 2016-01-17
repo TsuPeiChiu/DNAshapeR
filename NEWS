@@ -1,7 +1,12 @@
-DNAshapeR 0.99.0
+DNAshapeR
 --------------
 
-FIRST STABLE RELEASE
+CHANGES IN VERSION 0.99.1
+
+*  Added documentation for the normalizeShape function. A manual entry is now also available for most non-exported functions.
+*  Added citation entry.
+
+CHANGES IN VERSION 0.99.0 (first stable release)
 
 *  normalization parameter in encodeSeqShape.R changed to normalize.
 *  The y-axis plot range in plotShape can now be defined by the user.

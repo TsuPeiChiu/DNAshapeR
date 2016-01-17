@@ -124,23 +124,22 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
 }
 
 
-# Encode k-mer DNA sequence features
-#
-# DNAshapeR can be used to generate feature vectors for a user-defined model.
-# The model can be a k-mer sequence. Sequence is encoded in four binary
-# features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine,
-# 0100 for guanine, and 1000 for thymine) at each nucleotide position
-# (Zhou, et al., 2015). The function permits an encoding of 2-mers and 3-mers
-# (16 and 64 binary features at each position, respectively).
-#
-# @usage encodeKMerSeq(k, dnaStringSet)
-#
-# @param k A number indicating k-mer sequence encoding
-# @param dnaStringSet A DNAStringSet object of the inputted fasta file
-# @return featureVector A matrix containing encoded features. Sequence
-# feature is represented as binary numbers
-# @author Tsu-Pei Chiu
-#
+#' Encode k-mer DNA sequence features
+#'
+#' DNAshapeR can be used to generate feature vectors for a user-defined model.
+#' The model can be a k-mer sequence. Sequence is encoded in four binary
+#' features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine,
+#' 0100 for guanine, and 1000 for thymine) at each nucleotide position
+#' (Zhou, et al., 2015). The function permits an encoding of 2-mers and 3-mers
+#' (16 and 64 binary features at each position, respectively).
+#'
+#' @usage encodeKMerSeq(k, dnaStringSet)
+#'
+#' @param k A number indicating k-mer sequence encoding
+#' @param dnaStringSet A DNAStringSet object of the inputted fasta file
+#' @return featureVector A matrix containing encoded features. Sequence
+#' feature is represented as binary numbers
+#' @author Tsu-Pei Chiu
 
 encodeKMerSeq <- function( k, dnaStringSet ){
     # create a lookup table
@@ -172,23 +171,22 @@ encodeKMerSeq <- function( k, dnaStringSet ){
 }
 
 
-# Encode n-st order shape features
+#' Encode n-st order shape features
 #
-# DNAshapeR can be used to generate feature vectors for a user-defined model.
-# The model can be a shape model. There are four structural parameters
-# including MGW, Roll, ProT and HelT. The second order shape features are
-# product terms of values for the same category of shape features at adjacent
-# positions.
-#
-# @usage encodeNstOrderShape(n, shapeMatrix)
-#
-# @param n A number indicating n-st order shape encoding
-# @param shapeMatrix A matrix containing DNAshape prediction result
-# @param shapeType A character name of shape (MGW, Roll, ProT, HelT) features
-# @return featureVector A matrix containing encoded features. shape feature is
-# represented as continuous numbers
-# @author Tsu-Pei Chiu
-#
+#' DNAshapeR can be used to generate feature vectors for a user-defined model.
+#' The model can be a shape model. There are four structural parameters
+#' including MGW, Roll, ProT and HelT. The second order shape features are
+#' product terms of values for the same category of shape features at adjacent
+#' positions.
+#'
+#' @usage encodeNstOrderShape(n, shapeMatrix, shapeType)
+#'
+#' @param n A number indicating n-st order shape encoding
+#' @param shapeMatrix A matrix containing DNAshape prediction result
+#' @param shapeType A character name of shape (MGW, Roll, ProT, HelT) features
+#' @return featureVector A matrix containing encoded features. shape feature is
+#' represented as continuous numbers
+#' @author Tsu-Pei Chiu
 
 encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
     # trim end columns with NA
@@ -232,19 +230,18 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
 }
 
 
-# normalized n-st order shape features
-#
-# @usage normalizeShape(featureVector, thOrder, shapeType, normalize)
-#
-# @param featureVector A matrix containing encoded features.
-# @param thOrder A number indicating n-st order shape encoding
-# @param shapeType A character name of shape (MGW, Roll, ProT, HelT) features
-# @param normalize A logical indicating whether to perform
+#' Normalize n-st order shape features
+#'
+#' @usage normalizeShape(featureVector, thOrder, shapeType, normalize)
+#'
+#' @param featureVector A matrix containing encoded features.
+#' @param thOrder A number indicating n-st order shape encoding
+#' @param shapeType A character name of shape (MGW, Roll, ProT, HelT) features
+#' @param normalize A logical indicating whether to perform
 #' normalization. Default to TRUE.
-# @return featureVector A matrix containing encoded features. shape feature is
-# represented as continuous numbers
-# @author Tsu-Pei Chiu
-#
+#' @return featureVector A matrix containing encoded features.
+#' @author Tsu-Pei Chiu
+
 normalizeShape <- function( featureVector, thOrder, shapeType, normalize ){
     minMGW <- 2.85
     maxMGW <- 6.2
@@ -281,17 +278,17 @@ normalizeShape <- function( featureVector, thOrder, shapeType, normalize ){
 }
 
 
-# Min-Max normalization
-#
-# @usage normalize(x, max, min)
-#
-# @param x A matrix containing encoded features
-# @param max A number maximum number for Min-Max Normalization
-# @param min A number minimum number for Min-Max Normalization
-# @return  featureVector A matrix containing encoded features. shape feature is
-# represented as continuous numbers
-# @author Tsu-Pei Chiu
-#
+#' Min-Max normalization
+#'
+#' @usage normalize(x, max, min)
+#'
+#' @param x A matrix containing encoded features
+#' @param max A number maximum number for Min-Max Normalization
+#' @param min A number minimum number for Min-Max Normalization
+#' @return  featureVector A matrix containing encoded features. shape feature is
+#' represented as continuous numbers
+#' @author Tsu-Pei Chiu
+
 normalize <- function( x, max, min ){
   return ( (x-min)/(max-min) )
 }

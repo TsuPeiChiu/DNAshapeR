@@ -10,34 +10,33 @@ colDotsBg = rgb( 0, 0, 0, 0.1),
 colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ...)
 }
 \arguments{
-\item{shapeMatrix}{A matrix containing DNAshape prediction result}
+\item{shapeMatrix}{A matrix containing DNAshape prediction results}
 
-\item{background}{DESCR}
+\item{background}{A matrix containing DNAshape prediction results for a set of background regions. Default to NULL, i.e. background not provided.}
 
-\item{colDots}{DESCR}
+\item{colDots}{A character vector specifying the color of the points representing the column mean of shapeMatrix. Default to rgb( 0, 0, 1, 0.1).}
 
-\item{colDotsBg}{DESCR}
+\item{colDotsBg}{A character vector specifying the color of the points representing the column mean of background. Default to rgb( 0, 0, 0, 0.1).}
 
-\item{colLine}{DESCR}
+\item{colLine}{A character string giving the color name of line representing the column mean of shapeMatrix. Default to 'steelblue'.}
 
-\item{colLineBg}{DESCR}
+\item{colLineBg}{A character string giving the color name of line representing the column mean of background. Default to 'gray50'.}
 
-\item{cex}{DESCR}
+\item{cex}{A numerical value giving the amount by which plotting text and symbols should be magnified relative to the default. Default to 0.5.}
 
-\item{lwd}{DESCR}
+\item{lwd}{A numerical value specifying the line width. Default to 2.}
 
-\item{...}{DESCR}
+\item{ylim}{A numerical vector of size 2 specifying the y-axis plot range.}
+
+\item{...}{Additional parameters to be passed to the R plot function.}
 }
 \value{
 Called for its effects
 }
 \description{
-DNAshapeR can be used to generate various graphical representations for
-further analysis. The prediction result can be visualized in the form of
-plots (Comoglio, et al., 2015), heat maps (Yang, et al., 2014), or
-genome browser tracks (Chiu, et al., 2014), or used for the
-assembly of feature vectors that include  a user-defined combination of
-k-mer and DNA shape features (Zhou, et al., 2015)
+DNA shape features can be visualized as
+aggregated line plots (also known as metaprofiles, see Comoglio et al., 2015), heat maps (Yang et al., 2014) and
+genome browser tracks (Chiu et al., 2014).
 }
 \examples{
 

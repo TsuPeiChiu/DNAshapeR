@@ -1,6 +1,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # DNAshapeR
-# 2015 
+# 2015,2016 
 # Tsu-Pei Chiu, Rohs Lab, USC
 # Federico Comoglio, Green lab, CIMR
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -18,7 +18,7 @@
 #'
 #' DNAshapeR reference:
 #' 
-#' T.-P. Chiu*, F. Comoglio*, T. Zhou, L. Yang, R. Paro, and R. Rohs: DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding (2015). Bioinformatics. In press. \url{}
+#' T.-P. Chiu*, F. Comoglio*, T. Zhou, L. Yang, R. Paro, and R. Rohs: DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding (2016). Bioinformatics \url{http://bioinformatics.oxfordjournals.org/content/early/2016/01/09/bioinformatics.btv735} (*equal contributor in alphabetic order)
 #'
 #' @author Tsu-Pei Chiu and Federico Comoglio
 #' 

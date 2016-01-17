@@ -18,7 +18,7 @@ sequence and shape parameters. The parameters can be any combination of
 "k-mer", "n-shape", "n-MGW", "n-ProT", "n-Roll", "n-HelT" (k, n are
 integers)}
 
-\item{normalize}{A boolean value indicate whether to perform
+\item{normalize}{A logical indicating whether to perform
 normalization. Default to TRUE.}
 }
 \value{
