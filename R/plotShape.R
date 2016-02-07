@@ -14,7 +14,7 @@
 #' @usage plotShape(shapeMatrix, background = NULL,
 #' colDots = rgb( 0, 0, 1, 0.1),
 #' colDotsBg = rgb( 0, 0, 0, 0.1),
-#' colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ...)
+#' colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ylim, ...)
 #'
 #' @param shapeMatrix A matrix containing DNAshape prediction results
 #' @param background A matrix containing DNAshape prediction results for a set of background regions. Default to NULL, i.e. background not provided.

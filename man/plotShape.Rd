@@ -7,7 +7,7 @@
 plotShape(shapeMatrix, background = NULL,
 colDots = rgb( 0, 0, 1, 0.1),
 colDotsBg = rgb( 0, 0, 0, 0.1),
-colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ...)
+colLine = 'steelblue', colLineBg = 'gray50', cex = 0.5, lwd = 2, ylim, ...)
 }
 \arguments{
 \item{shapeMatrix}{A matrix containing DNAshape prediction results}
