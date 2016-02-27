@@ -1,6 +1,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # DNAshapeR
-# 2015 
+# 2015
 # Tsu-Pei Chiu, Rohs Lab, USC
 # Federico Comoglio, Green lab, CIMR
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,10 +46,8 @@
 #' @keywords core
 #'
 #' @examples
-#'
 #' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
 #' pred <- getShape(fn)
-#'
 #' @export getShape
 
 getShape <- function(filename, shapeType = 'All', parse = TRUE) {
@@ -99,14 +97,12 @@ getShape <- function(filename, shapeType = 'All', parse = TRUE) {
 #' @keywords core
 #'
 #' @examples
-#'
 #' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
-#' pred <- getShape(fn)
-#'
+#' pred <- readShape(fn)
 #' @export readShape
 
 readShape <- function( filename ) {
-	
+
     #read file and parse
     records <- scan( filename, what = 'character' )
     recordStart <- grep( '>', records )

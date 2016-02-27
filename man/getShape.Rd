@@ -44,10 +44,8 @@ available, the package has a flexible modular design that easily allows
 future expansions.
 }
 \examples{
-
 fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
 pred <- getShape(fn)
-
 }
 \author{
 Federico Comoglio & Tsu-Pei Chiu

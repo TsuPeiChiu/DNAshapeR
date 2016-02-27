@@ -67,7 +67,10 @@ reference genome is required. Several reference genomes are available
 within BioConductor as BSgenome objects 
 (see <http://bioconductor.org/packages/release/bioc/html/BSgenome.html> 
 for more information). For example, the sacCer3 release of the *S.Cerevisiae* 
-genome can be retrieved by
+genome can be retrieved. Given a reference genome, the **getFasta** function first extracts the DNA 
+sequences based on the provided genomic coordinates, and then performs shape 
+predictions within a user-defined window (of size equal to width, 100 bp in 
+the example below) computed from the center of each genomic interval:
 
 ```{r eval=FALSE}
 # Install Bioconductor packages
@@ -75,14 +78,7 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("BSgenome.Scerevisiae.UCSC.sacCer3")
 
 library(BSgenome.Scerevisiae.UCSC.sacCer3)
-```
 
-Given a reference genome, the **getFasta** function first extracts the DNA 
-sequences based on the provided genomic coordinates, and then performs shape 
-predictions within a user-defined window (of size equal to width, 100 bp in 
-the example below) computed from the center of each genomic interval:
-
-```{r eval=FALSE}
 # Create a query GRanges object
 gr <- GRanges(seqnames = c("chrI"),
             strand = c("+", "-", "+"),
@@ -98,19 +94,14 @@ The genomic intervals can also be obtained from public domain projects,
 including ENCODE, NCBI, Ensembl, etc. The AnnotationHub package 
 (see <http://bioconductor.org/packages/release/bioc/html/AnnotationHub.html> 
 for more information) provides an interface to retrieve genomic intervals 
-from these multiple online project resources.
+from these multiple online project resources.The genomic intervals of interest can be selected progressively through the functions of **sebset** and **query** with keywords, and can be subjected as 
+an input of GRanges object to **getFasta** function.
 
 ```{r eval=FALSE}
 # Install Bioconductor packages
 library(BSgenome.Hsapiens.UCSC.hg19)
 library(AnnotationHub)
-```
 
-The genomic intervals of interest can be selected progressively through the 
-functions of **sebset** and **query** with keywords, and can be subjected as 
-an input of GRanges object to **getFasta** function.
-
-```{r eval=FALSE}
 ah <- AnnotationHub()
 ah <- subset(ah, species=="Homo sapiens")
 ah <- query(ah, c("H3K4me3", "Gm12878", "Roadmap"))
@@ -184,11 +175,13 @@ any combination of characters of “k-mer”, “n-shape”, “n-MGW”, “n-P
 “n-Roll”, “n-HelT” (k, n are integers) where “1-shape” refers to first 
 order and “2-shape” to second order shape features.
 
-```{r eval=FALSE}
+```{r eval=TRUE}
 library(Biostrings)
-featureType <- c("1-shape", "1-shape")
-featureVector <- encodeSeqShape(fn, pred, featureType)
-featureVector
+fn3 <- system.file("extdata", "SELEXsample_short.fa", package = "DNAshapeR")
+pred3 <- getShape(fn3)
+featureType <- c("1-mer", "1-shape")
+featureVector <- encodeSeqShape(fn3, pred3, featureType)
+head(featureVector)
 ```
 
 ### Showcase of statistical machine learning application
@@ -201,25 +194,25 @@ below.
 First, pre-computed binding affinity values are combined with experimental 
 information in a data frame structure.
 
-```{r eval=FALSE}
-filename3 <- system.file("extdata", "SELEXsample.s", package = "DNAshapeR")
-experimentalData <- read.table(filename3)
+```{r eval=TRUE}
+fn4 <- system.file("extdata", "SELEXsample_short.s", package = "DNAshapeR")
+experimentalData <- read.table(fn4)
 df <- data.frame(affinity=experimentalData$V1, featureVector)
 ```
 
 Then, a machine learning package (which can be any learning tools) is used 
-to train a multiple linear regression (MLR) model based on 10-fold 
+to train a multiple linear regression (MLR) model based on 3-fold 
 cross-validation. In this example, we used the caret package 
 (see <http://caret.r-forge.r-project.org/> for more information).
 
-```{r eval=FALSE}
+```{r eval=TRUE}
 library(caret)
 
-trainControl <- trainControl(method = "cv", number = 10, 
+trainControl <- trainControl(method = "cv", number = 3, 
                 savePredictions = TRUE)
 model <- train (affinity~ ., data = df, 
                 trControl=trainControl, method="lm", preProcess=NULL)
-summary(model)
+model
 ```
 
 

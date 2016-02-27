@@ -1,6 +1,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # DNAshapeR
-# 2015 
+# 2015
 # Tsu-Pei Chiu, Rohs Lab, USC
 # Federico Comoglio, Green lab, CIMR
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +9,7 @@
 #'
 #' DNA shape features can be visualized as
 #' aggregated line plots (also known as metaprofiles, see Comoglio et al., 2015), heat maps (Yang et al., 2014) and
-#' genome browser tracks (Chiu et al., 2014). 
+#' genome browser tracks (Chiu et al., 2014).
 #'
 #' @usage plotShape(shapeMatrix, background = NULL,
 #' colDots = rgb( 0, 0, 1, 0.1),
@@ -34,14 +34,12 @@
 #' @keywords core
 #'
 #' @examples
-#'
 #' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
 #' pred <- getShape(fn)
 #' plotShape(pred$MGW)
 #' plotShape(pred$ProT)
 #' plotShape(pred$Roll)
 #' plotShape(pred$HelT)
-#'
 #' @export plotShape
 
 plotShape <- function( shapeMatrix, background = NULL,
@@ -55,7 +53,7 @@ plotShape <- function( shapeMatrix, background = NULL,
     span <- round( m / 2)
 
     if( is.null( background ) ) {
-        if( missing( ylim ) ) 
+        if( missing( ylim ) )
 			ylim <- range( mu, na.rm = TRUE )
 
         plot( mu,
@@ -76,8 +74,8 @@ plotShape <- function( shapeMatrix, background = NULL,
     else { #shape of random sample is provided
         mu1 <- mu
         mu2 <- colMeans( background, na.rm = TRUE )
-		
-        if( missing( ylim ) ) 
+
+        if( missing( ylim ) )
 			ylim <- range( mu1, mu2, na.rm = TRUE )
 
         plot( mu1,
@@ -116,12 +114,10 @@ plotShape <- function( shapeMatrix, background = NULL,
 #' @keywords core
 #'
 #' @examples
-#'
 #' fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
 #' pred <- getShape(fn)
 #' library(fields)
 #' heatShape(pred$MGW, 20)
-#'
 #' @export heatShape
 
 heatShape <- function( shapeMatrix, nBins, ordRow = NULL,
@@ -179,7 +175,6 @@ heatShape <- function( shapeMatrix, nBins, ordRow = NULL,
 #' fn2 <- system.file("extdata", "SingleSeqsample.fa", package = "DNAshapeR")
 #' pred2 <- getShape(fn2)
 #' trackShape(fn2, pred2) # Only for single sequence file
-#'
 #' @export trackShape
 
 trackShape <- function( filename, shapeList ) {

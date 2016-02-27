@@ -24,12 +24,10 @@ Called for its effects
 Plot heatmap of DNA shape features
 }
 \examples{
-
 fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
 pred <- getShape(fn)
 library(fields)
 heatShape(pred$MGW, 20)
-
 }
 \author{
 Federico Comoglio

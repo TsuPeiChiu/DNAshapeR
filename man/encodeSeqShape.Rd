@@ -46,12 +46,10 @@ vector. The output of this function can be used directly for any statistical
 machine learning method.
 }
 \examples{
-
 fn <- system.file("extdata", "CGRsample_short.fa", package = "DNAshapeR")
 pred <- getShape(fn)
 featureNames <- c("1-shape")
 featureVector <- encodeSeqShape(fn, pred, featureNames)
-
 }
 \author{
 Tsu-Pei Chiu

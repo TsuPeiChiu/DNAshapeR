@@ -1,6 +1,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # DNAshapeR
-# 2015 
+# 2015
 # Tsu-Pei Chiu, Rohs Lab, USC
 # Federico Comoglio, Green lab, CIMR
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,12 +47,10 @@
 #' @keywords core
 #'
 #' @examples
-#'
 #' fn <- system.file("extdata", "CGRsample_short.fa", package = "DNAshapeR")
 #' pred <- getShape(fn)
 #' featureNames <- c("1-shape")
 #' featureVector <- encodeSeqShape(fn, pred, featureNames)
-#'
 #' @export encodeSeqShape
 
 encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize = TRUE ) {
@@ -61,7 +59,7 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
 
     featureVector <- c()
 	n <- length( featureNames )
-	
+
     for( i in seq_len(n) ){
         featureName <- unlist(strsplit(featureNames[i], "-"))
         switch( featureName[2],
@@ -191,19 +189,19 @@ encodeKMerSeq <- function( k, dnaStringSet ){
 encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
     # trim end columns with NA
     shapeMatrix[ is.na( shapeMatrix ) ] <- 0
-    
+
     singleSeq <- FALSE
     if( nrow(shapeMatrix)[1] == 1 )
         singleSeq <- TRUE
-    
+
     if( shapeType == "MGW" || shapeType == "ProT" ){
-        shapeMatrix <- shapeMatrix[, -c(1, 2, ncol( shapeMatrix )-1, 
+        shapeMatrix <- shapeMatrix[, -c(1, 2, ncol( shapeMatrix )-1,
             ncol( shapeMatrix ))]
 
     }else if( shapeType == "Roll" || shapeType == "HelT" ){
       shapeMatrix <- shapeMatrix[, -c(1, ncol( shapeMatrix ))]
     }
-    
+
     if(singleSeq)
         shapeMatrix <- t(shapeMatrix)
 

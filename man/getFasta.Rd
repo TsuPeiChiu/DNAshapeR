@@ -28,7 +28,6 @@ from genomic coordinates in the form of a GRanges object within BioConductor
 for more information).
 }
 \examples{
-
 gr <- GRanges(seqnames = c("chrI"),
 strand = c("+", "-", "+"),
 ranges = IRanges(start = c(100, 200, 300), width = 100))
@@ -36,7 +35,6 @@ library(BSgenome.Scerevisiae.UCSC.sacCer3)
 getFasta(gr, BSgenome = Scerevisiae, width = 100, filename = "tmp.fa")
 fn <- "tmp.fa"
 pred <- getShape(fn)
-
 }
 \author{
 Federico Comoglio

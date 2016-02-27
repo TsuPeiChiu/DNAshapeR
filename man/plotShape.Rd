@@ -39,14 +39,12 @@ aggregated line plots (also known as metaprofiles, see Comoglio et al., 2015), h
 genome browser tracks (Chiu et al., 2014).
 }
 \examples{
-
 fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
 pred <- getShape(fn)
 plotShape(pred$MGW)
 plotShape(pred$ProT)
 plotShape(pred$Roll)
 plotShape(pred$HelT)
-
 }
 \author{
 Federico Comoglio

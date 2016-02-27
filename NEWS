@@ -1,6 +1,11 @@
 DNAshapeR
 --------------
 
+CHANGES IN VERSION 0.99.3
+
+* Fixed warnings from R CMD Check.
+* Evaluated more vignette chunks.
+
 CHANGES IN VERSION 0.99.1
 
 *  Added documentation for the normalizeShape function. A manual entry is now also available for most non-exported functions.

@@ -1,6 +1,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # DNAshapeR
-# 2015 
+# 2015
 # Tsu-Pei Chiu, Rohs Lab, USC
 # Federico Comoglio, Green lab, CIMR
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,7 +28,6 @@
 #' @keywords core
 #'
 #' @examples
-#'
 #' gr <- GRanges(seqnames = c("chrI"),
 #' strand = c("+", "-", "+"),
 #' ranges = IRanges(start = c(100, 200, 300), width = 100))
@@ -36,11 +35,12 @@
 #' getFasta(gr, BSgenome = Scerevisiae, width = 100, filename = "tmp.fa")
 #' fn <- "tmp.fa"
 #' pred <- getShape(fn)
-#'
 #' @export getFasta
 
 getFasta <- function( GR, BSgenome, width = 1e3, filename = 'tmp.fa' ) {
     GR <- resize( GR, width = width, fix = 'center' )
+    seqlengths <- NULL
+    `seqlengths<-`<- NULL
     seqlengths( GR ) <- seqlengths( BSgenome )[ names( seqlengths( GR ) ) ]
     GR <- trim( GR )
 

@@ -25,7 +25,6 @@ None.
 fn2 <- system.file("extdata", "SingleSeqsample.fa", package = "DNAshapeR")
 pred2 <- getShape(fn2)
 trackShape(fn2, pred2) # Only for single sequence file
-
 }
 \author{
 Tsu-Pei Chiu

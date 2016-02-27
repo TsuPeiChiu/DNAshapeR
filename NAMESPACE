@@ -1,5 +1,4 @@
-importMethodsFrom(GenomicRanges, resize)
-importMethodsFrom(GenomicRanges, trim)
+import(GenomicRanges)
 
 importFrom(Rcpp, evalCpp)
 importFrom(Biostrings, readDNAStringSet)
@@ -16,7 +15,7 @@ export(
     getFasta,
     getShape,
     heatShape,
-	readShape,
+	  readShape,
     plotShape,
     trackShape
 )

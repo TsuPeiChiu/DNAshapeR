@@ -17,10 +17,8 @@ shapeMatrix matrix containing the shape prediction result
 Read DNA shape predictions
 }
 \examples{
-
 fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
-pred <- getShape(fn)
-
+pred <- readShape(fn)
 }
 \author{
 Federico Comoglio & Tsu-Pei Chiu
