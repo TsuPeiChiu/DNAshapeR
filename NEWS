@@ -1,6 +1,10 @@
 DNAshapeR
 --------------
 
+CHANGES IN VERSION 0.99.4
+
+* Added caret package to the SUGGESTIONS in DESCRIPTION.
+
 CHANGES IN VERSION 0.99.3
 
 * Fixed warnings from R CMD Check.

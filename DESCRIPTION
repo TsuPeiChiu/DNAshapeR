@@ -1,8 +1,8 @@
 Package: DNAshapeR
 Type: Package
 Title: High-throughput prediction of DNA shape features
-Version: 0.99.3
-Date: 2016-02-26
+Version: 0.99.4
+Date: 2016-03-4
 Author: Tsu-Pei Chiu and Federico Comoglio
 Maintainer: Tsu-Pei Chiu <tsupeich@usc.edu>
 Description: DNAhapeR is an R/BioConductor package for ultra-fast,
@@ -22,7 +22,7 @@ Imports:
     fields
 LinkingTo: Rcpp
 NeedsCompilation: yes
-Packaged: 2016-2-26 23:45:44 UTC; tsupeich
+Packaged: 2016-3-4 9:47:44 UTC; tsupeich
 VignetteBuilder: knitr
 Suggests:
     AnnotationHub,
@@ -30,5 +30,6 @@ Suggests:
     rmarkdown,
     testthat,
     BSgenome.Scerevisiae.UCSC.sacCer3,
-    BSgenome.Hsapiens.UCSC.hg19
+    BSgenome.Hsapiens.UCSC.hg19,
+    caret
 RoxygenNote: 5.0.1
