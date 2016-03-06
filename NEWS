@@ -1,6 +1,11 @@
 DNAshapeR
 --------------
 
+CHANGES IN VERSION 0.99.5
+
+* Upgraded R dependency version to 3.3.
+* Added importFrom methods in NAMESPACE.
+
 CHANGES IN VERSION 0.99.4
 
 * Added caret package to the SUGGESTIONS in DESCRIPTION.
