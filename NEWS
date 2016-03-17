@@ -1,0 +1,28 @@
+DNAshapeR
+--------------
+
+CHANGES IN VERSION 0.99.5
+
+* Upgraded R dependency version to 3.3.
+* Added importFrom methods in NAMESPACE.
+
+CHANGES IN VERSION 0.99.4
+
+* Added caret package to the SUGGESTIONS in DESCRIPTION.
+
+CHANGES IN VERSION 0.99.3
+
+* Fixed warnings from R CMD Check.
+* Evaluated more vignette chunks.
+
+CHANGES IN VERSION 0.99.1
+
+*  Added documentation for the normalizeShape function. A manual entry is now also available for most non-exported functions.
+*  Added citation entry.
+
+CHANGES IN VERSION 0.99.0 (first stable release)
+
+*  normalization parameter in encodeSeqShape.R changed to normalize.
+*  The y-axis plot range in plotShape can now be defined by the user.
+*  Completed package documentation.
+*  DNA shape feature matrix returned by encodeSeqShape is now normalized by default.

@@ -1,0 +1,25 @@
+import(GenomicRanges)
+
+importFrom(Rcpp, evalCpp)
+importFrom(Biostrings, readDNAStringSet)
+importFrom(Biostrings, mkAllStrings)
+importFrom(Biostrings, writeXStringSet)
+importFrom(Biostrings, getSeq)
+
+importFrom("grDevices", "colorRampPalette", "rgb")
+importFrom("graphics", "abline", "axis", "barplot", "lines", "par", "plot", "points")
+importFrom("stats", "lowess", "sd")
+
+
+importFrom(fields, image.plot)
+useDynLib(DNAshapeR)
+
+export(
+    encodeSeqShape,
+    getFasta,
+    getShape,
+    heatShape,
+	  readShape,
+    plotShape,
+    trackShape
+)

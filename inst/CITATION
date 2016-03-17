@@ -1,0 +1,24 @@
+citEntry(entry="article",
+         title = "DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding",
+         author = personList( as.person("T-P Chiu"), 
+					as.person("F Comoglio"),
+					as.person("T Zhou"),
+					as.person("L Yang"),
+                    as.person("R Paro"),
+					as.person("R Rohs")),
+         year = "2015",
+         journal = "Bioinformatics",
+         volume = "",
+         pages = "",
+         doi = "",
+         url = "",
+         
+         textVersion = 
+         paste("T.-P. Chiu*, F. Comoglio*, T. Zhou, L. Yang, R. Paro, and R. Rohs (2015)", 
+               "DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding.",
+               "Bioinformatics. In press." ) )
+				
+				
+				
+				
+				
