@@ -57,7 +57,7 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
     ds <- readDNAStringSet(fastaFileName, "fasta")
 
     featureVector <- c()
-	  n <- length( featureNames )
+    n <- length( featureNames )
 
     for( i in seq_len(n) ){
         featureName <- unlist(strsplit(featureNames[i], "-"))
@@ -116,7 +116,7 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
         )
     }
 
-	  return (featureVector)
+    return (featureVector)
 }
 
 
