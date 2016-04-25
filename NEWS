@@ -1,6 +1,9 @@
 DNAshapeR
 --------------
 
+CHANGES IN VERSION 0.99.6
+* corrected the terms of BioView in DESCRIPTION.
+
 CHANGES IN VERSION 0.99.5
 
 * Upgraded R dependency version to 3.3.
