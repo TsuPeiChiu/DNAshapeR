@@ -1,6 +1,9 @@
 DNAshapeR
 --------------
 
+CHANGES IN VERSION 0.99.7
+* improved the performace of sequence encoding process.
+
 CHANGES IN VERSION 0.99.6
 * corrected the terms of BioView in DESCRIPTION.
 
