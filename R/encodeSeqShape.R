@@ -54,11 +54,10 @@
 #' @export encodeSeqShape
 
 encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize = TRUE ) {
-
     ds <- readDNAStringSet(fastaFileName, "fasta")
 
     featureVector <- c()
-	n <- length( featureNames )
+    n <- length( featureNames )
 
     for( i in seq_len(n) ){
         featureName <- unlist(strsplit(featureNames[i], "-"))
@@ -91,7 +90,6 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
                             "HelT" , normalize) )
             },
 
-
             shape = {
                     featureVector <- cbind( featureVector,
                         normalizeShape(
@@ -114,7 +112,7 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
                             shapeMatrix$HelT, "HelT" ), as.numeric( featureName[1] ),
                             "HelT" , normalize )
                     )
-            }
+              }
         )
     }
 
@@ -144,24 +142,27 @@ encodeKMerSeq <- function( k, dnaStringSet ){
     lookupTable <- diag( 4**k )
     row.names( lookupTable ) <- mkAllStrings( c( "A", "C", "G", "T" ), k )
 
-    featureVector <- c()
+    # pre-allocate the featureVector
+    l <- nchar( toString( dnaStringSet[1] ) ) # get sequence length
+    n <- ( l - k + 1 ) * ( 4 ** k )
+    m <- length( dnaStringSet )
+    featureVector <- matrix(0L, m, n)
 
-    for( j in 1 : length( dnaStringSet ) ){
+    for( i in 1 : length( dnaStringSet ) ){
         # encode k-mer feature
         features <- c()
-        seq <- toString( dnaStringSet[j] )
+        seq <- toupper( toString( dnaStringSet[i] ) )
         for ( j in 1 : ( nchar( seq )-k+1) ){
-            if( is.na( match( substr( toupper( seq ), j, j+k-1),
-                        row.names( lookupTable ) ) ) ){
-                features <- c( features, rep( 0, 4**k ) )
+
+            if( is.na( match( substr( seq, j, j+k-1),
+                    row.names( lookupTable ) ) ) ){
+                # do nothing
 
             }else{
-                features <- c( features,
-                       lookupTable[ substr( toupper( seq ), j, j+k-1), ] )
+                featureVector[i, ((j-1)*(4**k)+1):(j*(4**k))] <-
+                    lookupTable[ substr( seq, j, j+k-1), ]
             }
         }
-
-        featureVector <- rbind( featureVector, features )
     }
     row.names( featureVector ) <- names( dnaStringSet )
 
@@ -213,7 +214,9 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
     }else{
         m <- ncol( shapeMatrix )
         # normalization
-        shapeMatrix <- normalizeShape( featureVector = shapeMatrix, thOrder = 1, shapeType = shapeType, normalize = TRUE )
+        shapeMatrix <- normalizeShape( featureVector = shapeMatrix,
+                                       thOrder = 1, shapeType = shapeType,
+                                       normalize = TRUE )
 
         for ( i in 1 : ( m-n+1 )){
             feature <- shapeMatrix[, i]
@@ -254,21 +257,26 @@ normalizeShape <- function( featureVector, thOrder, shapeType, normalize ){
         if( thOrder == 1){
             switch( shapeType,
                     MGW = {
-                        featureVector <- normalize( featureVector, maxMGW, minMGW )
+                        featureVector <- normalize( featureVector,
+                                                    maxMGW, minMGW )
                     },
                     ProT = {
-                        featureVector <- normalize( featureVector, maxProT, minProT )
+                        featureVector <- normalize( featureVector,
+                                                    maxProT, minProT )
                     },
                     Roll = {
-                        featureVector <- normalize( featureVector, maxRoll, minRoll )
+                        featureVector <- normalize( featureVector,
+                                                    maxRoll, minRoll )
                     },
                     HelT = {
-                        featureVector <- normalize( featureVector, maxHelT, minHelT )
+                        featureVector <- normalize( featureVector,
+                                                    maxHelT, minHelT )
                     }
                 )
 
         }else{
-            featureVector <- normalize( featureVector, max(featureVector), min(featureVector) )
+            featureVector <- normalize( featureVector, max(featureVector),
+                                        min(featureVector) )
         }
     }
 
