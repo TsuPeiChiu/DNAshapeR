@@ -1,7 +1,7 @@
 Package: DNAshapeR
 Type: Package
 Title: High-throughput prediction of DNA shape features
-Version: 1.1.0
+Version: 1.1.1
 Date: 2016-04-25
 Author: Tsu-Pei Chiu and Federico Comoglio
 Maintainer: Tsu-Pei Chiu <tsupeich@usc.edu>
