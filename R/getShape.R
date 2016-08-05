@@ -56,7 +56,7 @@ getShape <- function(filename, shapeType = 'All', parse = TRUE) {
     stopifnot( shapeType %in% c( opts, 'All' ) )
 
     if( shapeType != 'All' ) {
-        getDNAShape(filename, 'MGW')
+        getDNAShape(filename, shapeType)
 
     } else {
         getDNAShape(filename, 'MGW')
