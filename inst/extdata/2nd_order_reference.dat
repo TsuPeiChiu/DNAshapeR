@@ -14,3 +14,11 @@ araTha10.Roll.Min 0.0123
 araTha10.Roll.Max 0.8445
 araTha10.HelT.Min 0.0024
 araTha10.HelT.Max 0.9706
+dm6.MGW.Min  0.0218
+dm6.MGW.Max  1
+dm6.ProT.Min 0.0090
+dm6.ProT.Max 0.9217
+dm6.Roll.Min 0.0123
+dm6.Roll.Max 0.8172
+dm6.HelT.Min 0.0024
+dm6.HelT.Max 0.9706
