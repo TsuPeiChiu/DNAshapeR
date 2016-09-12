@@ -26,9 +26,136 @@ class properties{
     slide2_sd=0; slide2_ave=0; slide2_num=0;
     roll2_sd=0; roll2_ave=0; roll2_num=0;
     twist2_sd=0; twist2_ave=0; twist2_num=0;  
-	//Tsu-Pei
+	
+	//add ep
 	ep_vector.clear();
 	ep_sd=0; ep_ave=0; ep_num=0;
+	
+	//add mc
+	MGD_mc_vector.clear();
+	Stretch_mc_vector.clear();
+	Tilt_mc1_vector.clear();
+	Tilt_mc2_vector.clear();
+	Buckle_mc_vector.clear();
+	MGW_mc_vector.clear();
+	Roll_mc1_vector.clear();
+	Roll_mc2_vector.clear();
+	Shear_mc_vector.clear();
+	Opening_mc_vector.clear();
+	Rise_mc1_vector.clear();
+	Rise_mc2_vector.clear();
+	Shift_mc1_vector.clear();
+	Shift_mc2_vector.clear();
+	Stagger_mc_vector.clear();
+	ProT_mc_vector.clear();
+	mGD_mc_vector.clear();
+	Slide_mc1_vector.clear();
+	Slide_mc2_vector.clear();
+	HelT_mc1_vector.clear();
+	HelT_mc2_vector.clear();
+	mGW_mc_vector.clear();
+	MGD_mc_ave=0;MGD_mc_sd=0;MGD_mc_num=0;
+    Stretch_mc_ave=0;Stretch_mc_sd=0;Stretch_mc_num=0;
+    Tilt_mc1_ave=0;Tilt_mc1_sd=0;Tilt_mc1_num=0;
+    Tilt_mc2_ave=0;Tilt_mc2_sd=0;Tilt_mc2_num=0;
+    Buckle_mc_ave=0;Buckle_mc_sd=0;Buckle_mc_num=0;
+    MGW_mc_ave=0;MGW_mc_sd=0;MGW_mc_num=0;
+    Roll_mc1_ave=0;Roll_mc1_sd=0;Roll_mc1_num=0;
+    Roll_mc2_ave=0;Roll_mc2_sd=0;Roll_mc2_num=0;
+    Shear_mc_ave=0;Shear_mc_sd=0;Shear_mc_num=0;
+    Opening_mc_ave=0;Opening_mc_sd=0;Opening_mc_num=0;
+    Rise_mc1_ave=0;Rise_mc1_sd=0;Rise_mc1_num=0;
+    Rise_mc2_ave=0;Rise_mc2_sd=0;Rise_mc2_num=0;
+    Shift_mc1_ave=0;Shift_mc1_sd=0;Shift_mc1_num=0;
+    Shift_mc2_ave=0;Shift_mc2_sd=0;Shift_mc2_num=0;
+    Stagger_mc_ave=0;Stagger_mc_sd=0;Stagger_mc_num=0;
+    ProT_mc_ave=0;ProT_mc_sd=0;ProT_mc_num=0;
+    mGD_mc_ave=0;mGD_mc_sd=0;mGD_mc_num=0;
+    Slide_mc1_ave=0;Slide_mc1_sd=0;Slide_mc1_num=0;
+    Slide_mc2_ave=0;Slide_mc2_sd=0;Slide_mc2_num=0;
+    HelT_mc1_ave=0;HelT_mc1_sd=0;HelT_mc1_num=0;
+    HelT_mc2_ave=0;HelT_mc2_sd=0;HelT_mc2_num=0;
+    mGW_mc_ave=0;mGW_mc_sd=0;mGW_mc_num=0;
+	
+	//add xrc
+	ProT_xrc_vector.clear();
+	Tilt_xrc1_vector.clear();
+	Tilt_xrc2_vector.clear();
+	Buckle_xrc_vector.clear();
+	Roll_xrc1_vector.clear();
+	Roll_xrc2_vector.clear();
+	Shear_xrc_vector.clear();
+	Opening_xrc_vector.clear();
+	Rise_xrc1_vector.clear();
+	Rise_xrc2_vector.clear();
+	Stretch_xrc_vector.clear();
+	HelT_xrc1_vector.clear();
+	HelT_xrc2_vector.clear();
+	Shift_xrc1_vector.clear();
+	Shift_xrc2_vector.clear();
+	Slide_xrc1_vector.clear();
+	Slide_xrc2_vector.clear();
+	Stagger_xrc_vector.clear();
+	MGW_xrc_vector.clear();
+    ProT_xrc_ave=0;ProT_xrc_sd=0;ProT_xrc_num=0;
+    Tilt_xrc1_ave=0;Tilt_xrc1_sd=0;Tilt_xrc1_num=0;
+    Tilt_xrc2_ave=0;Tilt_xrc2_sd=0;Tilt_xrc2_num=0;
+    Buckle_xrc_ave=0;Buckle_xrc_sd=0;Buckle_xrc_num=0;
+    Roll_xrc1_ave=0;Roll_xrc1_sd=0;Roll_xrc1_num=0;
+    Roll_xrc2_ave=0;Roll_xrc2_sd=0;Roll_xrc2_num=0;
+    Shear_xrc_ave=0;Shear_xrc_sd=0;Shear_xrc_num=0;
+    Opening_xrc_ave=0;Opening_xrc_sd=0;Opening_xrc_num=0;
+    Rise_xrc1_ave=0;Rise_xrc1_sd=0;Rise_xrc1_num=0;
+    Rise_xrc2_ave=0;Rise_xrc2_sd=0;Rise_xrc2_num=0;
+    Stretch_xrc_ave=0;Stretch_xrc_sd=0;Stretch_xrc_num=0;
+    HelT_xrc1_ave=0;HelT_xrc1_sd=0;HelT_xrc1_num=0;
+    HelT_xrc2_ave=0;HelT_xrc2_sd=0;HelT_xrc2_num=0;
+    Shift_xrc1_ave=0;Shift_xrc1_sd=0;Shift_xrc1_num=0;
+    Shift_xrc2_ave=0;Shift_xrc2_sd=0;Shift_xrc2_num=0;
+    Slide_xrc1_ave=0;Slide_xrc1_sd=0;Slide_xrc1_num=0;
+    Slide_xrc2_ave=0;Slide_xrc2_sd=0;Slide_xrc2_num=0;
+    Stagger_xrc_ave=0;Stagger_xrc_sd=0;Stagger_xrc_num=0;
+    MGW_xrc_ave=0;MGW_xrc_sd=0;MGW_xrc_num=0;
+	
+	//add md
+	ProT_md_vector.clear();
+	Tilt_md1_vector.clear();
+	Tilt_md2_vector.clear();
+	Buckle_md_vector.clear();
+	Roll_md1_vector.clear();
+	Roll_md2_vector.clear();
+	Shear_md_vector.clear();
+	Opening_md_vector.clear();
+	Rise_md1_vector.clear();
+	Rise_md2_vector.clear();
+	Stretch_md_vector.clear();
+	HelT_md1_vector.clear();
+	HelT_md2_vector.clear();
+	Shift_md1_vector.clear();
+	Shift_md2_vector.clear();
+	Slide_md1_vector.clear();
+	Slide_md2_vector.clear();
+	Stagger_md_vector.clear();
+	MGW_md_vector.clear();
+    ProT_md_ave=0;ProT_md_sd=0;ProT_md_num=0;
+    Tilt_md1_ave=0;Tilt_md1_sd=0;Tilt_md1_num=0;
+    Tilt_md2_ave=0;Tilt_md2_sd=0;Tilt_md2_num=0;
+    Buckle_md_ave=0;Buckle_md_sd=0;Buckle_md_num=0;
+    Roll_md1_ave=0;Roll_md1_sd=0;Roll_md1_num=0;
+    Roll_md2_ave=0;Roll_md2_sd=0;Roll_md2_num=0;
+    Shear_md_ave=0;Shear_md_sd=0;Shear_md_num=0;
+    Opening_md_ave=0;Opening_md_sd=0;Opening_md_num=0;
+    Rise_md1_ave=0;Rise_md1_sd=0;Rise_md1_num=0;
+    Rise_md2_ave=0;Rise_md2_sd=0;Rise_md2_num=0;
+    Stretch_md_ave=0;Stretch_md_sd=0;Stretch_md_num=0;
+    HelT_md1_ave=0;HelT_md1_sd=0;HelT_md1_num=0;
+    HelT_md2_ave=0;HelT_md2_sd=0;HelT_md2_num=0;
+    Shift_md1_ave=0;Shift_md1_sd=0;Shift_md1_num=0;
+    Shift_md2_ave=0;Shift_md2_sd=0;Shift_md2_num=0;
+    Slide_md1_ave=0;Slide_md1_sd=0;Slide_md1_num=0;
+    Slide_md2_ave=0;Slide_md2_sd=0;Slide_md2_num=0;
+    Stagger_md_ave=0;Stagger_md_sd=0;Stagger_md_num=0;
+    MGW_md_ave=0;MGW_md_sd=0;MGW_md_num=0;
   }
 
   double_vector& get_vector(std::string str);
@@ -68,10 +195,70 @@ class properties{
   int minor_num,major_num,propel_num,slide1_num,slide2_num;
   int roll1_num,roll2_num,twist1_num,twist2_num; // size of vector
   void private_vector_ave_sd_calc(double_vector&,double&,double&);
-  //Tsu-Pei
+  
+  //add ep
   double_vector ep_vector;
   double ep_sd,ep_ave;
   int ep_num;
+  
+  //add mc
+  double_vector MGD_mc_vector,Stretch_mc_vector,Tilt_mc1_vector,
+	Tilt_mc2_vector,Buckle_mc_vector,MGW_mc_vector,Roll_mc1_vector,
+	Roll_mc2_vector,Shear_mc_vector,Opening_mc_vector,Rise_mc1_vector,
+	Rise_mc2_vector,Shift_mc1_vector,Shift_mc2_vector,Stagger_mc_vector,
+	ProT_mc_vector,mGD_mc_vector,Slide_mc1_vector,Slide_mc2_vector,
+	HelT_mc1_vector,HelT_mc2_vector,mGW_mc_vector;
+  double MGD_mc_ave,MGD_mc_sd,Stretch_mc_ave,Stretch_mc_sd,
+    Tilt_mc1_ave,Tilt_mc1_sd,Tilt_mc2_ave,Tilt_mc2_sd,
+    Buckle_mc_ave,Buckle_mc_sd,MGW_mc_ave,MGW_mc_sd,
+    Roll_mc1_ave,Roll_mc1_sd,Roll_mc2_ave,Roll_mc2_sd,
+    Shear_mc_ave,Shear_mc_sd,Opening_mc_ave,Opening_mc_sd,
+    Rise_mc1_ave,Rise_mc1_sd,Rise_mc2_ave,Rise_mc2_sd,
+    Shift_mc1_ave,Shift_mc1_sd,Shift_mc2_ave,Shift_mc2_sd,
+    Stagger_mc_ave,Stagger_mc_sd,ProT_mc_ave,ProT_mc_sd,
+    mGD_mc_ave,mGD_mc_sd,Slide_mc1_ave,Slide_mc1_sd,
+    Slide_mc2_ave,Slide_mc2_sd,HelT_mc1_ave,HelT_mc1_sd,
+    HelT_mc2_ave,HelT_mc2_sd,mGW_mc_ave,mGW_mc_sd;
+  int MGD_mc_num,Stretch_mc_num,Tilt_mc1_num,Tilt_mc2_num,Buckle_mc_num,MGW_mc_num,
+    Roll_mc1_num,Roll_mc2_num,Shear_mc_num,Opening_mc_num,Rise_mc1_num,
+	Rise_mc2_num,Shift_mc1_num,Shift_mc2_num,Stagger_mc_num,ProT_mc_num,
+	mGD_mc_num,Slide_mc1_num,Slide_mc2_num,HelT_mc1_num,HelT_mc2_num,mGW_mc_num;
+  
+  //add xrc
+  double_vector ProT_xrc_vector,Tilt_xrc1_vector,Tilt_xrc2_vector,Buckle_xrc_vector,
+    Roll_xrc1_vector,Roll_xrc2_vector,Shear_xrc_vector,Opening_xrc_vector,
+	Rise_xrc1_vector,Rise_xrc2_vector,Stretch_xrc_vector,HelT_xrc1_vector,
+	HelT_xrc2_vector,Shift_xrc1_vector,Shift_xrc2_vector,Slide_xrc1_vector,
+	Slide_xrc2_vector,Stagger_xrc_vector,MGW_xrc_vector;
+  double ProT_xrc_ave,ProT_xrc_sd,Tilt_xrc1_ave,Tilt_xrc1_sd,Tilt_xrc2_ave,Tilt_xrc2_sd,
+    Buckle_xrc_ave,Buckle_xrc_sd,Roll_xrc1_ave,Roll_xrc1_sd,Roll_xrc2_ave,Roll_xrc2_sd,
+    Shear_xrc_ave,Shear_xrc_sd,Opening_xrc_ave,Opening_xrc_sd,Rise_xrc1_ave,Rise_xrc1_sd,
+    Rise_xrc2_ave,Rise_xrc2_sd,Stretch_xrc_ave,Stretch_xrc_sd,HelT_xrc1_ave,HelT_xrc1_sd,
+    HelT_xrc2_ave,HelT_xrc2_sd,Shift_xrc1_ave,Shift_xrc1_sd,Shift_xrc2_ave,Shift_xrc2_sd,
+    Slide_xrc1_ave,Slide_xrc1_sd,Slide_xrc2_ave,Slide_xrc2_sd,Stagger_xrc_ave,Stagger_xrc_sd,
+    MGW_xrc_ave,MGW_xrc_sd;
+  int ProT_xrc_num,Tilt_xrc1_num,Tilt_xrc2_num,Buckle_xrc_num,Roll_xrc1_num,Roll_xrc2_num,
+    Shear_xrc_num,Opening_xrc_num,Rise_xrc1_num,Rise_xrc2_num,Stretch_xrc_num,HelT_xrc1_num,
+    HelT_xrc2_num,Shift_xrc1_num,Shift_xrc2_num,Slide_xrc1_num,Slide_xrc2_num,Stagger_xrc_num,
+    MGW_xrc_num;	
+  
+  //add md
+  double_vector ProT_md_vector,Tilt_md1_vector,Tilt_md2_vector,Buckle_md_vector,
+    Roll_md1_vector,Roll_md2_vector,Shear_md_vector,Opening_md_vector,
+	Rise_md1_vector,Rise_md2_vector,Stretch_md_vector,HelT_md1_vector,
+	HelT_md2_vector,Shift_md1_vector,Shift_md2_vector,Slide_md1_vector,
+	Slide_md2_vector,Stagger_md_vector,MGW_md_vector;
+  double ProT_md_ave,ProT_md_sd,Tilt_md1_ave,Tilt_md1_sd,Tilt_md2_ave,Tilt_md2_sd,
+    Buckle_md_ave,Buckle_md_sd,Roll_md1_ave,Roll_md1_sd,Roll_md2_ave,Roll_md2_sd,
+    Shear_md_ave,Shear_md_sd,Opening_md_ave,Opening_md_sd,Rise_md1_ave,Rise_md1_sd,
+    Rise_md2_ave,Rise_md2_sd,Stretch_md_ave,Stretch_md_sd,HelT_md1_ave,HelT_md1_sd,
+    HelT_md2_ave,HelT_md2_sd,Shift_md1_ave,Shift_md1_sd,Shift_md2_ave,Shift_md2_sd,
+    Slide_md1_ave,Slide_md1_sd,Slide_md2_ave,Slide_md2_sd,Stagger_md_ave,Stagger_md_sd,
+    MGW_md_ave,MGW_md_sd;
+  int ProT_md_num,Tilt_md1_num,Tilt_md2_num,Buckle_md_num,Roll_md1_num,Roll_md2_num,
+    Shear_md_num,Opening_md_num,Rise_md1_num,Rise_md2_num,Stretch_md_num,HelT_md1_num,
+    HelT_md2_num,Shift_md1_num,Shift_md2_num,Slide_md1_num,Slide_md2_num,Stagger_md_num,
+    MGW_md_num;	  
 };
 
 typedef std::vector<properties*>  pointers_vector;

@@ -31,7 +31,76 @@ void output_pentamers_map_to_querytable(DNA_to_properties &pentamers_map,std::st
   output_list.push_back("roll2");
   output_list.push_back("twist1");
   output_list.push_back("twist2");
-  output_list.push_back("ep"); //by Tsu-Pei
+  
+  //add ep
+  output_list.push_back("ep");
+  
+  //add mc
+  output_list.push_back("MGD_mc");
+  output_list.push_back("Stretch_mc");
+  output_list.push_back("Tilt_mc1");
+  output_list.push_back("Tilt_mc2");
+  output_list.push_back("Buckle_mc");
+  output_list.push_back("MGW_mc");
+  output_list.push_back("Roll_mc1");
+  output_list.push_back("Roll_mc1");
+  output_list.push_back("Shear_mc");
+  output_list.push_back("Opening_mc");
+  output_list.push_back("Rise_mc1");
+  output_list.push_back("Rise_mc2");
+  output_list.push_back("Shift_mc1");
+  output_list.push_back("Shift_mc2");
+  output_list.push_back("Stagger_mc");
+  output_list.push_back("ProT_mc");
+  output_list.push_back("mGD_mc");
+  output_list.push_back("Slide_mc1");
+  output_list.push_back("Slide_mc2");
+  output_list.push_back("HelT_mc1");
+  output_list.push_back("HelT_mc2");
+  output_list.push_back("mGW_mc");
+  
+  //add xrc
+  output_list.push_back("ProT_xrc");
+  output_list.push_back("Tilt_xrc1");
+  output_list.push_back("Tilt_xrc2");
+  output_list.push_back("Buckle_xrc");
+  output_list.push_back("Roll_xrc1");
+  output_list.push_back("Roll_xrc2");
+  output_list.push_back("Shear_xrc");
+  output_list.push_back("Opening_xrc");
+  output_list.push_back("Rise_xrc1");
+  output_list.push_back("Rise_xrc2");
+  output_list.push_back("Stretch_xrc");
+  output_list.push_back("HelT_xrc1");
+  output_list.push_back("HelT_xrc2");
+  output_list.push_back("Shift_xrc1");
+  output_list.push_back("Shift_xrc2");
+  output_list.push_back("Slide_xrc1");
+  output_list.push_back("Slide_xrc2");
+  output_list.push_back("Stagger_xrc");
+  output_list.push_back("MGW_xrc");
+
+  //add md
+  output_list.push_back("ProT_md");
+  output_list.push_back("Tilt_md1");
+  output_list.push_back("Tilt_md2");
+  output_list.push_back("Buckle_md");
+  output_list.push_back("Roll_md1");
+  output_list.push_back("Roll_md2");
+  output_list.push_back("Shear_md");
+  output_list.push_back("Opening_md");
+  output_list.push_back("Rise_md1");
+  output_list.push_back("Rise_md2");
+  output_list.push_back("Stretch_md");
+  output_list.push_back("HelT_md1");
+  output_list.push_back("HelT_md2");
+  output_list.push_back("Shift_md1");
+  output_list.push_back("Shift_md2");
+  output_list.push_back("Slide_md1");
+  output_list.push_back("Slide_md2");
+  output_list.push_back("Stagger_md");
+  output_list.push_back("MGW_md");
+
 
   for (DNA_to_properties::iterator it = pentamers_map.begin(); it!= end; ++it){
     qt_ofstream << std::setw(7) << it->first;
