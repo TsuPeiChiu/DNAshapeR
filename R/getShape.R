@@ -50,30 +50,35 @@
 #' pred <- getShape(fn)
 #' @export getShape
 
-getShape <- function(filename, shapeType = 'All', parse = TRUE) {
+getShape <- function(filename, shapeType = 'Default', parse = TRUE) {
+    
+	defaultOpts <- c( 'MGW', 'HelT', 'ProT', 'Roll', 'EP')
+	additionalOpts <- c('MGD_mc', 'Stretch_mc', 'Tilt_mc', 'Buckle_mc',
+        'MGW_mc', 'Roll_mc', 'Shear_mc', 'Opening_mc', 'Rise_mc', 'Shift_mc', 
+        'Stagger_mc', 'ProT_mc', 'mGD_mc', 'Slide_mc', 'HelT_mc', 'mGW_mc',
+        'ProT_xrc', 'Tilt_xrc', 'Buckle_xrc', 'Roll_xrc', 'Shear_xrc', 
+        'Opening_xrc', 'Rise_xrc', 'Stretch_xrc', 'HelT_xrc', 'Shift_xrc', 
+        'Slide_xrc', 'Stagger_xrc', 'MGW_xrc', 'ProT_md', 'Tilt_md', 
+        'Buckle_md', 'Roll_md', 'Shear_md', 'Opening_md', 'Rise_md', 
+        'Stretch_md', 'HelT_md', 'Shift_md', 'Slide_md', 'Stagger_md',
+        'MGW_md')
+    stopifnot( shapeType %in% c( defaultOpts, additionalOpts, 'Default' ) )
 
-    opts <- c( 'MGW', 'HelT', 'ProT', 'Roll' )
-    stopifnot( shapeType %in% c( opts, 'All' ) )
-
-    if( shapeType != 'All' ) {
-        getDNAShape(filename, shapeType)
-
-    } else {
-        getDNAShape(filename, 'MGW')
-        getDNAShape(filename, 'HelT')
-        getDNAShape(filename, 'ProT')
-        getDNAShape(filename, 'Roll')
-    }
+    if( length(shapeType) == 1 && shapeType == 'Default' ) {
+	    lapply(defaultOpts, getDNAShape, fastaFilePath = filename)
+	} else {
+	    lapply(shapeType, getDNAShape, fastaFilePath = filename)
+	}
 
     if( parse ) {
         message( 'Parsing files......' )
-        if( shapeType == 'All' ) {
-            ln <- paste0( filename, '.', opts )
+        if( length(shapeType) == 1 && shapeType == 'Default' ) {
+            ln <- paste0( filename, '.', defaultOpts )
             shapeList <- lapply( ln, readShape )
-            names( shapeList ) <- opts
+            names( shapeList ) <- defaultOpts
         } else {
             ln <- paste0( filename, '.', shapeType )
-            shapeList <- list( readShape( ln ) )
+            shapeList <- lapply( ln, readShape )
             names( shapeList ) <- shapeType
         }
         message( 'Done' )
