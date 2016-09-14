@@ -41,7 +41,7 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
 	  shapeType.compare("Rise_md")==0 || shapeType.compare("Stretch_md")==0 || shapeType.compare("HelT_md")==0 ||
 	  shapeType.compare("Shift_md")==0 || shapeType.compare("Slide_md")==0 || shapeType.compare("Stagger_md")==0 ||
 	  shapeType.compare("MGW_md")==0){
-        
+
 	  Rcout<< "Reading the input sequence......" << std::endl;
       string_vector sequence_list;
       string_vector name_list;
@@ -59,8 +59,8 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
 
       //load the query table from file
       std::string querytable_filename = "inst//extdata//QueryTable.dat";
-      process_querytable_file(querytable_filename, pentamers_map, debug);
-      //process_querytable(pentamers_map, debug); //Tsu-Pei
+      //process_querytable_file(querytable_filename, pentamers_map, debug);
+      process_querytable(pentamers_map, debug); //Tsu-Pei
 
       //convert sequence_list to pointers_list
       std::vector <pointers_vector> pointers_matrix;
@@ -110,7 +110,7 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
         current_ss.clear();
         predict_groove_width(current_ss,pointers_matrix,status_matrix,name_list,debug,pentamers_map,"ep",output_width,delimiter);
         output_stringstream_to_file(current_ss,outputFile);
-		
+
 	  //run mc,md,xrc base parameter
 	  }else if(shapeType.compare("MGD_mc")==0 || shapeType.compare("Stretch_mc")==0 || shapeType.compare("Buckle_mc")==0 ||
 	    shapeType.compare("MGW_mc")==0 || shapeType.compare("Shear_mc")==0 || shapeType.compare("Opening_mc")==0 ||
@@ -128,7 +128,7 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
           current_ss.clear();
 		  predict_groove_width(current_ss,pointers_matrix,status_matrix,name_list,debug,pentamers_map,shapeType,output_width,delimiter);
           output_stringstream_to_file(current_ss,outputFile);
-	  
+
 	  }else if(shapeType.compare("Tilt_mc")==0 || shapeType.compare("Roll_mc")==0 || shapeType.compare("Rise_mc")==0 ||
 	    shapeType.compare("Shift_mc")==0 || shapeType.compare("Slide_mc")==0 || shapeType.compare("HelT_mc")==0 ||
 		//xrc
@@ -141,7 +141,7 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
           current_ss.clear();
           predict_step_parameters(current_ss,pointers_matrix,status_matrix,name_list,debug,pentamers_map,shapeType,output_width,delimiter);
           output_stringstream_to_file(current_ss,outputFile);
-	  }	  
+	  }
 
       }else{
         Rcout << "Cannot recogize the shape type(MGW/Roll/HelT/ProT/EP):" << shapeType << std::endl;
