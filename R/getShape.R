@@ -51,15 +51,15 @@
 #' @export getShape
 
 getShape <- function(filename, shapeType = 'Default', parse = TRUE) {
-    
+
 	defaultOpts <- c( 'MGW', 'HelT', 'ProT', 'Roll', 'EP')
-	additionalOpts <- c('MGD_mc', 'Stretch_mc', 'Tilt_mc', 'Buckle_mc',
-        'MGW_mc', 'Roll_mc', 'Shear_mc', 'Opening_mc', 'Rise_mc', 'Shift_mc', 
-        'Stagger_mc', 'ProT_mc', 'mGD_mc', 'Slide_mc', 'HelT_mc', 'mGW_mc',
-        'ProT_xrc', 'Tilt_xrc', 'Buckle_xrc', 'Roll_xrc', 'Shear_xrc', 
-        'Opening_xrc', 'Rise_xrc', 'Stretch_xrc', 'HelT_xrc', 'Shift_xrc', 
-        'Slide_xrc', 'Stagger_xrc', 'MGW_xrc', 'ProT_md', 'Tilt_md', 
-        'Buckle_md', 'Roll_md', 'Shear_md', 'Opening_md', 'Rise_md', 
+	additionalOpts <- c('MGD_mc', 'Stretch', 'Tilt', 'Buckle',
+        'MGW_mc', 'Roll', 'Shear', 'Opening', 'Rise', 'Shift',
+        'Stagger', 'ProT_mc', 'mGD_mc', 'Slide', 'HelT_mc', 'mGW_mc',
+        'ProT_xrc', 'Tilt_xrc', 'Buckle_xrc', 'Roll_xrc', 'Shear_xrc',
+        'Opening_xrc', 'Rise_xrc', 'Stretch_xrc', 'HelT_xrc', 'Shift_xrc',
+        'Slide_xrc', 'Stagger_xrc', 'MGW_xrc', 'ProT_md', 'Tilt_md',
+        'Buckle_md', 'Roll_md', 'Shear_md', 'Opening_md', 'Rise_md',
         'Stretch_md', 'HelT_md', 'Shift_md', 'Slide_md', 'Stagger_md',
         'MGW_md')
     stopifnot( shapeType %in% c( defaultOpts, additionalOpts, 'Default' ) )
