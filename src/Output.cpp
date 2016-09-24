@@ -31,34 +31,34 @@ void output_pentamers_map_to_querytable(DNA_to_properties &pentamers_map,std::st
   output_list.push_back("roll2");
   output_list.push_back("twist1");
   output_list.push_back("twist2");
-  
+
   //add ep
   output_list.push_back("ep");
-  
+
   //add mc
   output_list.push_back("MGD_mc");
-  output_list.push_back("Stretch_mc");
-  output_list.push_back("Tilt_mc1");
-  output_list.push_back("Tilt_mc2");
-  output_list.push_back("Buckle_mc");
+  output_list.push_back("Stretch");
+  output_list.push_back("Tilt1");
+  output_list.push_back("Tilt2");
+  output_list.push_back("Buckle");
   output_list.push_back("MGW_mc");
   output_list.push_back("Roll_mc1");
   output_list.push_back("Roll_mc1");
-  output_list.push_back("Shear_mc");
-  output_list.push_back("Opening_mc");
-  output_list.push_back("Rise_mc1");
-  output_list.push_back("Rise_mc2");
-  output_list.push_back("Shift_mc1");
-  output_list.push_back("Shift_mc2");
-  output_list.push_back("Stagger_mc");
+  output_list.push_back("Shear");
+  output_list.push_back("Opening");
+  output_list.push_back("Rise1");
+  output_list.push_back("Rise2");
+  output_list.push_back("Shift1");
+  output_list.push_back("Shift2");
+  output_list.push_back("Stagger");
   output_list.push_back("ProT_mc");
   output_list.push_back("mGD_mc");
-  output_list.push_back("Slide_mc1");
-  output_list.push_back("Slide_mc2");
-  output_list.push_back("HelT_mc1");
-  output_list.push_back("HelT_mc2");
+  output_list.push_back("Slide1");
+  output_list.push_back("Slide2");
+  output_list.push_back("HelT1");
+  output_list.push_back("HelT2");
   output_list.push_back("mGW_mc");
-  
+
   //add xrc
   output_list.push_back("ProT_xrc");
   output_list.push_back("Tilt_xrc1");

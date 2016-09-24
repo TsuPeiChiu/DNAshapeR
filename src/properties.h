@@ -1,5 +1,5 @@
 #ifndef _PROPERTIES_H_
-#define _PROPERTIES_H_ 1 
+#define _PROPERTIES_H_ 1
 
 //#include <Rcpp.h>
 #include "common.h"
@@ -25,58 +25,58 @@ class properties{
     twist1_sd=0; twist1_ave=0; twist1_num=0;
     slide2_sd=0; slide2_ave=0; slide2_num=0;
     roll2_sd=0; roll2_ave=0; roll2_num=0;
-    twist2_sd=0; twist2_ave=0; twist2_num=0;  
-	
+    twist2_sd=0; twist2_ave=0; twist2_num=0;
+
 	//add ep
 	ep_vector.clear();
 	ep_sd=0; ep_ave=0; ep_num=0;
-	
+
 	//add mc
 	MGD_mc_vector.clear();
-	Stretch_mc_vector.clear();
-	Tilt_mc1_vector.clear();
-	Tilt_mc2_vector.clear();
-	Buckle_mc_vector.clear();
+	Stretch_vector.clear();
+	Tilt1_vector.clear();
+	Tilt2_vector.clear();
+	Buckle_vector.clear();
 	MGW_mc_vector.clear();
 	Roll_mc1_vector.clear();
 	Roll_mc2_vector.clear();
-	Shear_mc_vector.clear();
-	Opening_mc_vector.clear();
-	Rise_mc1_vector.clear();
-	Rise_mc2_vector.clear();
-	Shift_mc1_vector.clear();
-	Shift_mc2_vector.clear();
-	Stagger_mc_vector.clear();
+	Shear_vector.clear();
+	Opening_vector.clear();
+	Rise1_vector.clear();
+	Rise2_vector.clear();
+	Shift1_vector.clear();
+	Shift2_vector.clear();
+	Stagger_vector.clear();
 	ProT_mc_vector.clear();
 	mGD_mc_vector.clear();
-	Slide_mc1_vector.clear();
-	Slide_mc2_vector.clear();
+	Slide1_vector.clear();
+	Slide2_vector.clear();
 	HelT_mc1_vector.clear();
 	HelT_mc2_vector.clear();
 	mGW_mc_vector.clear();
 	MGD_mc_ave=0;MGD_mc_sd=0;MGD_mc_num=0;
-    Stretch_mc_ave=0;Stretch_mc_sd=0;Stretch_mc_num=0;
-    Tilt_mc1_ave=0;Tilt_mc1_sd=0;Tilt_mc1_num=0;
-    Tilt_mc2_ave=0;Tilt_mc2_sd=0;Tilt_mc2_num=0;
-    Buckle_mc_ave=0;Buckle_mc_sd=0;Buckle_mc_num=0;
+    Stretch_ave=0;Stretch_sd=0;Stretch_num=0;
+    Tilt1_ave=0;Tilt1_sd=0;Tilt1_num=0;
+    Tilt2_ave=0;Tilt2_sd=0;Tilt2_num=0;
+    Buckle_ave=0;Buckle_sd=0;Buckle_num=0;
     MGW_mc_ave=0;MGW_mc_sd=0;MGW_mc_num=0;
     Roll_mc1_ave=0;Roll_mc1_sd=0;Roll_mc1_num=0;
     Roll_mc2_ave=0;Roll_mc2_sd=0;Roll_mc2_num=0;
-    Shear_mc_ave=0;Shear_mc_sd=0;Shear_mc_num=0;
-    Opening_mc_ave=0;Opening_mc_sd=0;Opening_mc_num=0;
-    Rise_mc1_ave=0;Rise_mc1_sd=0;Rise_mc1_num=0;
-    Rise_mc2_ave=0;Rise_mc2_sd=0;Rise_mc2_num=0;
-    Shift_mc1_ave=0;Shift_mc1_sd=0;Shift_mc1_num=0;
-    Shift_mc2_ave=0;Shift_mc2_sd=0;Shift_mc2_num=0;
-    Stagger_mc_ave=0;Stagger_mc_sd=0;Stagger_mc_num=0;
+    Shear_ave=0;Shear_sd=0;Shear_num=0;
+    Opening_ave=0;Opening_sd=0;Opening_num=0;
+    Rise1_ave=0;Rise1_sd=0;Rise1_num=0;
+    Rise2_ave=0;Rise2_sd=0;Rise2_num=0;
+    Shift1_ave=0;Shift1_sd=0;Shift1_num=0;
+    Shift2_ave=0;Shift2_sd=0;Shift2_num=0;
+    Stagger_ave=0;Stagger_sd=0;Stagger_num=0;
     ProT_mc_ave=0;ProT_mc_sd=0;ProT_mc_num=0;
     mGD_mc_ave=0;mGD_mc_sd=0;mGD_mc_num=0;
-    Slide_mc1_ave=0;Slide_mc1_sd=0;Slide_mc1_num=0;
-    Slide_mc2_ave=0;Slide_mc2_sd=0;Slide_mc2_num=0;
+    Slide1_ave=0;Slide1_sd=0;Slide1_num=0;
+    Slide2_ave=0;Slide2_sd=0;Slide2_num=0;
     HelT_mc1_ave=0;HelT_mc1_sd=0;HelT_mc1_num=0;
     HelT_mc2_ave=0;HelT_mc2_sd=0;HelT_mc2_num=0;
     mGW_mc_ave=0;mGW_mc_sd=0;mGW_mc_num=0;
-	
+
 	//add xrc
 	ProT_xrc_vector.clear();
 	Tilt_xrc1_vector.clear();
@@ -116,7 +116,7 @@ class properties{
     Slide_xrc2_ave=0;Slide_xrc2_sd=0;Slide_xrc2_num=0;
     Stagger_xrc_ave=0;Stagger_xrc_sd=0;Stagger_xrc_num=0;
     MGW_xrc_ave=0;MGW_xrc_sd=0;MGW_xrc_num=0;
-	
+
 	//add md
 	ProT_md_vector.clear();
 	Tilt_md1_vector.clear();
@@ -159,7 +159,7 @@ class properties{
   }
 
   double_vector& get_vector(std::string str);
-  
+
   double get_ave(std::string str);
 
   int get_num(std::string str);
@@ -179,7 +179,7 @@ class properties{
       return int(v.size());
     }
   }
-  
+
   void calc_ave_sd(bool);
 
   void load_data_from_vector(double_vector dv);
@@ -195,35 +195,35 @@ class properties{
   int minor_num,major_num,propel_num,slide1_num,slide2_num;
   int roll1_num,roll2_num,twist1_num,twist2_num; // size of vector
   void private_vector_ave_sd_calc(double_vector&,double&,double&);
-  
+
   //add ep
   double_vector ep_vector;
   double ep_sd,ep_ave;
   int ep_num;
-  
+
   //add mc
-  double_vector MGD_mc_vector,Stretch_mc_vector,Tilt_mc1_vector,
-	Tilt_mc2_vector,Buckle_mc_vector,MGW_mc_vector,Roll_mc1_vector,
-	Roll_mc2_vector,Shear_mc_vector,Opening_mc_vector,Rise_mc1_vector,
-	Rise_mc2_vector,Shift_mc1_vector,Shift_mc2_vector,Stagger_mc_vector,
-	ProT_mc_vector,mGD_mc_vector,Slide_mc1_vector,Slide_mc2_vector,
+  double_vector MGD_mc_vector,Stretch_vector,Tilt1_vector,
+	Tilt2_vector,Buckle_vector,MGW_mc_vector,Roll_mc1_vector,
+	Roll_mc2_vector,Shear_vector,Opening_vector,Rise1_vector,
+	Rise2_vector,Shift1_vector,Shift2_vector,Stagger_vector,
+	ProT_mc_vector,mGD_mc_vector,Slide1_vector,Slide2_vector,
 	HelT_mc1_vector,HelT_mc2_vector,mGW_mc_vector;
-  double MGD_mc_ave,MGD_mc_sd,Stretch_mc_ave,Stretch_mc_sd,
-    Tilt_mc1_ave,Tilt_mc1_sd,Tilt_mc2_ave,Tilt_mc2_sd,
-    Buckle_mc_ave,Buckle_mc_sd,MGW_mc_ave,MGW_mc_sd,
+  double MGD_mc_ave,MGD_mc_sd,Stretch_ave,Stretch_sd,
+    Tilt1_ave,Tilt1_sd,Tilt2_ave,Tilt2_sd,
+    Buckle_ave,Buckle_sd,MGW_mc_ave,MGW_mc_sd,
     Roll_mc1_ave,Roll_mc1_sd,Roll_mc2_ave,Roll_mc2_sd,
-    Shear_mc_ave,Shear_mc_sd,Opening_mc_ave,Opening_mc_sd,
-    Rise_mc1_ave,Rise_mc1_sd,Rise_mc2_ave,Rise_mc2_sd,
-    Shift_mc1_ave,Shift_mc1_sd,Shift_mc2_ave,Shift_mc2_sd,
-    Stagger_mc_ave,Stagger_mc_sd,ProT_mc_ave,ProT_mc_sd,
-    mGD_mc_ave,mGD_mc_sd,Slide_mc1_ave,Slide_mc1_sd,
-    Slide_mc2_ave,Slide_mc2_sd,HelT_mc1_ave,HelT_mc1_sd,
+    Shear_ave,Shear_sd,Opening_ave,Opening_sd,
+    Rise1_ave,Rise1_sd,Rise2_ave,Rise2_sd,
+    Shift1_ave,Shift1_sd,Shift2_ave,Shift2_sd,
+    Stagger_ave,Stagger_sd,ProT_mc_ave,ProT_mc_sd,
+    mGD_mc_ave,mGD_mc_sd,Slide1_ave,Slide1_sd,
+    Slide2_ave,Slide2_sd,HelT_mc1_ave,HelT_mc1_sd,
     HelT_mc2_ave,HelT_mc2_sd,mGW_mc_ave,mGW_mc_sd;
-  int MGD_mc_num,Stretch_mc_num,Tilt_mc1_num,Tilt_mc2_num,Buckle_mc_num,MGW_mc_num,
-    Roll_mc1_num,Roll_mc2_num,Shear_mc_num,Opening_mc_num,Rise_mc1_num,
-	Rise_mc2_num,Shift_mc1_num,Shift_mc2_num,Stagger_mc_num,ProT_mc_num,
-	mGD_mc_num,Slide_mc1_num,Slide_mc2_num,HelT_mc1_num,HelT_mc2_num,mGW_mc_num;
-  
+  int MGD_mc_num,Stretch_num,Tilt1_num,Tilt2_num,Buckle_num,MGW_mc_num,
+    Roll_mc1_num,Roll_mc2_num,Shear_num,Opening_num,Rise1_num,
+	Rise2_num,Shift1_num,Shift2_num,Stagger_num,ProT_mc_num,
+	mGD_mc_num,Slide1_num,Slide2_num,HelT_mc1_num,HelT_mc2_num,mGW_mc_num;
+
   //add xrc
   double_vector ProT_xrc_vector,Tilt_xrc1_vector,Tilt_xrc2_vector,Buckle_xrc_vector,
     Roll_xrc1_vector,Roll_xrc2_vector,Shear_xrc_vector,Opening_xrc_vector,
@@ -240,8 +240,8 @@ class properties{
   int ProT_xrc_num,Tilt_xrc1_num,Tilt_xrc2_num,Buckle_xrc_num,Roll_xrc1_num,Roll_xrc2_num,
     Shear_xrc_num,Opening_xrc_num,Rise_xrc1_num,Rise_xrc2_num,Stretch_xrc_num,HelT_xrc1_num,
     HelT_xrc2_num,Shift_xrc1_num,Shift_xrc2_num,Slide_xrc1_num,Slide_xrc2_num,Stagger_xrc_num,
-    MGW_xrc_num;	
-  
+    MGW_xrc_num;
+
   //add md
   double_vector ProT_md_vector,Tilt_md1_vector,Tilt_md2_vector,Buckle_md_vector,
     Roll_md1_vector,Roll_md2_vector,Shear_md_vector,Opening_md_vector,
@@ -258,11 +258,11 @@ class properties{
   int ProT_md_num,Tilt_md1_num,Tilt_md2_num,Buckle_md_num,Roll_md1_num,Roll_md2_num,
     Shear_md_num,Opening_md_num,Rise_md1_num,Rise_md2_num,Stretch_md_num,HelT_md1_num,
     HelT_md2_num,Shift_md1_num,Shift_md2_num,Slide_md1_num,Slide_md2_num,Stagger_md_num,
-    MGW_md_num;	  
+    MGW_md_num;
 };
 
 typedef std::vector<properties*>  pointers_vector;
 
 
-  
+
 #endif

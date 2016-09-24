@@ -32,57 +32,57 @@ double_vector& properties::get_vector(std::string str){
     return roll2_vector;
   if (str=="twist2")
     return twist2_vector;
-	
+
   //add ep
   if (str=="ep")
 	  return ep_vector;
-	  
+
   //add mc
   if (str=="MGD_mc")
 	  return MGD_mc_vector;
-  if (str=="Stretch_mc")
-	  return Stretch_mc_vector;
-  if (str=="Tilt_mc1")
-	  return Tilt_mc1_vector;
-  if (str=="Tilt_mc2")
-	  return Tilt_mc2_vector;
-  if (str=="Buckle_mc")
-	  return Buckle_mc_vector;
+  if (str=="Stretch")
+	  return Stretch_vector;
+  if (str=="Tilt1")
+	  return Tilt1_vector;
+  if (str=="Tilt2")
+	  return Tilt2_vector;
+  if (str=="Buckle")
+	  return Buckle_vector;
   if (str=="MGW_mc")
 	  return MGW_mc_vector;
   if (str=="Roll_mc1")
 	  return Roll_mc1_vector;
   if (str=="Roll_mc2")
 	  return Roll_mc2_vector;
-  if (str=="Shear_mc")
-	  return Shear_mc_vector;
-  if (str=="Opening_mc")
-	  return Opening_mc_vector;
-  if (str=="Rise_mc1")
-	  return Rise_mc1_vector;
-  if (str=="Rise_mc2")
-	  return Rise_mc2_vector;
-  if (str=="Shift_mc1")
-	  return Shift_mc1_vector;
-  if (str=="Shift_mc2")
-	  return Shift_mc2_vector;
-  if (str=="Stagger_mc")
-	  return Stagger_mc_vector;
+  if (str=="Shear")
+	  return Shear_vector;
+  if (str=="Opening")
+	  return Opening_vector;
+  if (str=="Rise1")
+	  return Rise1_vector;
+  if (str=="Rise2")
+	  return Rise2_vector;
+  if (str=="Shift1")
+	  return Shift1_vector;
+  if (str=="Shift2")
+	  return Shift2_vector;
+  if (str=="Stagger")
+	  return Stagger_vector;
   if (str=="ProT_mc")
 	  return ProT_mc_vector;
   if (str=="mGD_mc")
 	  return mGD_mc_vector;
-  if (str=="Slide_mc1")
-	  return Slide_mc1_vector;
-  if (str=="Slide_mc2")
-	  return Slide_mc2_vector;
+  if (str=="Slide1")
+	  return Slide1_vector;
+  if (str=="Slide2")
+	  return Slide2_vector;
   if (str=="HelT_mc1")
 	  return HelT_mc1_vector;
   if (str=="HelT_mc2")
 	  return HelT_mc2_vector;
   if (str=="mGW_mc")
 	  return mGW_mc_vector;
-	  
+
   //add xrc
   if (str=="ProT_xrc")
 	  return ProT_xrc_vector;
@@ -162,7 +162,7 @@ double_vector& properties::get_vector(std::string str){
 	  return Stagger_md_vector;
   if (str=="MGW_md")
 	  return MGW_md_vector;
-  
+
   else
     return minor_vector;
 }
@@ -186,57 +186,57 @@ int properties::get_num(std::string str){
     return roll2_num;
   if (str=="twist2")
     return twist2_num;
-  
+
   //add ep
   if (str=="ep")
     return ep_num;
-	
+
   //add mc
   if (str=="MGD_mc")
-    return MGD_mc_num; 
-  if (str=="Stretch_mc")
-    return Stretch_mc_num;
-  if (str=="Tilt_mc1")
-    return Tilt_mc1_num; 
-  if (str=="Tilt_mc2")
-    return Tilt_mc2_num;
-  if (str=="Buckle_mc")
-    return Buckle_mc_num; 
+    return MGD_mc_num;
+  if (str=="Stretch")
+    return Stretch_num;
+  if (str=="Tilt1")
+    return Tilt1_num;
+  if (str=="Tilt2")
+    return Tilt2_num;
+  if (str=="Buckle")
+    return Buckle_num;
   if (str=="MGW_mc")
     return MGW_mc_num;
   if (str=="Roll_mc1")
-    return Roll_mc1_num; 
+    return Roll_mc1_num;
   if (str=="Roll_mc2")
     return Roll_mc2_num;
-  if (str=="Shear_mc")
-    return Shear_mc_num; 
-  if (str=="Opening_mc")
-    return Opening_mc_num;
-  if (str=="Rise_mc1")
-    return Rise_mc1_num; 
-  if (str=="Rise_mc2")
-    return Rise_mc2_num;
-  if (str=="Shift_mc1")
-    return Shift_mc1_num; 
-  if (str=="Shift_mc2")
-    return Shift_mc2_num;
-  if (str=="Stagger_mc")
-    return Stagger_mc_num; 
+  if (str=="Shear")
+    return Shear_num;
+  if (str=="Opening")
+    return Opening_num;
+  if (str=="Rise1")
+    return Rise1_num;
+  if (str=="Rise2")
+    return Rise2_num;
+  if (str=="Shift1")
+    return Shift1_num;
+  if (str=="Shift2")
+    return Shift2_num;
+  if (str=="Stagger")
+    return Stagger_num;
   if (str=="ProT_mc")
     return ProT_mc_num;
   if (str=="mGD_mc")
-    return mGD_mc_num; 
-  if (str=="Slide_mc1")
-    return Slide_mc1_num;
-  if (str=="Slide_mc2")
-    return Slide_mc2_num; 
+    return mGD_mc_num;
+  if (str=="Slide1")
+    return Slide1_num;
+  if (str=="Slide2")
+    return Slide2_num;
   if (str=="HelT_mc1")
     return HelT_mc1_num;
   if (str=="HelT_mc2")
-    return HelT_mc2_num; 
+    return HelT_mc2_num;
   if (str=="mGW_mc")
     return mGW_mc_num;
-  
+
   //add xrc
   if (str=="ProT_xrc")
     return ProT_xrc_num;
@@ -276,7 +276,7 @@ int properties::get_num(std::string str){
     return Stagger_xrc_num;
   if (str=="MGW_xrc")
     return MGW_xrc_num;
-	
+
   //add md
   if (str=="ProT_md")
     return ProT_md_num;
@@ -316,7 +316,7 @@ int properties::get_num(std::string str){
     return Stagger_md_num;
   if (str=="MGW_md")
     return MGW_md_num;
-  
+
   else
     return minor_num;
 }
@@ -341,57 +341,57 @@ double properties::get_ave(std::string str){
     return roll2_ave;
   if (str=="twist2")
     return twist2_ave;
-  
+
   //add ep
   if (str=="ep")
     return ep_ave;
-	
+
   //add mc
   if (str=="MGD_mc")
-    return MGD_mc_ave; 
-  if (str=="Stretch_mc")
-    return Stretch_mc_ave;
-  if (str=="Tilt_mc1")
-    return Tilt_mc1_ave; 
-  if (str=="Tilt_mc2")
-    return Tilt_mc2_ave;
-  if (str=="Buckle_mc")
-    return Buckle_mc_ave; 
+    return MGD_mc_ave;
+  if (str=="Stretch")
+    return Stretch_ave;
+  if (str=="Tilt1")
+    return Tilt1_ave;
+  if (str=="Tilt2")
+    return Tilt2_ave;
+  if (str=="Buckle")
+    return Buckle_ave;
   if (str=="MGW_mc")
     return MGW_mc_ave;
   if (str=="Roll_mc1")
-    return Roll_mc1_ave; 
+    return Roll_mc1_ave;
   if (str=="Roll_mc2")
     return Roll_mc2_ave;
-  if (str=="Shear_mc")
-    return Shear_mc_ave; 
-  if (str=="Opening_mc")
-    return Opening_mc_ave;
-  if (str=="Rise_mc1")
-    return Rise_mc1_ave; 
-  if (str=="Rise_mc2")
-    return Rise_mc2_ave;
-  if (str=="Shift_mc1")
-    return Shift_mc1_ave; 
-  if (str=="Shift_mc2")
-    return Shift_mc2_ave;
-  if (str=="Stagger_mc")
-    return Stagger_mc_ave; 
+  if (str=="Shear")
+    return Shear_ave;
+  if (str=="Opening")
+    return Opening_ave;
+  if (str=="Rise1")
+    return Rise1_ave;
+  if (str=="Rise2")
+    return Rise2_ave;
+  if (str=="Shift1")
+    return Shift1_ave;
+  if (str=="Shift2")
+    return Shift2_ave;
+  if (str=="Stagger")
+    return Stagger_ave;
   if (str=="ProT_mc")
     return ProT_mc_ave;
   if (str=="mGD_mc")
-    return mGD_mc_ave; 
-  if (str=="Slide_mc1")
-    return Slide_mc1_ave;
-  if (str=="Slide_mc2")
-    return Slide_mc2_ave; 
+    return mGD_mc_ave;
+  if (str=="Slide1")
+    return Slide1_ave;
+  if (str=="Slide2")
+    return Slide2_ave;
   if (str=="HelT_mc1")
     return HelT_mc1_ave;
   if (str=="HelT_mc2")
-    return HelT_mc2_ave; 
+    return HelT_mc2_ave;
   if (str=="mGW_mc")
     return mGW_mc_ave;
-  
+
   //add xrc
   if (str=="ProT_xrc")
     return ProT_xrc_ave;
@@ -431,7 +431,7 @@ double properties::get_ave(std::string str){
     return Stagger_xrc_ave;
   if (str=="MGW_xrc")
     return MGW_xrc_ave;
-	
+
   //add md
   if (str=="ProT_md")
     return ProT_md_ave;
@@ -471,7 +471,7 @@ double properties::get_ave(std::string str){
     return Stagger_md_ave;
   if (str=="MGW_md")
     return MGW_md_ave;
-  
+
   else
     return minor_ave;
 }
@@ -495,57 +495,57 @@ double properties::get_sd(std::string str){
     return roll2_sd;
   if (str=="twist2")
     return twist2_sd;
-  
+
   //add ep
   if (str=="ep")
     return ep_sd;
-  
+
   //add mc
   if (str=="MGD_mc")
-    return MGD_mc_sd; 
-  if (str=="Stretch_mc")
-    return Stretch_mc_sd;
-  if (str=="Tilt_mc1")
-    return Tilt_mc1_sd; 
-  if (str=="Tilt_mc2")
-    return Tilt_mc2_sd;
-  if (str=="Buckle_mc")
-    return Buckle_mc_sd; 
+    return MGD_mc_sd;
+  if (str=="Stretch")
+    return Stretch_sd;
+  if (str=="Tilt1")
+    return Tilt1_sd;
+  if (str=="Tilt2")
+    return Tilt2_sd;
+  if (str=="Buckle")
+    return Buckle_sd;
   if (str=="MGW_mc")
     return MGW_mc_sd;
   if (str=="Roll_mc1")
-    return Roll_mc1_sd; 
+    return Roll_mc1_sd;
   if (str=="Roll_mc2")
     return Roll_mc2_sd;
-  if (str=="Shear_mc")
-    return Shear_mc_sd; 
-  if (str=="Opening_mc")
-    return Opening_mc_sd;
-  if (str=="Rise_mc1")
-    return Rise_mc1_sd; 
-  if (str=="Rise_mc2")
-    return Rise_mc2_sd;
-  if (str=="Shift_mc1")
-    return Shift_mc1_sd; 
-  if (str=="Shift_mc2")
-    return Shift_mc2_sd;
-  if (str=="Stagger_mc")
-    return Stagger_mc_sd; 
+  if (str=="Shear")
+    return Shear_sd;
+  if (str=="Opening")
+    return Opening_sd;
+  if (str=="Rise1")
+    return Rise1_sd;
+  if (str=="Rise2")
+    return Rise2_sd;
+  if (str=="Shift1")
+    return Shift1_sd;
+  if (str=="Shift2")
+    return Shift2_sd;
+  if (str=="Stagger")
+    return Stagger_sd;
   if (str=="ProT_mc")
     return ProT_mc_sd;
   if (str=="mGD_mc")
-    return mGD_mc_sd; 
-  if (str=="Slide_mc1")
-    return Slide_mc1_sd;
-  if (str=="Slide_mc2")
-    return Slide_mc2_sd; 
+    return mGD_mc_sd;
+  if (str=="Slide1")
+    return Slide1_sd;
+  if (str=="Slide2")
+    return Slide2_sd;
   if (str=="HelT_mc1")
     return HelT_mc1_sd;
   if (str=="HelT_mc2")
-    return HelT_mc2_sd; 
+    return HelT_mc2_sd;
   if (str=="mGW_mc")
     return mGW_mc_sd;
-  
+
   //add xrc
   if (str=="ProT_xrc")
     return ProT_xrc_sd;
@@ -585,7 +585,7 @@ double properties::get_sd(std::string str){
     return Stagger_xrc_sd;
   if (str=="MGW_xrc")
     return MGW_xrc_sd;
-	
+
   //add md
   if (str=="ProT_md")
     return ProT_md_sd;
@@ -625,7 +625,7 @@ double properties::get_sd(std::string str){
     return Stagger_md_sd;
   if (str=="MGW_md")
     return MGW_md_sd;
-  
+
   else
     return minor_sd;
 }
@@ -655,34 +655,34 @@ void properties::calc_ave_sd(bool debug){
   private_vector_ave_sd_calc(slide2_vector,slide2_ave,slide2_sd);
   private_vector_ave_sd_calc(roll2_vector,roll2_ave,roll2_sd);
   private_vector_ave_sd_calc(twist2_vector,twist2_ave,twist2_sd);
-  
+
   //add ep
   private_vector_ave_sd_calc(ep_vector,ep_ave,ep_sd);
-  
+
   //add mc
   private_vector_ave_sd_calc(MGD_mc_vector,MGD_mc_ave,MGD_mc_sd);
-  private_vector_ave_sd_calc(Stretch_mc_vector,Stretch_mc_ave,Stretch_mc_sd);
-  private_vector_ave_sd_calc(Tilt_mc1_vector,Tilt_mc1_ave,Tilt_mc1_sd);
-  private_vector_ave_sd_calc(Tilt_mc2_vector,Tilt_mc2_ave,Tilt_mc2_sd);
-  private_vector_ave_sd_calc(Buckle_mc_vector,Buckle_mc_ave,Buckle_mc_sd);
+  private_vector_ave_sd_calc(Stretch_vector,Stretch_ave,Stretch_sd);
+  private_vector_ave_sd_calc(Tilt1_vector,Tilt1_ave,Tilt1_sd);
+  private_vector_ave_sd_calc(Tilt2_vector,Tilt2_ave,Tilt2_sd);
+  private_vector_ave_sd_calc(Buckle_vector,Buckle_ave,Buckle_sd);
   private_vector_ave_sd_calc(MGW_mc_vector,MGW_mc_ave,MGW_mc_sd);
   private_vector_ave_sd_calc(Roll_mc1_vector,Roll_mc1_ave,Roll_mc1_sd);
   private_vector_ave_sd_calc(Roll_mc2_vector,Roll_mc2_ave,Roll_mc2_sd);
-  private_vector_ave_sd_calc(Shear_mc_vector,Shear_mc_ave,Shear_mc_sd);
-  private_vector_ave_sd_calc(Opening_mc_vector,Opening_mc_ave,Opening_mc_sd);
-  private_vector_ave_sd_calc(Rise_mc1_vector,Rise_mc1_ave,Rise_mc1_sd);
-  private_vector_ave_sd_calc(Rise_mc2_vector,Rise_mc2_ave,Rise_mc2_sd);
-  private_vector_ave_sd_calc(Shift_mc1_vector,Shift_mc1_ave,Shift_mc1_sd);
-  private_vector_ave_sd_calc(Shift_mc2_vector,Shift_mc2_ave,Shift_mc2_sd);
-  private_vector_ave_sd_calc(Stagger_mc_vector,Stagger_mc_ave,Stagger_mc_sd);
+  private_vector_ave_sd_calc(Shear_vector,Shear_ave,Shear_sd);
+  private_vector_ave_sd_calc(Opening_vector,Opening_ave,Opening_sd);
+  private_vector_ave_sd_calc(Rise1_vector,Rise1_ave,Rise1_sd);
+  private_vector_ave_sd_calc(Rise2_vector,Rise2_ave,Rise2_sd);
+  private_vector_ave_sd_calc(Shift1_vector,Shift1_ave,Shift1_sd);
+  private_vector_ave_sd_calc(Shift2_vector,Shift2_ave,Shift2_sd);
+  private_vector_ave_sd_calc(Stagger_vector,Stagger_ave,Stagger_sd);
   private_vector_ave_sd_calc(ProT_mc_vector,ProT_mc_ave,ProT_mc_sd);
   private_vector_ave_sd_calc(mGD_mc_vector,mGD_mc_ave,mGD_mc_sd);
-  private_vector_ave_sd_calc(Slide_mc1_vector,Slide_mc1_ave,Slide_mc1_sd);
-  private_vector_ave_sd_calc(Slide_mc2_vector,Slide_mc2_ave,Slide_mc2_sd);
+  private_vector_ave_sd_calc(Slide1_vector,Slide1_ave,Slide1_sd);
+  private_vector_ave_sd_calc(Slide2_vector,Slide2_ave,Slide2_sd);
   private_vector_ave_sd_calc(HelT_mc1_vector,HelT_mc1_ave,HelT_mc1_sd);
   private_vector_ave_sd_calc(HelT_mc2_vector,HelT_mc2_ave,HelT_mc2_sd);
   private_vector_ave_sd_calc(mGW_mc_vector,mGW_mc_ave,mGW_mc_sd);
-  
+
   //add xrc
   private_vector_ave_sd_calc(ProT_xrc_vector,ProT_xrc_ave,ProT_xrc_sd);
   private_vector_ave_sd_calc(Tilt_xrc1_vector,Tilt_xrc1_ave,Tilt_xrc1_sd);
@@ -703,7 +703,7 @@ void properties::calc_ave_sd(bool debug){
   private_vector_ave_sd_calc(Slide_xrc2_vector,Slide_xrc2_ave,Slide_xrc2_sd);
   private_vector_ave_sd_calc(Stagger_xrc_vector,Stagger_xrc_ave,Stagger_xrc_sd);
   private_vector_ave_sd_calc(MGW_xrc_vector,MGW_xrc_ave,MGW_xrc_sd);
-  
+
   //add md
   private_vector_ave_sd_calc(ProT_md_vector,ProT_md_ave,ProT_md_sd);
   private_vector_ave_sd_calc(Tilt_md1_vector,Tilt_md1_ave,Tilt_md1_sd);
@@ -736,34 +736,34 @@ void properties::load_data_from_vector(double_vector dv){
   roll2_ave = dv[18]; roll2_sd = dv[19]; roll2_num = int(dv[20]);
   twist1_ave = dv[21]; twist1_sd = dv[22]; twist1_num = int(dv[23]);
   twist2_ave = dv[24]; twist2_sd = dv[25]; twist2_num = int(dv[26]);
-  
+
   //add ep
   ep_ave = dv[27]; ep_sd = dv[28]; ep_num = dv[29];
-  
+
   //add mc
   MGD_mc_ave = dv[30]; MGD_mc_sd = 0; MGD_mc_num = 0;
-  Stretch_mc_ave = dv[31]; Stretch_mc_sd = 0; Stretch_mc_num = 0;
-  Tilt_mc1_ave = dv[32]; Tilt_mc1_sd = 0; Tilt_mc1_num = 0;
-  Tilt_mc2_ave = dv[33]; Tilt_mc2_sd = 0; Tilt_mc2_num = 0;
-  Buckle_mc_ave = dv[34]; Buckle_mc_sd = 0; Buckle_mc_num = 0;
+  Stretch_ave = dv[31]; Stretch_sd = 0; Stretch_num = 0;
+  Tilt1_ave = dv[32]; Tilt1_sd = 0; Tilt1_num = 0;
+  Tilt2_ave = dv[33]; Tilt2_sd = 0; Tilt2_num = 0;
+  Buckle_ave = dv[34]; Buckle_sd = 0; Buckle_num = 0;
   MGW_mc_ave = dv[35]; MGW_mc_sd = 0; MGW_mc_num = 0;
   Roll_mc1_ave = dv[36]; Roll_mc1_sd = 0; Roll_mc1_num = 0;
   Roll_mc2_ave = dv[37]; Roll_mc2_sd = 0; Roll_mc2_num = 0;
-  Shear_mc_ave = dv[38]; Shear_mc_sd = 0; Shear_mc_num = 0;
-  Opening_mc_ave = dv[39]; Opening_mc_sd = 0; Opening_mc_num = 0;
-  Rise_mc1_ave = dv[40]; Rise_mc1_sd = 0; Rise_mc1_num = 0;
-  Rise_mc2_ave = dv[41]; Rise_mc2_sd = 0; Rise_mc2_num = 0;
-  Shift_mc1_ave = dv[42]; Shift_mc1_sd = 0; Shift_mc1_num = 0;
-  Shift_mc2_ave = dv[43]; Shift_mc2_sd = 0; Shift_mc2_num = 0;
-  Stagger_mc_ave = dv[44]; Stagger_mc_sd = 0; Stagger_mc_num = 0;
+  Shear_ave = dv[38]; Shear_sd = 0; Shear_num = 0;
+  Opening_ave = dv[39]; Opening_sd = 0; Opening_num = 0;
+  Rise1_ave = dv[40]; Rise1_sd = 0; Rise1_num = 0;
+  Rise2_ave = dv[41]; Rise2_sd = 0; Rise2_num = 0;
+  Shift1_ave = dv[42]; Shift1_sd = 0; Shift1_num = 0;
+  Shift2_ave = dv[43]; Shift2_sd = 0; Shift2_num = 0;
+  Stagger_ave = dv[44]; Stagger_sd = 0; Stagger_num = 0;
   ProT_mc_ave = dv[45]; ProT_mc_sd = 0; ProT_mc_num = 0;
   mGD_mc_ave = dv[46]; mGD_mc_sd = 0; mGD_mc_num = 0;
-  Slide_mc1_ave = dv[47]; Slide_mc1_sd = 0; Slide_mc1_num = 0;
-  Slide_mc2_ave = dv[48]; Slide_mc2_sd = 0; Slide_mc2_num = 0;
+  Slide1_ave = dv[47]; Slide1_sd = 0; Slide1_num = 0;
+  Slide2_ave = dv[48]; Slide2_sd = 0; Slide2_num = 0;
   HelT_mc1_ave = dv[49]; HelT_mc1_sd = 0; HelT_mc1_num = 0;
   HelT_mc2_ave = dv[50]; HelT_mc2_sd = 0; HelT_mc2_num = 0;
   mGW_mc_ave = dv[51]; mGW_mc_sd = 0; mGW_mc_num = 0;
-   
+
   //add xrc
   ProT_xrc_ave = dv[52]; ProT_xrc_sd = 0; ProT_xrc_num = 0;
   Tilt_xrc1_ave = dv[53]; Tilt_xrc1_sd = 0; Tilt_xrc1_num = 0;
@@ -784,7 +784,7 @@ void properties::load_data_from_vector(double_vector dv){
   Slide_xrc2_ave = dv[68]; Slide_xrc2_sd = 0; Slide_xrc2_num = 0;
   Stagger_xrc_ave = dv[69]; Stagger_xrc_sd = 0; Stagger_xrc_num = 0;
   MGW_xrc_ave = dv[70]; MGW_xrc_sd = 0; MGW_xrc_num = 0;
-  
+
   //add md
   ProT_md_ave = dv[71]; ProT_md_sd = 0; ProT_md_num = 0;
   Tilt_md1_ave = dv[72]; Tilt_md1_sd = 0; Tilt_md1_num = 0;
