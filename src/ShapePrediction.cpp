@@ -58,7 +58,7 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
       build_unique_pentamers(pentamers_map);
 
       //load the query table from file
-      std::string querytable_filename = "inst//extdata//QueryTable.dat";
+      //std::string querytable_filename = "inst//extdata//QueryTable.dat";
       //process_querytable_file(querytable_filename, pentamers_map, debug);
       process_querytable(pentamers_map, debug); //Tsu-Pei
 

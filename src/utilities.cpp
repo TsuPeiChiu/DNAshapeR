@@ -69,6 +69,11 @@ char get_opposite_base(char ch){
     return 'C';
   case 'C':
     return 'G';
+  case 'Q':
+    return 'M';
+  case 'M':
+    return 'Q';
+
   default:
     //std::cerr<<"Failed to find opposite base"<<std::endl;
     //exit(1);

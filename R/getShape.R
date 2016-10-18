@@ -50,41 +50,76 @@
 #' pred <- getShape(fn)
 #' @export getShape
 
-getShape <- function(filename, shapeType = 'Default', parse = TRUE) {
+getShape <- function(filename, shapeType = 'Default', parse = TRUE,
+                        methylate = FALSE, methylatedPosFile = NULL) {
 
-	defaultOpts <- c( 'MGW', 'HelT', 'ProT', 'Roll', 'EP')
-	additionalOpts <- c('MGD_mc', 'Stretch', 'Tilt', 'Buckle',
-        'MGW_mc', 'Roll', 'Shear', 'Opening', 'Rise', 'Shift',
-        'Stagger', 'ProT_mc', 'mGD_mc', 'Slide', 'HelT_mc', 'mGW_mc',
-        'ProT_xrc', 'Tilt_xrc', 'Buckle_xrc', 'Roll_xrc', 'Shear_xrc',
-        'Opening_xrc', 'Rise_xrc', 'Stretch_xrc', 'HelT_xrc', 'Shift_xrc',
-        'Slide_xrc', 'Stagger_xrc', 'MGW_xrc', 'ProT_md', 'Tilt_md',
-        'Buckle_md', 'Roll_md', 'Shear_md', 'Opening_md', 'Rise_md',
-        'Stretch_md', 'HelT_md', 'Shift_md', 'Slide_md', 'Stagger_md',
-        'MGW_md')
-    stopifnot( shapeType %in% c( defaultOpts, additionalOpts, 'Default' ) )
+    # without methylation
+    if( methylate == FALSE ){
+        defaultOpts <- c( 'MGW', 'HelT', 'ProT', 'Roll', 'EP')
+        additionalOpts <- c('Stretch', 'Tilt', 'Buckle', 'Shear', 'Opening',
+                            'Rise', 'Shift', 'Stagger', 'Slide')
+        stopifnot( shapeType %in% c( defaultOpts, additionalOpts, 'Default' ) )
 
-    if( length(shapeType) == 1 && shapeType == 'Default' ) {
-	    lapply(defaultOpts, getDNAShape, fastaFilePath = filename)
-	} else {
-	    lapply(shapeType, getDNAShape, fastaFilePath = filename)
-	}
-
-    if( parse ) {
-        message( 'Parsing files......' )
         if( length(shapeType) == 1 && shapeType == 'Default' ) {
-            ln <- paste0( filename, '.', defaultOpts )
-            shapeList <- lapply( ln, readShape )
-            names( shapeList ) <- defaultOpts
+            lapply(defaultOpts, getDNAShape, fastaFilePath = filename)
+
         } else {
-            ln <- paste0( filename, '.', shapeType )
-            shapeList <- lapply( ln, readShape )
-            names( shapeList ) <- shapeType
+            lapply(shapeType, getDNAShape, fastaFilePath = filename)
         }
-        message( 'Done' )
-        return( shapeList )
+
+        if( parse ) {
+            message( 'Parsing files......' )
+            if( length(shapeType) == 1 && shapeType == 'Default' ) {
+                ln <- paste0( filename, '.', defaultOpts )
+                shapeList <- lapply( ln, readShape )
+                names( shapeList ) <- defaultOpts
+
+            } else {
+                ln <- paste0( filename, '.', shapeType )
+                shapeList <- lapply( ln, readShape )
+                names( shapeList ) <- shapeType
+            }
+
+            message( 'Done' )
+            return( shapeList )
+        }
+
+
+    # with methylation
+    } else {
+        defaultOpts <- c( 'MGW', 'HelT', 'ProT', 'Roll')
+        stopifnot( shapeType %in% c( defaultOpts, 'Default' ) )
+
+        # file format converting (Satya)
+        convertFileName <- convertMethFile ( filename, methylatedPosFile )
+
+
+        if( length(shapeType) == 1 && shapeType == 'Default' ) {
+            lapply(defaultOpts, getDNAShape, fastaFilePath = convertFileName)
+
+        } else {
+            lapply(shapeType, getDNAShape, fastaFilePath = convertFileName)
+        }
+
+        if( parse ) {
+            message( 'Parsing files......' )
+            if( length(shapeType) == 1 && shapeType == 'Default' ) {
+                ln <- paste0( convertFileName, '.', defaultOpts )
+                shapeList <- lapply( ln, readShape )
+                names( shapeList ) <- defaultOpts
+
+            } else {
+                ln <- paste0( convertFileName, '.', shapeType )
+                shapeList <- lapply( ln, readShape )
+                names( shapeList ) <- shapeType
+            }
+
+            message( 'Done' )
+            return( shapeList )
+        }
     }
 }
+
 
 #' Read (parse) DNA shape predictions
 #'
@@ -143,3 +178,21 @@ readShape <- function( filename ) {
     shapeMatrix <- do.call( 'rbind', records )
     return( shapeMatrix )
 }
+
+
+#' File converter (Satya)
+#'
+#' Convert file
+#'
+
+convertMethFile <- function( fastaFileName, methPositionFileName = NULL ) {
+
+    convertFileName <- fastaFileName
+
+    return (convertFileName)
+}
+
+
+
+
+
