@@ -23,7 +23,7 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
     if(shapeType.compare("MGW")==0 || shapeType.compare("Roll")==0 || shapeType.compare("HelT")==0 ||
       shapeType.compare("ProT")==0 || shapeType.compare("EP")==0 ||
 	  //mc
-	  shapeType.compare("MGD_mc")==0 || shapeType.compare("Stretch")==0 || shapeType.compare("Tilt_mc")==0 ||
+	  shapeType.compare("MGD_mc")==0 || shapeType.compare("Stretch")==0 || shapeType.compare("Tilt")==0 ||
 	  shapeType.compare("Buckle")==0 || shapeType.compare("MGW_mc")==0 || shapeType.compare("Roll_mc")==0 ||
 	  shapeType.compare("Shear")==0 || shapeType.compare("Opening")==0 || shapeType.compare("Rise")==0 ||
 	  shapeType.compare("Shift")==0 || shapeType.compare("Stagger")==0 || shapeType.compare("ProT_mc")==0 ||
@@ -129,7 +129,7 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
 		  predict_groove_width(current_ss,pointers_matrix,status_matrix,name_list,debug,pentamers_map,shapeType,output_width,delimiter);
           output_stringstream_to_file(current_ss,outputFile);
 
-	  }else if(shapeType.compare("Tilt_mc")==0 || shapeType.compare("Roll_mc")==0 || shapeType.compare("Rise")==0 ||
+	  }else if(shapeType.compare("Tilt")==0 || shapeType.compare("Roll_mc")==0 || shapeType.compare("Rise")==0 ||
 	    shapeType.compare("Shift")==0 || shapeType.compare("Slide")==0 || shapeType.compare("HelT_mc")==0 ||
 		//xrc
 		shapeType.compare("Tilt_xrc")==0 || shapeType.compare("Roll_xrc")==0 || shapeType.compare("Rise_xrc")==0 ||
