@@ -187,9 +187,151 @@ readShape <- function( filename ) {
 
 convertMethFile <- function( fastaFileName, methPositionFileName = NULL ) {
 
-    convertFileName <- fastaFileName
+    convertFileName <- fastaFileName 
+    # read the sequence fasta file first 
+    fastaFile <- readDNAStringSet(fastaFileName)
+    seq_name = names(fastaFile)
+    sequence = paste(fastaFile)
+    dfSequenceFastaFile <- data.frame(seq_name, sequence)
+    dfSequenceFastaFile$seq_name = as.character (dfSequenceFastaFile$seq_name)
+    dfSequenceFastaFile$sequence = as.character (dfSequenceFastaFile$sequence)
+    #dfSequenceFastaFile = readPositionFastaFile(fastaFileName)
+    #names (dfSequenceFastaFile) = c("seq_name", "sequence")
+    rownames(dfSequenceFastaFile) = dfSequenceFastaFile[["seq_name"]]
+
+    # New file name
+    fname_without_extension = tools::file_path_sans_ext(fastaFileName,
+                                                        compression = FALSE)
+    extension = tools::file_ext(fastaFileName)
+    newfastaFileName = stringr::str_c(fname_without_extension, "_", "methylated")
+    newfastaFileName = paste (newfastaFileName, extension, sep=".")
+
+    if (is.null (methPositionFileName)) {
+        # No changes to be done at any position
+        # Check if the fasta file contains sequences with letter "M", or "g". 
+        # The target is to return the a filename containing sequences with only captial letter and "g" replaced by "Q" 
+        # Checking if the input fasta sequences have letter M present in them. If a sequence has M letter,
+        # then the conversion will not be done for that sequence, otherwise all the CpG positions in that sequence will be  
+        # 
+
+        # Checking what all sequences have M: 
+        IdxOfsequenceWithM = which (grepl ("M", dfSequenceFastaFile[["sequence"]]) == TRUE) 
+        NumberOfSequences = dim(dfSequenceFastaFile)[1]
+        arrayOfNumbers = 1:NumberOfSequences 
+        for (i  in 1:NumberOfSequences){
+            if (i %in% IdxOfsequenceWithM ) {
+                dfSequenceFastaFile[i, "sequence"] = str_replace_all (dfSequenceFastaFile[i, "sequence"],
+                                                                      "MG",
+                                                                      "MQ") 
+
+            }else {
+                dfSequenceFastaFile[i, "sequence"] = str_replace_all (dfSequenceFastaFile[i, "sequence"],
+                                                                      "CG",
+                                                                      "MQ") 
+            }
+        }
+
+        seqinr::write.fasta(sequences = as.list (dfSequenceFastaFile[["sequence"]]),
+                            names = as.list (dfSequenceFastaFile[["seq_name"]]),
+                            file.out = newfastaFileName)
+
+    } else {
+        # Calling readPositionFastaFile 
+        df.CpGtoMpQ = readPositionFastaFile (methPositionFileName)
+        rownames (df.CpGtoMpQ) = df.CpGtoMpQ[["seq_name"]]
+        for (name in df.CpGtoMpQ[["seq_name"]]){
+            positions_to_convert = df.CpGtoMpQ [name, "positions_to_convert_CpG_MpQ"]
+            positions_to_convert = strtoi (unlist (str_split (positions_to_convert, ","))) 
+            targetSequence = dfSequenceFastaFile[name, "sequence"]  
+            targetSequence = unlist (strsplit(targetSequence, split = ""))
+            lengthOftagetSequence = length (targetSequence)
+            for (j in positions_to_convert) {
+
+                if (j <=lengthOftagetSequence && targetSequence[j] == "C") {
+                    targetSequence[j] = "M"
+                    if (j + 1 <= lengthOftagetSequence) {
+                        targetSequence[j+1] = "Q"
+                    }
+                }else {
+                    msg = paste ("ERROR:", "position mentioned in", 
+                                 methPositionFileName,
+                                 "for sequence",
+                                 name, 
+                                 "is not valid. Letter 'C' was not found at position",
+                                 j, sep = " ")
+                    message (msg) 
+                    stop ()
+                }
+            }
+            targetSequence = stringr::str_c(targetSequence, collapse ="")
+            dfSequenceFastaFile[name, "sequence"] = targetSequence
+        }
+        seqinr::write.fasta(sequences = as.list(dfSequenceFastaFile[["sequence"]]),
+                            names = as.list (dfSequenceFastaFile[["seq_name"]]),
+                            file.out = newfastaFileName)
+
+
+
+    }
 
     return (convertFileName)
+}
+
+#' A method to read the position fasta file
+readPositionFastaFile <- function (filename) {
+    seq_names = c()
+    positions = c () 
+    con = file (filename, "r")
+    tmppos = ""
+    while (TRUE) {
+        line = stringr::str_trim (readLines(con, n = 1 )) 
+
+        if (length(line) == 0 ){
+            break
+        }
+        if (stringi::stri_isempty(line) == TRUE) {
+            next
+        } else if (">" == substring(line,1,1)) {
+            seq_name = substring(line,2)
+            while (TRUE){
+                pos = stringr::str_trim(readLines(con, n = 1 ))
+                if (length(pos)  == 0 ){
+                    break
+                }
+                if ( stringi::stri_isempty(pos) == TRUE){
+                    next
+                } else if (">" == substring (pos,1,1)) {
+
+                    positions = c (positions, tmppos)
+                    seq_names = c (seq_names, seq_name) 
+                    tmppos = ""
+                    seq_name = substring(pos,2)
+                } else {
+                    tmppos = stringr::str_c(tmppos, pos, sep ="")
+                }
+            }
+            positions = c (positions, tmppos)
+            seq_names = c (seq_names, seq_name) 
+        } else {
+            seq_name = "1"
+            seq_names = c (seq_name)
+            line_to_append = line 
+            while (TRUE) {
+                line = readLines(con, n = 1 )
+                if (length(line) == 0 ){
+                    break
+                }
+                stringr::str_c(line_to_append, line, sep ="") 
+            }
+            positions = c (line_to_append)
+        }
+    }
+    close (con)
+    # the data frame colum names are sigular 
+    df = data.frame (seq_name = seq_names, positions_to_convert_CpG_MpQ = positions) 
+    df$positions_to_convert_CpG_MpQ = as.character(df$positions_to_convert_CpG_MpQ)
+    df$seq_name = as.character(df$seq_name)
+    return (df)
 }
 
 
