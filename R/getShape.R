@@ -84,7 +84,6 @@ getShape <- function(filename, shapeType = 'Default', parse = TRUE,
             return( shapeList )
         }
 
-
     # with methylation
     } else {
         defaultOpts <- c( 'MGW', 'HelT', 'ProT', 'Roll')
@@ -143,7 +142,7 @@ getShape <- function(filename, shapeType = 'Default', parse = TRUE,
 
 readShape <- function( filename ) {
 
-    #read file and parse
+    # read file and parse
     records <- scan( filename, what = 'character' )
     recordStart <- grep( '>', records )
 
@@ -180,163 +179,178 @@ readShape <- function( filename ) {
 }
 
 
-
-#' File converter (Satya)
+#' Convert fasta file to methylated file format
 #'
-#' Convert file
+#' @usage convertMethFile(fastaFileName, methPositionFileName)
 #'
+#' @param fastaFileName The name of the input fasta format file, including
+#' full path to file if it is located outside the current working directory.
+#' @param methPositionFileName The name of the input position file 
+#' indicating the methlation position 
+#'
+#' @return methFileName fasta file containing methylated Cytosine
+#' 
+#' @author Satyanarayan Rao & Tsu-Pei Chiu
 
 convertMethFile <- function( fastaFileName, methPositionFileName = NULL ) {
 
-  convertFileName <- fastaFileName
-  # read the sequence fasta file first
-  fastaFile <- readDNAStringSet(fastaFileName)
-  seq_name = names(fastaFile)
-  sequence = paste(fastaFile)
-  dfSequenceFastaFile <- data.frame(seq_name, sequence)
-  dfSequenceFastaFile$seq_name = as.character (dfSequenceFastaFile$seq_name)
-  dfSequenceFastaFile$sequence = as.character (dfSequenceFastaFile$sequence)
-  #dfSequenceFastaFile = readPositionFastaFile(fastaFileName)
-  #names (dfSequenceFastaFile) = c("seq_name", "sequence")
-  rownames(dfSequenceFastaFile) = dfSequenceFastaFile[["seq_name"]]
+    #convertFileName <- fastaFileName
+    # read the sequence fasta file first
+    fastaFile <- readDNAStringSet( fastaFileName )
+    seqName = names( fastaFile )
+    seq = paste( fastaFile )
+    dfFastaFile <- data.frame( seqName, seq )
+    dfFastaFile$seq_name <- as.character ( dfFastaFile$seq_name )
+    dfFastaFile$seq <- as.character ( dfFastaFile$seq )
+    rownames( dfFastaFile ) <- dfFastaFile[["seqName"]]
 
-  # New file name
-  fname_without_extension = tools::file_path_sans_ext(fastaFileName,
-                                                      compression = FALSE)
-  extension = tools::file_ext(fastaFileName)
-  newfastaFileName = paste0(fname_without_extension, "_", "methylated")
-  newfastaFileName = paste (newfastaFileName, extension, sep=".")
-  # No matter user provides methPositionFileName, if sequences contain MG or Mg, then these words will be replaced by MQ
-  IdxOfsequenceWithM = which (grepl ("M", dfSequenceFastaFile[["sequence"]]) == TRUE)
-  IdxOfsequenceWithoutM = which (grepl ("M", dfSequenceFastaFile[["sequence"]]) == FALSE)
-  NumberOfSequences = dim(dfSequenceFastaFile)[1]
-  arrayOfNumbers = 1:NumberOfSequences
-  for (i in IdxOfsequenceWithM) {
-    dfSequenceFastaFile[i, "sequence"] = gsub ("MG",
-                                               "MQ",
-                                               dfSequenceFastaFile[i, "sequence"])
-  }
-  if (is.null (methPositionFileName)) {
-    # No changes to be done at any position
-    # Check if the fasta file contains sequences with letter "M", or "g".
-    # The target is to return the a filename containing sequences with only captial letter and "g" replaced by "Q"
-    # Checking if the input fasta sequences have letter M present in them. If a sequence has M letter,
-    # then the conversion will not be done for that sequence, otherwise all the CpG positions in that sequence will be
-    #
+    # prepare the output file name
+    filenameWoExt <- tools::file_path_sans_ext( fastaFileName,
+                                                compression = FALSE )
+    extension <- tools::file_ext( fastaFileName )
+    methFileName <- paste0( filenameWoExt, "_", "methylated" )
+    methFileName <- paste( methFileName, extension, sep="." )
+    
+    # according to the methPositionFileName convert the methylated nucleotide 
+    # to MG/Mg and then replace the letter with MQ 
+    idxM <- which( grepl( "M", dfFastaFile[["seq"]] ) == TRUE ) 
+    idxWoM <- which( grepl("M", dfFastaFile[["seq"]] ) == FALSE )
+    seqNum <- dim(dfFastaFile)[1]    
 
-    # Checking what all sequences have M:
-
-    for (i  in IdxOfsequenceWithoutM){
-      dfSequenceFastaFile[i, "sequence"] = gsub ("CG",
-                                                 "MQ",
-                                                 dfSequenceFastaFile[i, "sequence"])
+    arrayOfNumbers = 1:NumberOfSequences
+    for ( i in idxM ) {
+        dfFastaFile[i, "seq"] = gsub( "MG", "MQ", dfFastaFile[i, "seq"] )
     }
-
-    # seqinr::write.fasta(sequences = as.list (dfSequenceFastaFile[["sequence"]]),
-    #                     names = as.list (dfSequenceFastaFile[["seq_name"]]),
-    #                     file.out = newfastaFileName)
-    OutputSequences = Biostrings::BStringSet(dfSequenceFastaFile[["sequence"]])
-    names (OutputSequences) = dfSequenceFastaFile[["seq_name"]]
-    Biostrings::writeXStringSet(OutputSequences, newfastaFileName)
-
-  } else {
-    # Calling readPositionFastaFile
-    df.CpGtoMpQ = readNonStandardFastaFile (methPositionFileName)
-    names (df.CpGtoMpQ) = c ("seq_name", "positions_to_convert_CpG_MpQ")
-    rownames (df.CpGtoMpQ) = df.CpGtoMpQ[["seq_name"]]
-    for (name in df.CpGtoMpQ[["seq_name"]]){
-      positions_to_convert = df.CpGtoMpQ [name, "positions_to_convert_CpG_MpQ"]
-      positions_to_convert = strtoi (unlist (strsplit (positions_to_convert, ",")))
-      targetSequence = dfSequenceFastaFile[name, "sequence"]
-      targetSequence = unlist (strsplit(targetSequence, split = ""))
-      lengthOftagetSequence = length (targetSequence)
-      for (j in positions_to_convert) {
-
-        if (j <=lengthOftagetSequence && targetSequence[j] == "C") {
-          targetSequence[j] = "M"
-          if (j + 1 <= lengthOftagetSequence) {
-            targetSequence[j+1] = "Q"
-          }
-        }else {
-          msg = paste ("ERROR:", "position mentioned in",
-                       methPositionFileName,
-                       "for sequence",
-                       name,
-                       "is not valid. Letter 'C' was not found at position",
-                       j, sep = " ")
-          message (msg)
-          stop ()
+    
+    if (is.null (methPositionFileName)) {
+    # no changes to be done at any position
+    # check if the fasta file contains sequences with letter "M", or "g".
+    # the target is to return the a filename containing sequences with 
+    # only captial letter and "g" replaced by "Q".
+    # Checking if the input fasta sequences have letter M present in them.
+    # If a sequence has M letter then the conversion will not be done for 
+    # that sequence, otherwise all the CpG positions in that sequence 
+    # will be checking what all sequences have M
+        for ( i in idxWoM ){
+            dfFastaFile[i, "sequence"] = gsub ("CG", "MQ",
+                                               dfFastaFile[i, "seq"])
         }
-      }
-      targetSequence = paste0(targetSequence, collapse = "")
-      dfSequenceFastaFile[name, "sequence"] = targetSequence
+        OutputSeqs = Biostrings::BStringSet(dfFastaFile[["seq"]])
+        names (OutputSeqs) = dfFastaFile[["seqName"]]
+        Biostrings::writeXStringSet(OutputSeqs, methFileName)
+
+    } else {
+    # mark the methlation according to methPositionFileName
+        df.CpGtoMpQ = readNonStandardFastaFile (methPositionFileName)
+        names (df.CpGtoMpQ) = c ("seqName", "positions_to_convert_CpG_MpQ")
+        rownames (df.CpGtoMpQ) = df.CpGtoMpQ[["seqName"]]
+        for (name in df.CpGtoMpQ[["seqName"]]){
+            positions_to_convert = df.CpGtoMpQ [name, "positions_to_convert_CpG_MpQ"]
+            positions_to_convert = strtoi (unlist (strsplit (positions_to_convert, ",")))
+            targetSequence = dfFastaFile[name, "seq"]
+            targetSequence = unlist (strsplit(targetSequence, split = ""))
+            lengthOftagetSequence = length (targetSequence)
+            for (j in positions_to_convert) {
+                if (j <=lengthOftagetSequence && targetSequence[j] == "C") {
+                    targetSequence[j] = "M"
+                    if (j + 1 <= lengthOftagetSequence) {
+                        targetSequence[j+1] = "Q"
+                    }
+                }else {
+                    msg = paste ("ERROR:", "position mentioned in",
+                                methPositionFileName,
+                                "for sequence",
+                                name,
+                                "is not valid. Letter 'C' was not found at position",
+                                j, sep = " ")
+                    message (msg)
+                    stop ()
+                }
+            }
+            targetSequence = paste0(targetSequence, collapse = "")
+            dfFastaFile[name, "seq"] = targetSequence
+        }
+        # seqinr::write.fasta(sequences = as.list(dfFastaFile[["sequence"]]),
+        #                     names = as.list (dfFastaFile[["seq_name"]]),
+        #                     file.out = newfastaFileName)
+        OutputSequences = Biostrings::BStringSet(dfFastaFile[["seq"]])
+        names (OutputSequences) = dfFastaFile[["seqName"]]
+        Biostrings::writeXStringSet(OutputSequences, newfastaFileName)
     }
-    # seqinr::write.fasta(sequences = as.list(dfSequenceFastaFile[["sequence"]]),
-    #                     names = as.list (dfSequenceFastaFile[["seq_name"]]),
-    #                     file.out = newfastaFileName)
-    OutputSequences = Biostrings::BStringSet(dfSequenceFastaFile[["sequence"]])
-    names (OutputSequences) = dfSequenceFastaFile[["seq_name"]]
-    Biostrings::writeXStringSet(OutputSequences, newfastaFileName)
-
-
-  }
-  convertFileName <- newfastaFileName
-  return (newfastaFileName)
+    convertFileName <- newfastaFileName
+    return (newfastaFileName)
 }
 
-#' A method to read the position fasta file
-readNonStandardFastaFile <- function (filename) {
-  keys = c()
-  content = c ()
-  con = file (filename, "r")
-  value_for_key = ""
-  while (TRUE) {
-    line = gsub ("\n", "", readLines(con, n = 1 ))
 
-    if (length(line) == 0 ){
-      break
-    }
-    if (line== "") {
-      next
-    } else if (">" == substring(line,1,1)) {
-      key = substring(line,2)
-      while (TRUE){
-        tmp_value_for_key = gsub("\n","",readLines(con, n = 1 ))
-        if (length(tmp_value_for_key)  == 0 ){
-          break
+#' Read the position fasta file
+#'
+#' @usage readNonStandardFastaFile(filename)
+#'
+#' @param filename The name of the input position file 
+#' indicating the methlation position 
+#'
+#' @return df dataframe
+#' 
+#' @author Satyanarayan Rao & Tsu-Pei Chiu
+#' 
+
+readNonStandardFastaFile <- function( filename ) {
+    keys = c()
+    content = c ()
+    con = file (filename, "r")
+    valueKey = ""
+    while (TRUE) {
+        line = gsub ("\n", "", readLines( con, n = 1 ))
+
+        if ( length( line ) == 0 ){
+            break
         }
-        if ( tmp_value_for_key==""){
-          next
-        } else if (">" == substring (tmp_value_for_key,1,1)) {
-
-          content = c (content, value_for_key)
-          keys = c (keys, key)
-          value_for_key = ""
-          key = substring(tmp_value_for_key ,2)
+        if ( line == "" ) {
+            next
+        } else if( ">" == substring( line, 1, 1 ) ) {
+            key = substring( line, 2 )
+            
+            while( TRUE ){
+                tmpKey = gsub( "\n","",readLines(con, n = 1 ) )
+                if (length( tmpKey ) == 0 ){
+                    break
+                }
+                
+                if ( tmpKey == ""){
+                    next
+                
+                } else if( ">" == substring( tmpKey, 1, 1 ) ) {
+                    content <- c( content, valueKey )
+                    keys <- c( keys, key )
+                    valueKey <- ""
+                    key <- substring(tmpKey ,2)
+                
+                } else {
+                    valueKey <- paste0( valueKey, tmpKey, 
+                                 collapse="" )
+                }
+            }
+            content <- c( content, valueKey )
+            keys <- c( keys, key )
         } else {
-          value_for_key = paste0(value_for_key, tmp_value_for_key, collapse="")
+            key <- "1"
+            valueKey <- line
+          
+            while( TRUE ) {
+                line <- readLines( con, n = 1 )
+                if ( length(line) == 0 ){
+                    break
+                }
+                valueKey <- paste0(valueKey, line, collapse="")
+            }
+            content <- c (line_to_append)
+            keys <- c (key)
         }
-      }
-      content = c (content, value_for_key)
-      keys = c (keys, key)
-    } else {
-      key = "1"
-      value_for_key = line
-      while (TRUE) {
-        line = readLines(con, n = 1 )
-        if (length(line) == 0 ){
-          break
-        }
-        value_for_key = paste0(value_for_key, line, collapse="")
-      }
-      content = c (line_to_append)
-      keys = c (key)
     }
-  }
-  close (con)
-  # the data frame colum names are sigular
-  df = data.frame (keys = keys, content = content)
-  df$keys = as.character(df$keys)
-  df$content = as.character(df$content)
-  return (df)
+    close (con)
+
+    df <- data.frame (keys = keys, content = content)
+    df$keys <- as.character(df$keys)
+    df$content <- as.character(df$content)
+    return (df)
 }
