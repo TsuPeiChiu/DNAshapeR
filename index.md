@@ -37,7 +37,7 @@ or **you can [Download the PDF documentation](http://rohslab.cmb.usc.edu/Documen
 
 ### Citation
 If you are using DNAshapeR for your analysis, please cite:
-* T.-P. Chiu , F. Comoglio, T. Zhou, L. Yang, R. Paro, and R. Rohs: DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding (2015). Bioinformatics. In press. 
+* T.-P. Chiu , F. Comoglio, T. Zhou, L. Yang, R. Paro, and R. Rohs: DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding. Bioinformatics 32, 1211-1213 (2016). 
 
 ### Contact
 Please do not hesitate to contact us: tsupeich@usc.edu federico.comoglio@bsse.ethz.ch
