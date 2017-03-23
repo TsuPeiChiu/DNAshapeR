@@ -1,0 +1,8 @@
+title: DNAshapeR
+description: 
+google_analytics: UA-54833735-2
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions
