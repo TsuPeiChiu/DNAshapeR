@@ -1,6 +1,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # DNAshapeR
-# 2015
+# 2015, 2017
 # Tsu-Pei Chiu, Rohs Lab, USC
 # Federico Comoglio, Green lab, CIMR
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,6 +29,26 @@
 #' derived from different experimental or computational sources will become
 #' available, the package has a flexible modular design that easily allows
 #' future expansions.
+#' In the latest version, we further added additional 9 DNA shape features 
+#' beyond our previous set of 4 features, and expanded our available repertoire
+#' to a total of 13 features, including 6 inter-base pair or base pair-step 
+#' parameters (HelT, Rise, Roll, Shift, Slide, and Tilt), 6 intra-base pair or 
+#' base pair-step parameters (Buckle, Opening, ProT, Shear, Stagger, 
+#' and Stretch), and MGW.
+#' 
+#' Predict biophysical feature
+#' 
+#' Our previous work explained protein-DNA binding specificity based on 
+#' correlations between MGW and electrostatic potential (EP) observed in 
+#' experimentally available structures (Joshi, et al., 2007). However, A/T 
+#' and C/G base pairs carry different partial charge distributions in the 
+#' minor groove (due primarily to the guanine amino group), which will affect 
+#' minor-groove EP. We developed a high-throughput method to predict 
+#' minor-groove EP based on data mining of results from solving the nonlinear 
+#' Poisson-Boltzmann calculations (Honig & Nicholls, 1995) on 2,297 DNA 
+#' structures derived from Monte Carlo simulations. DNAshapeR includes EP 
+#' as an additional feature.
+#' 
 #'
 #' @usage getShape(filename, shapeType = 'All', parse = TRUE)
 #'
