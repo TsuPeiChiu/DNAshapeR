@@ -29,26 +29,26 @@
 #' derived from different experimental or computational sources will become
 #' available, the package has a flexible modular design that easily allows
 #' future expansions.
-#' In the latest version, we further added additional 9 DNA shape features 
+#' In the latest version, we further added additional 9 DNA shape features
 #' beyond our previous set of 4 features, and expanded our available repertoire
-#' to a total of 13 features, including 6 inter-base pair or base pair-step 
-#' parameters (HelT, Rise, Roll, Shift, Slide, and Tilt), 6 intra-base pair or 
-#' base pair-step parameters (Buckle, Opening, ProT, Shear, Stagger, 
+#' to a total of 13 features, including 6 inter-base pair or base pair-step
+#' parameters (HelT, Rise, Roll, Shift, Slide, and Tilt), 6 intra-base pair or
+#' base pair-step parameters (Buckle, Opening, ProT, Shear, Stagger,
 #' and Stretch), and MGW.
-#' 
+#'
 #' Predict biophysical feature
-#' 
-#' Our previous work explained protein-DNA binding specificity based on 
-#' correlations between MGW and electrostatic potential (EP) observed in 
-#' experimentally available structures (Joshi, et al., 2007). However, A/T 
-#' and C/G base pairs carry different partial charge distributions in the 
-#' minor groove (due primarily to the guanine amino group), which will affect 
-#' minor-groove EP. We developed a high-throughput method to predict 
-#' minor-groove EP based on data mining of results from solving the nonlinear 
-#' Poisson-Boltzmann calculations (Honig & Nicholls, 1995) on 2,297 DNA 
-#' structures derived from Monte Carlo simulations. DNAshapeR includes EP 
+#'
+#' Our previous work explained protein-DNA binding specificity based on
+#' correlations between MGW and electrostatic potential (EP) observed in
+#' experimentally available structures (Joshi, et al., 2007). However, A/T
+#' and C/G base pairs carry different partial charge distributions in the
+#' minor groove (due primarily to the guanine amino group), which will affect
+#' minor-groove EP. We developed a high-throughput method to predict
+#' minor-groove EP based on data mining of results from solving the nonlinear
+#' Poisson-Boltzmann calculations (Honig & Nicholls, 1995) on 2,297 DNA
+#' structures derived from Monte Carlo simulations. DNAshapeR includes EP
 #' as an additional feature.
-#' 
+#'
 #'
 #' @usage getShape(filename, shapeType = 'All', parse = TRUE)
 #'
@@ -205,11 +205,11 @@ readShape <- function( filename ) {
 #'
 #' @param fastaFileName The name of the input fasta format file, including
 #' full path to file if it is located outside the current working directory.
-#' @param methPositionFileName The name of the input position file 
-#' indicating the methlation position 
+#' @param methPositionFileName The name of the input position file
+#' indicating the methlation position
 #'
 #' @return methFileName fasta file containing methylated Cytosine
-#' 
+#'
 #' @author Satyanarayan Rao & Tsu-Pei Chiu
 
 convertMethFile <- function( fastaFileName, methPositionFileName = NULL ) {
@@ -220,7 +220,8 @@ convertMethFile <- function( fastaFileName, methPositionFileName = NULL ) {
     seqName = names( fastaFile )
     seq = paste( fastaFile )
     dfFastaFile <- data.frame( seqName, seq )
-    dfFastaFile$seq_name <- as.character ( dfFastaFile$seq_name )
+
+    dfFastaFile$seq_name <- as.character ( dfFastaFile$seqName )
     dfFastaFile$seq <- as.character ( dfFastaFile$seq )
     rownames( dfFastaFile ) <- dfFastaFile[["seqName"]]
 
@@ -230,26 +231,26 @@ convertMethFile <- function( fastaFileName, methPositionFileName = NULL ) {
     extension <- tools::file_ext( fastaFileName )
     methFileName <- paste0( filenameWoExt, "_", "methylated" )
     methFileName <- paste( methFileName, extension, sep="." )
-    
-    # according to the methPositionFileName convert the methylated nucleotide 
-    # to MG/Mg and then replace the letter with MQ 
-    idxM <- which( grepl( "M", dfFastaFile[["seq"]] ) == TRUE ) 
-    idxWoM <- which( grepl("M", dfFastaFile[["seq"]] ) == FALSE )
-    seqNum <- dim(dfFastaFile)[1]    
 
-    arrayOfNumbers = 1:NumberOfSequences
+    # according to the methPositionFileName convert the methylated nucleotide
+    # to MG/Mg and then replace the letter with MQ
+    idxM <- which( grepl( "M", dfFastaFile[["seq"]] ) == TRUE )
+    idxWoM <- which( grepl("M", dfFastaFile[["seq"]] ) == FALSE )
+    seqNum <- dim(dfFastaFile)[1]
+
+    arrayOfNumbers = 1:seqNum
     for ( i in idxM ) {
         dfFastaFile[i, "seq"] = gsub( "MG", "MQ", dfFastaFile[i, "seq"] )
     }
-    
+
     if (is.null (methPositionFileName)) {
     # no changes to be done at any position
     # check if the fasta file contains sequences with letter "M", or "g".
-    # the target is to return the a filename containing sequences with 
+    # the target is to return the a filename containing sequences with
     # only captial letter and "g" replaced by "Q".
     # Checking if the input fasta sequences have letter M present in them.
-    # If a sequence has M letter then the conversion will not be done for 
-    # that sequence, otherwise all the CpG positions in that sequence 
+    # If a sequence has M letter then the conversion will not be done for
+    # that sequence, otherwise all the CpG positions in that sequence
     # will be checking what all sequences have M
         for ( i in idxWoM ){
             dfFastaFile[i, "sequence"] = gsub ("CG", "MQ",
@@ -292,13 +293,13 @@ convertMethFile <- function( fastaFileName, methPositionFileName = NULL ) {
         }
         # seqinr::write.fasta(sequences = as.list(dfFastaFile[["sequence"]]),
         #                     names = as.list (dfFastaFile[["seq_name"]]),
-        #                     file.out = newfastaFileName)
+        #                     file.out = methFileName)
         OutputSequences = Biostrings::BStringSet(dfFastaFile[["seq"]])
         names (OutputSequences) = dfFastaFile[["seqName"]]
-        Biostrings::writeXStringSet(OutputSequences, newfastaFileName)
+        Biostrings::writeXStringSet(OutputSequences, methFileName)
     }
-    convertFileName <- newfastaFileName
-    return (newfastaFileName)
+    convertFileName <- methFileName
+    return (convertFileName)
 }
 
 
@@ -306,13 +307,13 @@ convertMethFile <- function( fastaFileName, methPositionFileName = NULL ) {
 #'
 #' @usage readNonStandardFastaFile(filename)
 #'
-#' @param filename The name of the input position file 
-#' indicating the methlation position 
+#' @param filename The name of the input position file
+#' indicating the methlation position
 #'
 #' @return df dataframe
-#' 
+#'
 #' @author Satyanarayan Rao & Tsu-Pei Chiu
-#' 
+#'
 
 readNonStandardFastaFile <- function( filename ) {
     keys = c()
@@ -329,24 +330,24 @@ readNonStandardFastaFile <- function( filename ) {
             next
         } else if( ">" == substring( line, 1, 1 ) ) {
             key = substring( line, 2 )
-            
+
             while( TRUE ){
                 tmpKey = gsub( "\n","",readLines(con, n = 1 ) )
                 if (length( tmpKey ) == 0 ){
                     break
                 }
-                
+
                 if ( tmpKey == ""){
                     next
-                
+
                 } else if( ">" == substring( tmpKey, 1, 1 ) ) {
                     content <- c( content, valueKey )
                     keys <- c( keys, key )
                     valueKey <- ""
                     key <- substring(tmpKey ,2)
-                
+
                 } else {
-                    valueKey <- paste0( valueKey, tmpKey, 
+                    valueKey <- paste0( valueKey, tmpKey,
                                  collapse="" )
                 }
             }
@@ -355,7 +356,7 @@ readNonStandardFastaFile <- function( filename ) {
         } else {
             key <- "1"
             valueKey <- line
-          
+
             while( TRUE ) {
                 line <- readLines( con, n = 1 )
                 if ( length(line) == 0 ){

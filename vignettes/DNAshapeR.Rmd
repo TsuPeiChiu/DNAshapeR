@@ -38,12 +38,57 @@ library(DNAshapeR)
 ```
 
 ## Predict DNA shape features
-The core of DNAshapeR, the DNAshape method (Zhou, et al., 2013), uses a 
-sliding pentamer window where structural features unique to each of the 
-512 distinct pentamers define a vector of minor groove width (MGW), Roll, 
-propeller twist (ProT), and helix twist (HelT) at each nucleotide position. 
-MGW and ProT define base-pair parameters whereas Roll and HelT represent 
-base pair-step parameters.
+The core of DNAshapeR, the DNAshape method (Zhou, et al., 2013), 
+uses a sliding pentamer window where structural features unique 
+to each of the 512 distinct pentamers define a vector of minor 
+groove width (MGW), Roll, propeller twist (ProT), and helix twist 
+(HelT) at each nucleotide position. MGW and ProT define base-pair 
+parameters whereas Roll and HelT represent base pair-step parameters. 
+The values for each DNA shape feature as function of its pentamer 
+sequence were derived from all-atom Monte Carlo simulations where DNA 
+structure is sampled in collective and internal degrees of freedom in 
+combination with explicit sodium counter ions (Zhang, et al., 2014). 
+The Monte Carlo simulations were analyzed with a modified Curves 
+approach (Zhou, et al., 2013). Average values of each shape feature 
+for each pentamer were derived from analyzing the ensemble of Monte 
+Carlo predictions for 2,121 DNA fragments of 12−27 base pairs in length. 
+DNAshapeR predicts the four DNA shape features MGW, HelT, ProT, and Roll, 
+which were observed in various cocrystal structures as playing an important 
+role in specific protein-DNA binding. 
+
+In the latest version, we further added additional 9 DNA shape features 
+beyond our previous set of 4 features, and expanded our available 
+repertoire to a total of 13 features, including 6 inter-base pair or 
+base pair-step parameters (HelT, Rise, Roll, Shift, Slide, and Tilt), 
+6 intra-base pair or base pair-step parameters (Buckle, Opening, ProT, 
+Shear, Stagger, and Stretch), and MGW.
+
+
+## Predict biophysical feature
+Our previous work explained protein-DNA binding specificity based on 
+correlations between MGW and (electrostatic potential) EP observed in 
+experimentally available structures (Joshi, et al., 2007). However, A/T 
+and C/G base pairs carry different partial charge distributions in the 
+minor groove (due primarily to the guanine amino group), which will affect 
+minor-groove EP. We developed a high-throughput method, named DNAphi, to 
+predict minor-groove EP based on data mining of results from solving the 
+nonlinear Poisson-Boltzmann calculations (Honig & Nicholls, 1995) on 2,297 
+DNA structures derived from Monte Carlo simulations. DNAshapeR includes EP 
+as an additional feature.
+
+
+## Predict DNA shape feature due to CpG methylation
+To achieve a better mechanistic understanding of the effect of CpG 
+methylation on local DNA structure, we developed a high-throughput 
+method, named methyl-DNAshape, for predicting the impact of cytosine 
+methylation on DNA shape features. In analogy to the DNAshape method 
+(Zhou, et al., 2013), the method predicts DNA shape features (ProT, 
+HelT, Roll, and MGW) in the context of CpG methylation based on 
+methyl-DNAshape Pentamer Query Table (mPQT) derived from the results 
+of all-atom Monte Carlo simulations on a total of 3,518 DNA fragments 
+of lengths varying from 13 to 24 bp.  
+
+
 
 DNAshapeR can predict DNA shape features from custom FASTA files or directly 
 from genomic coordinates in the form of a GRanges object within Bioconductor 
@@ -67,7 +112,8 @@ reference genome is required. Several reference genomes are available
 within BioConductor as BSgenome objects 
 (see <http://bioconductor.org/packages/release/bioc/html/BSgenome.html> 
 for more information). For example, the sacCer3 release of the *S.Cerevisiae* 
-genome can be retrieved. Given a reference genome, the **getFasta** function first extracts the DNA 
+genome can be retrieved. Given a reference genome, the **getFasta** function 
+first extracts the DNA 
 sequences based on the provided genomic coordinates, and then performs shape 
 predictions within a user-defined window (of size equal to width, 100 bp in 
 the example below) computed from the center of each genomic interval:
@@ -94,7 +140,9 @@ The genomic intervals can also be obtained from public domain projects,
 including ENCODE, NCBI, Ensembl, etc. The AnnotationHub package 
 (see <http://bioconductor.org/packages/release/bioc/html/AnnotationHub.html> 
 for more information) provides an interface to retrieve genomic intervals 
-from these multiple online project resources.The genomic intervals of interest can be selected progressively through the functions of **sebset** and **query** with keywords, and can be subjected as 
+from these multiple online project resources.The genomic intervals of interest
+can be selected progressively through the functions of **sebset** and **query** 
+with keywords, and can be subjected as 
 an input of GRanges object to **getFasta** function.
 
 ```{r eval=FALSE}
@@ -110,11 +158,58 @@ fn <- "tmp.fa"
 pred <- getShape(fn)
 ```
 
+
+### From FASTA file with methylated DNA sequence
+
+To predict DNA shape features in the context of CpG methylation, one 
+can prepare a FASTA file of sequence with symbol ‘Mg’: ‘M’ referring 
+to cytosine of methylated CpG on the leading strand and ‘g’ referring 
+the cytosine of methylated CpG on lagging strand. For example,
+
+\>seq1
+
+GTGTCACMgCGTCTATACG
+
+notifying the cytosine at position 8th on the leading strand and the 
+one at position 9th on the lagging strand are methylated.
+
+```{r eval=TRUE}
+library(DNAshapeR)
+fn_methy <- system.file("extdata", "MethylSample.fa", package = "DNAshapeR")
+pred_methy <- getShape(fn_methy, methylate = TRUE)
+pred_methy$MGW
+```
+
+
+### From FASTA and methylated position files
+
+To predict DNA shape features in the context of CpG methylation, 
+in addition to providing regular FASTA file (without symbolizing ‘Mg’) 
+one can provide an additional input file identifying methylated positions. 
+For example, 
+
+\>seq1
+
+4,16
+
+notifying the cytosine at position 4th and 16th on leading strand, and 5th 
+and 17th on lagging strand are methylated.
+
+
+```{r eval=TRUE}
+library(DNAshapeR)
+fn_methy <- system.file("extdata", "SingleSeqsample.fa", package = "DNAshapeR")
+fn_methy_pos <- system.file("extdata", "MethylSamplePos.fa", package = "DNAshapeR")
+pred_methy <- getShape(fn_methy, methylate = TRUE, methylatedPosFile = fn_methy_pos)
+pred_methy$MGW
+```
+
+
 ## Visualize DNA shape prediction
 DNAshapeR can be used to generate various graphical representations for 
 further analyses. The prediction result can be visualized in the form of 
 scatter plots (Comoglio, et al., 2015), heat maps (Yang, et al., 2014), 
-or genome browser tracks (Chiu, et al., 2014).
+or genome browser tracks (Chiu, et al., 2015).
 
 ### Ensemble representation: metashape plot
 The prediction result can be visualized in the metaprofiles of DNA shape 
@@ -155,8 +250,8 @@ DNAshapeR can be used to generate feature vectors for a user-defined model.
 These models can consist of either sequence features (1-mer, 2-mer, 3-mer), 
 shape features (MGW, Roll, ProT, HelT), or any combination of those two. 
 For 1-mer features, sequence is encoded in form of four binary numbers 
-(i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine, 0100 for 
-guanine, and 1000 for thymine) at each nucleotide position (Zhou, et al., 
+(i.e., in terms of 1-mers, 1000 for adenine, 0100 for cytosine, 0010 for 
+guanine, and 0001 for thymine) at each nucleotide position (Zhou, et al., 
 2015). The encoding function of the DNAshapeR package enables the 
 determination of higher order sequence features, for example, 2-mers and 
 3-mers (16 and 64 binary features at each position, respectively). The 
@@ -177,7 +272,7 @@ order and “2-shape” to second order shape features.
 
 ```{r eval=TRUE}
 library(Biostrings)
-fn3 <- system.file("extdata", "SELEXsample_short.fa", package = "DNAshapeR")
+fn3 <- system.file("extdata", "PBMsample_short.fa", package = "DNAshapeR")
 pred3 <- getShape(fn3)
 featureType <- c("1-mer", "1-shape")
 featureVector <- encodeSeqShape(fn3, pred3, featureType)
@@ -188,14 +283,14 @@ head(featureVector)
 Feature encoding of multiple sequences thus results in a feature matrix, 
 which can be used as input for variety of statistical machine learning 
 methods. For example, an application is the quantitative modeling of 
-SELEX-seq derived protein-DNA binding by linear regression as demonstrated 
+PBM derived protein-DNA binding by linear regression as demonstrated 
 below.
 
 First, pre-computed binding affinity values are combined with experimental 
 information in a data frame structure.
 
 ```{r eval=TRUE}
-fn4 <- system.file("extdata", "SELEXsample_short.s", package = "DNAshapeR")
+fn4 <- system.file("extdata", "PBMsample_short.s", package = "DNAshapeR")
 experimentalData <- read.table(fn4)
 df <- data.frame(affinity=experimentalData$V1, featureVector)
 ```
@@ -225,7 +320,7 @@ sessionInfo()
 
 
 Chiu, T.P., et al. GBshape: a genome browser database for DNA shape 
-annotations. Nucleic Acids Res 2014.
+annotations. Nucleic Acids Res 2015.
 
 Comoglio, F., et al. High-resolution profiling of Drosophila replication 
 start sites reveals a DNA shape and chromatin signature of metazoan origins. 
@@ -242,6 +337,6 @@ DNA structural features on a genomic scale. Nucleic Acids Res 2013;41
 If you use DNAshapeR for your work, please cite the following publication:
 
 Chiu, T-P., et al. DNAshapeR: an R/Bioconductor package for DNA shape 
-prediction and feature encoding (2015). Submitted
+prediction and feature encoding (2016).
 
 

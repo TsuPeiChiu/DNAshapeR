@@ -1,6 +1,9 @@
 DNAshapeR
 --------------
 
+CHANGES IN VERSION 0.99.8
+* Added additional 9 DNA shape features, 1 biophysical feature, and 4 methylated DNA shape features
+
 CHANGES IN VERSION 0.99.7
 * improved the performace of sequence encoding process.
 
