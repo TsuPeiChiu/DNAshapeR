@@ -1,6 +1,6 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # DNAshapeR
-# 2015
+# 2015, 2017
 # Tsu-Pei Chiu, Rohs Lab, USC
 # Federico Comoglio, Green lab, CIMR
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,6 +29,26 @@
 #' derived from different experimental or computational sources will become
 #' available, the package has a flexible modular design that easily allows
 #' future expansions.
+#' In the latest version, we further added additional 9 DNA shape features
+#' beyond our previous set of 4 features, and expanded our available repertoire
+#' to a total of 13 features, including 6 inter-base pair or base pair-step
+#' parameters (HelT, Rise, Roll, Shift, Slide, and Tilt), 6 intra-base pair or
+#' base pair-step parameters (Buckle, Opening, ProT, Shear, Stagger,
+#' and Stretch), and MGW.
+#'
+#' Predict biophysical feature
+#'
+#' Our previous work explained protein-DNA binding specificity based on
+#' correlations between MGW and electrostatic potential (EP) observed in
+#' experimentally available structures (Joshi, et al., 2007). However, A/T
+#' and C/G base pairs carry different partial charge distributions in the
+#' minor groove (due primarily to the guanine amino group), which will affect
+#' minor-groove EP. We developed a high-throughput method to predict
+#' minor-groove EP based on data mining of results from solving the nonlinear
+#' Poisson-Boltzmann calculations (Honig & Nicholls, 1995) on 2,297 DNA
+#' structures derived from Monte Carlo simulations. DNAshapeR includes EP
+#' as an additional feature.
+#'
 #'
 #' @usage getShape(filename, shapeType = 'All', parse = TRUE)
 #'
@@ -50,36 +70,75 @@
 #' pred <- getShape(fn)
 #' @export getShape
 
-getShape <- function(filename, shapeType = 'All', parse = TRUE) {
+getShape <- function(filename, shapeType = 'Default', parse = TRUE,
+                        methylate = FALSE, methylatedPosFile = NULL) {
 
-    opts <- c( 'MGW', 'HelT', 'ProT', 'Roll' )
-    stopifnot( shapeType %in% c( opts, 'All' ) )
+    # without methylation
+    if( methylate == FALSE ){
+        defaultOpts <- c( 'MGW', 'HelT', 'ProT', 'Roll', 'EP')
+        additionalOpts <- c('Stretch', 'Tilt', 'Buckle', 'Shear', 'Opening',
+                            'Rise', 'Shift', 'Stagger', 'Slide')
+        stopifnot( shapeType %in% c( defaultOpts, additionalOpts, 'Default' ) )
 
-    if( shapeType != 'All' ) {
-        getDNAShape(filename, 'MGW')
+        if( length(shapeType) == 1 && shapeType == 'Default' ) {
+            lapply(defaultOpts, getDNAShape, fastaFilePath = filename)
 
-    } else {
-        getDNAShape(filename, 'MGW')
-        getDNAShape(filename, 'HelT')
-        getDNAShape(filename, 'ProT')
-        getDNAShape(filename, 'Roll')
-    }
-
-    if( parse ) {
-        message( 'Parsing files......' )
-        if( shapeType == 'All' ) {
-            ln <- paste0( filename, '.', opts )
-            shapeList <- lapply( ln, readShape )
-            names( shapeList ) <- opts
         } else {
-            ln <- paste0( filename, '.', shapeType )
-            shapeList <- list( readShape( ln ) )
-            names( shapeList ) <- shapeType
+            lapply(shapeType, getDNAShape, fastaFilePath = filename)
         }
-        message( 'Done' )
-        return( shapeList )
+
+        if( parse ) {
+            message( 'Parsing files......' )
+            if( length(shapeType) == 1 && shapeType == 'Default' ) {
+                ln <- paste0( filename, '.', defaultOpts )
+                shapeList <- lapply( ln, readShape )
+                names( shapeList ) <- defaultOpts
+
+            } else {
+                ln <- paste0( filename, '.', shapeType )
+                shapeList <- lapply( ln, readShape )
+                names( shapeList ) <- shapeType
+            }
+
+            message( 'Done' )
+            return( shapeList )
+        }
+
+    # with methylation
+    } else {
+        defaultOpts <- c( 'MGW', 'HelT', 'ProT', 'Roll')
+        stopifnot( shapeType %in% c( defaultOpts, 'Default' ) )
+
+        # file format converting (Satya)
+        convertFileName <- convertMethFile ( filename, methylatedPosFile )
+
+
+        if( length(shapeType) == 1 && shapeType == 'Default' ) {
+            lapply(defaultOpts, getDNAShape, fastaFilePath = convertFileName)
+
+        } else {
+            lapply(shapeType, getDNAShape, fastaFilePath = convertFileName)
+        }
+
+        if( parse ) {
+            message( 'Parsing files......' )
+            if( length(shapeType) == 1 && shapeType == 'Default' ) {
+                ln <- paste0( convertFileName, '.', defaultOpts )
+                shapeList <- lapply( ln, readShape )
+                names( shapeList ) <- defaultOpts
+
+            } else {
+                ln <- paste0( convertFileName, '.', shapeType )
+                shapeList <- lapply( ln, readShape )
+                names( shapeList ) <- shapeType
+            }
+
+            message( 'Done' )
+            return( shapeList )
+        }
     }
 }
+
 
 #' Read (parse) DNA shape predictions
 #'
@@ -103,7 +162,7 @@ getShape <- function(filename, shapeType = 'All', parse = TRUE) {
 
 readShape <- function( filename ) {
 
-    #read file and parse
+    # read file and parse
     records <- scan( filename, what = 'character' )
     recordStart <- grep( '>', records )
 
@@ -137,4 +196,182 @@ readShape <- function( filename ) {
         records <- records[ -remove ]
     shapeMatrix <- do.call( 'rbind', records )
     return( shapeMatrix )
+}
+
+
+#' Convert fasta file to methylated file format
+#'
+#' @usage convertMethFile(fastaFileName, methPositionFileName)
+#'
+#' @param fastaFileName The name of the input fasta format file, including
+#' full path to file if it is located outside the current working directory.
+#' @param methPositionFileName The name of the input position file
+#' indicating the methlation position
+#'
+#' @return methFileName fasta file containing methylated Cytosine
+#'
+#' @author Satyanarayan Rao & Tsu-Pei Chiu
+
+convertMethFile <- function( fastaFileName, methPositionFileName = NULL ) {
+
+    #convertFileName <- fastaFileName
+    # read the sequence fasta file first
+    fastaFile <- readDNAStringSet( fastaFileName )
+    seqName = names( fastaFile )
+    seq = paste( fastaFile )
+    dfFastaFile <- data.frame( seqName, seq )
+
+    dfFastaFile$seq_name <- as.character ( dfFastaFile$seqName )
+    dfFastaFile$seq <- as.character ( dfFastaFile$seq )
+    rownames( dfFastaFile ) <- dfFastaFile[["seqName"]]
+
+    # prepare the output file name
+    filenameWoExt <- tools::file_path_sans_ext( fastaFileName,
+                                                compression = FALSE )
+    extension <- tools::file_ext( fastaFileName )
+    methFileName <- paste0( filenameWoExt, "_", "methylated" )
+    methFileName <- paste( methFileName, extension, sep="." )
+
+    # according to the methPositionFileName convert the methylated nucleotide
+    # to MG/Mg and then replace the letter with MQ
+    idxM <- which( grepl( "M", dfFastaFile[["seq"]] ) == TRUE )
+    idxWoM <- which( grepl("M", dfFastaFile[["seq"]] ) == FALSE )
+    seqNum <- dim(dfFastaFile)[1]
+
+    arrayOfNumbers = 1:seqNum
+    for ( i in idxM ) {
+        dfFastaFile[i, "seq"] = gsub( "MG", "MQ", dfFastaFile[i, "seq"] )
+    }
+
+    if (is.null (methPositionFileName)) {
+    # no changes to be done at any position
+    # check if the fasta file contains sequences with letter "M", or "g".
+    # the target is to return the a filename containing sequences with
+    # only captial letter and "g" replaced by "Q".
+    # Checking if the input fasta sequences have letter M present in them.
+    # If a sequence has M letter then the conversion will not be done for
+    # that sequence, otherwise all the CpG positions in that sequence
+    # will be checking what all sequences have M
+        for ( i in idxWoM ){
+            dfFastaFile[i, "sequence"] = gsub ("CG", "MQ",
+                                               dfFastaFile[i, "seq"])
+        }
+        OutputSeqs = Biostrings::BStringSet(dfFastaFile[["seq"]])
+        names (OutputSeqs) = dfFastaFile[["seqName"]]
+        Biostrings::writeXStringSet(OutputSeqs, methFileName)
+
+    } else {
+    # mark the methlation according to methPositionFileName
+        df.CpGtoMpQ = readNonStandardFastaFile (methPositionFileName)
+        names (df.CpGtoMpQ) = c ("seqName", "positions_to_convert_CpG_MpQ")
+        rownames (df.CpGtoMpQ) = df.CpGtoMpQ[["seqName"]]
+        for (name in df.CpGtoMpQ[["seqName"]]){
+            positions_to_convert = df.CpGtoMpQ [name, "positions_to_convert_CpG_MpQ"]
+            positions_to_convert = strtoi (unlist (strsplit (positions_to_convert, ",")))
+            targetSequence = dfFastaFile[name, "seq"]
+            targetSequence = unlist (strsplit(targetSequence, split = ""))
+            lengthOftagetSequence = length (targetSequence)
+            for (j in positions_to_convert) {
+                if (j <=lengthOftagetSequence && targetSequence[j] == "C") {
+                    targetSequence[j] = "M"
+                    if (j + 1 <= lengthOftagetSequence) {
+                        targetSequence[j+1] = "Q"
+                    }
+                }else {
+                    msg = paste ("ERROR:", "position mentioned in",
+                                methPositionFileName,
+                                "for sequence",
+                                name,
+                                "is not valid. Letter 'C' was not found at position",
+                                j, sep = " ")
+                    message (msg)
+                    stop ()
+                }
+            }
+            targetSequence = paste0(targetSequence, collapse = "")
+            dfFastaFile[name, "seq"] = targetSequence
+        }
+        # seqinr::write.fasta(sequences = as.list(dfFastaFile[["sequence"]]),
+        #                     names = as.list (dfFastaFile[["seq_name"]]),
+        #                     file.out = methFileName)
+        OutputSequences = Biostrings::BStringSet(dfFastaFile[["seq"]])
+        names (OutputSequences) = dfFastaFile[["seqName"]]
+        Biostrings::writeXStringSet(OutputSequences, methFileName)
+    }
+    convertFileName <- methFileName
+    return (convertFileName)
+}
+
+
+#' Read the position fasta file
+#'
+#' @usage readNonStandardFastaFile(filename)
+#'
+#' @param filename The name of the input position file
+#' indicating the methlation position
+#'
+#' @return df dataframe
+#'
+#' @author Satyanarayan Rao & Tsu-Pei Chiu
+#'
+
+readNonStandardFastaFile <- function( filename ) {
+    keys = c()
+    content = c ()
+    con = file (filename, "r")
+    valueKey = ""
+    while (TRUE) {
+        line = gsub ("\n", "", readLines( con, n = 1 ))
+
+        if ( length( line ) == 0 ){
+            break
+        }
+        if ( line == "" ) {
+            next
+        } else if( ">" == substring( line, 1, 1 ) ) {
+            key = substring( line, 2 )
+
+            while( TRUE ){
+                tmpKey = gsub( "\n","",readLines(con, n = 1 ) )
+                if (length( tmpKey ) == 0 ){
+                    break
+                }
+
+                if ( tmpKey == ""){
+                    next
+
+                } else if( ">" == substring( tmpKey, 1, 1 ) ) {
+                    content <- c( content, valueKey )
+                    keys <- c( keys, key )
+                    valueKey <- ""
+                    key <- substring(tmpKey ,2)
+
+                } else {
+                    valueKey <- paste0( valueKey, tmpKey,
+                                 collapse="" )
+                }
+            }
+            content <- c( content, valueKey )
+            keys <- c( keys, key )
+        } else {
+            key <- "1"
+            valueKey <- line
+
+            while( TRUE ) {
+                line <- readLines( con, n = 1 )
+                if ( length(line) == 0 ){
+                    break
+                }
+                valueKey <- paste0(valueKey, line, collapse="")
+            }
+            content <- c (line_to_append)
+            keys <- c (key)
+        }
+    }
+    close (con)
+
+    df <- data.frame (keys = keys, content = content)
+    df$keys <- as.character(df$keys)
+    df$content <- as.character(df$content)
+    return (df)
 }

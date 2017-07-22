@@ -99,7 +99,7 @@ void convert_sequence_list(string_vector& sequence_list,std::vector<pointers_vec
     int_row.clear();
     for (unsigned int j=0;j<sequence_list[i].size()-4;j++){
       fragment=sequence_list[i].substr(j,5);
-      if (fragment.find_first_not_of("ATGC")!=std::string::npos){
+      if (fragment.find_first_not_of("ATGCMQ")!=std::string::npos){ //Tsu-Pei
 		pointer_v = 0;
 		int_v = 0;
       }

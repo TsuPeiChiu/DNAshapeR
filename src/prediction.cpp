@@ -25,8 +25,6 @@ void predict_groove_width(std::stringstream &outs,std::vector<pointers_vector> &
 			//Modified by Tsu-Pei
 			if (status_matrix[i][f_index]==1){
 				outs<<std::setprecision(2)<< (*pointers_matrix[i][f_index]).get_ave(objectname);
-				//std::cout<<pointers_matrix[i][f_index]<<"--hihi"<<std::endl;
-
 			}
 			else
 				outs<<std::setprecision(2)<< (*pointers_matrix[i][f_index]).get_ave(objectname);

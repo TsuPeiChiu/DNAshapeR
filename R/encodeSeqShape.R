@@ -64,32 +64,8 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
         switch( featureName[2],
             mer = { featureVector <- cbind( featureVector,
                     encodeKMerSeq( as.numeric( featureName[1] ), ds ) ) },
-            MGW = { featureVector <- cbind( featureVector,
-                        normalizeShape(
-                            encodeNstOrderShape( as.numeric( featureName[1] ),
-                            shapeMatrix$MGW, "MGW" ), as.numeric( featureName[1] ),
-                            "MGW" , normalize) )
-            },
-            ProT = { featureVector <- cbind( featureVector,
-                        normalizeShape(
-                            encodeNstOrderShape( as.numeric( featureName[1] ),
-                            shapeMatrix$ProT, "ProT" ), as.numeric( featureName[1] ),
-                            "ProT" , normalize) )
-            },
-            Roll = { featureVector <- cbind( featureVector,
-                        normalizeShape(
-                            encodeNstOrderShape( as.numeric( featureName[1] ),
-                            shapeMatrix$Roll, "Roll" ), as.numeric( featureName[1] ),
-                            "Roll" , normalize) )
-            },
-
-            HelT = { featureVector <- cbind( featureVector,
-                        normalizeShape(
-                            encodeNstOrderShape( as.numeric( featureName[1] ),
-                            shapeMatrix$HelT, "HelT" ), as.numeric( featureName[1] ),
-                            "HelT" , normalize) )
-            },
-
+            Hbond = { featureVector <- cbind( featureVector,
+                    encodeKmerHbond( as.numeric( featureName[1] ), ds ) ) },
             shape = {
                     featureVector <- cbind( featureVector,
                         normalizeShape(
@@ -112,7 +88,14 @@ encodeSeqShape <- function( fastaFileName, shapeMatrix, featureNames, normalize 
                             shapeMatrix$HelT, "HelT" ), as.numeric( featureName[1] ),
                             "HelT" , normalize )
                     )
-              }
+            },
+            {
+                featureVector <- cbind( featureVector,
+                    normalizeShape(
+                        encodeNstOrderShape( as.numeric( featureName[1] ),
+                        shapeMatrix[[featureName[2]]], featureName[2] ), as.numeric( featureName[1] ),
+                        featureName[2] , normalize) )
+            }
         )
     }
 
@@ -188,18 +171,42 @@ encodeKMerSeq <- function( k, dnaStringSet ){
 #' @author Tsu-Pei Chiu
 
 encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
-    # trim end columns with NA
-    shapeMatrix[ is.na( shapeMatrix ) ] <- 0
+    # assign average value to NA
+    #shapeMatrix[ is.na( shapeMatrix ) ] <- 0
+    switch( shapeType,
+        MGW = { shapeMatrix[ is.na( shapeMatrix ) ] <- 5.072 },
+        ProT = { shapeMatrix[ is.na( shapeMatrix ) ] <- -6.792 },
+        Roll = { shapeMatrix[ is.na( shapeMatrix ) ] <- -0.698 },
+        HelT = { shapeMatrix[ is.na( shapeMatrix ) ] <- 34.326 },
+        EP = { shapeMatrix[ is.na( shapeMatrix ) ] <- -6.505 },
+
+        Stretch = { shapeMatrix[ is.na( shapeMatrix ) ] <- -0.028 },
+        Tilt = { shapeMatrix[ is.na( shapeMatrix ) ] <- -0.008 },
+        Buckle = { shapeMatrix[ is.na( shapeMatrix ) ] <- 0.097 },
+        Shear = { shapeMatrix[ is.na( shapeMatrix ) ] <- -0.009 },
+        Opening = { shapeMatrix[ is.na( shapeMatrix ) ] <- -0.24 },
+        Rise = { shapeMatrix[ is.na( shapeMatrix ) ] <- 3.342 },
+        Shift = { shapeMatrix[ is.na( shapeMatrix ) ] <- 0.008 },
+        Stagger = { shapeMatrix[ is.na( shapeMatrix ) ] <- -0.013 },
+        Slide = { shapeMatrix[ is.na( shapeMatrix ) ] <- -1.526 }
+    )
+
 
     singleSeq <- FALSE
     if( nrow(shapeMatrix)[1] == 1 )
         singleSeq <- TRUE
 
-    if( shapeType == "MGW" || shapeType == "ProT" ){
-        shapeMatrix <- shapeMatrix[, -c(1, 2, ncol( shapeMatrix )-1,
-            ncol( shapeMatrix ))]
+    # trim both 2 bps end
+    if( shapeType == "MGW" || shapeType == "ProT" || shapeType == "EP" ||
+        shapeType == "Stretch" || shapeType == "Buckle" ||
+        shapeType == "Shear" || shapeType == "Opening" ||
+        shapeType == "Stagger" ){
+            shapeMatrix <- shapeMatrix[, -c(1, 2, ncol( shapeMatrix )-1,
+                ncol( shapeMatrix ))]
 
-    }else if( shapeType == "Roll" || shapeType == "HelT" ){
+    }else if( shapeType == "Roll" || shapeType == "HelT" ||
+            shapeType == "Tilt" || shapeType == "Rise" ||
+            shapeType == "Shift" || shapeTyep == "Slide" ){
       shapeMatrix <- shapeMatrix[, -c(1, ncol( shapeMatrix ))]
     }
 
@@ -244,35 +251,19 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
 #' @author Tsu-Pei Chiu
 
 normalizeShape <- function( featureVector, thOrder, shapeType, normalize ){
-    minMGW <- 2.85
-    maxMGW <- 6.2
-    minProT <- -16.51
-    maxProT <- -0.03
-    minRoll <- -8.57
-    maxRoll <- 8.64
-    minHelT <- 30.94
-    maxHelT <- 38.05
+    tableName <- c("MGW", "ProT", "Roll", "HelT", "EP", "Stretch", "Tilt", "Buckle",
+                    "Shear", "Opening", "Rise", "Shift", "Stagger", "Slide")
+    minTable <- c( 2.85, -16.51, -8.57, 30.94, -13.59, -0.05, -3.02, -9.26,
+                    -0.3, -3.71, 3.05, -0.42, -0.42, -1.95 )
+    maxTable <- c( 6.2, -0.03, 8.64, 38.05, -4.47, 0.04, 5.4, 7.66, 0.28, 1.06,
+                    3.74, 0.51, 0.2, -0.97 )
+    names( minTable ) <- tableName
+    names( maxTable ) <- tableName
 
     if ( normalize  ){
         if( thOrder == 1){
-            switch( shapeType,
-                    MGW = {
-                        featureVector <- normalize( featureVector,
-                                                    maxMGW, minMGW )
-                    },
-                    ProT = {
-                        featureVector <- normalize( featureVector,
-                                                    maxProT, minProT )
-                    },
-                    Roll = {
-                        featureVector <- normalize( featureVector,
-                                                    maxRoll, minRoll )
-                    },
-                    HelT = {
-                        featureVector <- normalize( featureVector,
-                                                    maxHelT, minHelT )
-                    }
-                )
+            featureVector <- normalize( featureVector, maxTable[shapeType],
+                                        minTable[shapeType] )
 
         }else{
             featureVector <- normalize( featureVector, max(featureVector),
@@ -297,5 +288,48 @@ normalizeShape <- function( featureVector, thOrder, shapeType, normalize ){
 
 normalize <- function( x, max, min ){
   return ( (x-min)/(max-min) )
+}
+
+
+#' encode Hbond
+#'
+#' @usage encodeKmerHbond (filepath)
+#' @param k k-mer sequence
+#' @param dnaStringSet
+#' @return featureVector
+
+encodeKmerHbond <- function ( k, dnaStringSet ){
+  # create a lookup table
+  k <- 1
+  lookupTable <- rbind( c(1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1), c(0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0),
+                        c(1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0), c(0,0,0,1,1,0,0,0,0,1,0,0,1,0,0,0) )
+  row.names( lookupTable ) <- mkAllStrings( c( "A", "C", "G", "T" ), k )
+
+  # pre-allocate the featureVector
+  #l <- nchar( toString( dnaStringSet[1] ) ) # get sequence length
+  #n <- ( l - k + 1 ) * ( 16 ** k )
+  #m <- length( dnaStringSet )
+  #featureVector <- matrix(0L, m, n)
+  featureVector <- c()
+
+  for( j in 1 : length( dnaStringSet ) ){
+    # encode k-mer feature
+    features <- c()
+    seq <- toString( dnaStringSet[j] )
+    for ( j in 1 : ( nchar( seq )-k+1) ){
+      if( is.na( match( substr( toupper( seq ), j, j+k-1), row.names( lookupTable ) ) ) ){
+        features <- c( features, rep( 0, 16**k ) )
+
+      }else{
+        features <- c( features, lookupTable[ substr( toupper( seq ), j, j+k-1), ] )
+      }
+    }
+
+    featureVector <- rbind( featureVector, features )
+  }
+  row.names( featureVector ) <- names( dnaStringSet )
+
+  return ( featureVector )
+
 }
 
