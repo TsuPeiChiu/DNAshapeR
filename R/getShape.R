@@ -50,14 +50,18 @@
 #' as an additional feature.
 #'
 #'
-#' @usage getShape(filename, shapeType = 'All', parse = TRUE)
+#' @usage getShape(filename, shapeType = 'Default', parse = TRUE,
+#' methylate = FALSE, methylatedPosFile = NULL)
 #'
-#' @param filename The Name of the input fasta format file, including
+#' @param filename The name of input fasta format file, including
 #' full path to file if it is located outside the current working directory.
 #' @param shapeType A character indicating the shape parameters which can be
 #' "MGW", "ProT", "Roll", "HelT" or "All" (meaning all four shapes)
 #' @param parse A logical value indicating whether parse the prediction
 #' result
+#' @param methylate A logical value indicating wheter consider methlatation
+#' @param methylatedPosFile The name of input postion file indicating
+#' methlated position
 #'
 #' @return shapeList A List containing shapre prediction result
 #'

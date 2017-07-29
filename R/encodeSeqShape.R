@@ -206,7 +206,7 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
 
     }else if( shapeType == "Roll" || shapeType == "HelT" ||
             shapeType == "Tilt" || shapeType == "Rise" ||
-            shapeType == "Shift" || shapeTyep == "Slide" ){
+            shapeType == "Shift" || shapeType == "Slide" ){
       shapeMatrix <- shapeMatrix[, -c(1, ncol( shapeMatrix ))]
     }
 
@@ -293,9 +293,9 @@ normalize <- function( x, max, min ){
 
 #' encode Hbond
 #'
-#' @usage encodeKmerHbond (filepath)
+#' @usage encodeKmerHbond (k, dnaStringSet )
 #' @param k k-mer sequence
-#' @param dnaStringSet
+#' @param dnaStringSet dnaStringSet
 #' @return featureVector
 
 encodeKmerHbond <- function ( k, dnaStringSet ){

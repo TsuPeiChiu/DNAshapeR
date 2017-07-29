@@ -40,4 +40,3 @@ pred <- getShape(fn)
 Federico Comoglio
 }
 \keyword{core}
-

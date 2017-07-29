@@ -33,4 +33,3 @@ heatShape(pred$MGW, 20)
 Federico Comoglio
 }
 \keyword{core}
-

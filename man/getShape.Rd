@@ -4,10 +4,11 @@
 \alias{getShape}
 \title{Predict DNA shape from a FASTA file}
 \usage{
-getShape(filename, shapeType = 'All', parse = TRUE)
+getShape(filename, shapeType = 'Default', parse = TRUE,
+methylate = FALSE, methylatedPosFile = NULL)
 }
 \arguments{
-\item{filename}{The Name of the input fasta format file, including
+\item{filename}{The name of input fasta format file, including
 full path to file if it is located outside the current working directory.}
 
 \item{shapeType}{A character indicating the shape parameters which can be
@@ -15,6 +16,11 @@ full path to file if it is located outside the current working directory.}
 
 \item{parse}{A logical value indicating whether parse the prediction
 result}
+
+\item{methylate}{A logical value indicating wheter consider methlatation}
+
+\item{methylatedPosFile}{The name of input postion file indicating
+methlated position}
 }
 \value{
 shapeList A List containing shapre prediction result
@@ -42,6 +48,26 @@ features describing additional structural properties or equivalent features
 derived from different experimental or computational sources will become
 available, the package has a flexible modular design that easily allows
 future expansions.
+In the latest version, we further added additional 9 DNA shape features
+beyond our previous set of 4 features, and expanded our available repertoire
+to a total of 13 features, including 6 inter-base pair or base pair-step
+parameters (HelT, Rise, Roll, Shift, Slide, and Tilt), 6 intra-base pair or
+base pair-step parameters (Buckle, Opening, ProT, Shear, Stagger,
+and Stretch), and MGW.
+}
+\details{
+Predict biophysical feature
+
+Our previous work explained protein-DNA binding specificity based on
+correlations between MGW and electrostatic potential (EP) observed in
+experimentally available structures (Joshi, et al., 2007). However, A/T
+and C/G base pairs carry different partial charge distributions in the
+minor groove (due primarily to the guanine amino group), which will affect
+minor-groove EP. We developed a high-throughput method to predict
+minor-groove EP based on data mining of results from solving the nonlinear
+Poisson-Boltzmann calculations (Honig & Nicholls, 1995) on 2,297 DNA
+structures derived from Monte Carlo simulations. DNAshapeR includes EP
+as an additional feature.
 }
 \examples{
 fn <- system.file("extdata", "CGRsample.fa", package = "DNAshapeR")
@@ -51,4 +77,3 @@ pred <- getShape(fn)
 Federico Comoglio & Tsu-Pei Chiu
 }
 \keyword{core}
-

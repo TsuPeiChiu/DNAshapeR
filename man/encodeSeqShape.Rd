@@ -55,4 +55,3 @@ featureVector <- encodeSeqShape(fn, pred, featureNames)
 Tsu-Pei Chiu
 }
 \keyword{core}
-

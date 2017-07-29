@@ -26,4 +26,3 @@ features (i.e., in terms of 1-mers, 0001 for adenine, 0010 for cytosine,
 \author{
 Tsu-Pei Chiu
 }
-

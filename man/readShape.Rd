@@ -24,4 +24,3 @@ pred <- readShape(fn)
 Federico Comoglio & Tsu-Pei Chiu
 }
 \keyword{core}
-

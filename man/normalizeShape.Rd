@@ -25,4 +25,3 @@ Normalize n-st order shape features
 \author{
 Tsu-Pei Chiu
 }
-
