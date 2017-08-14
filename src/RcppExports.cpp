@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // getDNAShape
 std::string getDNAShape(std::string fastaFilePath, std::string shapeType);
-RcppExport SEXP DNAshapeR_getDNAShape(SEXP fastaFilePathSEXP, SEXP shapeTypeSEXP) {
+RcppExport SEXP _DNAshapeR_getDNAShape(SEXP fastaFilePathSEXP, SEXP shapeTypeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -16,4 +16,14 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(getDNAShape(fastaFilePath, shapeType));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_DNAshapeR_getDNAShape", (DL_FUNC) &_DNAshapeR_getDNAShape, 2},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_DNAshapeR(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }
