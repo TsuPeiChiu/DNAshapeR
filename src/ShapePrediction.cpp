@@ -150,3 +150,4 @@ std::string getDNAShape(std::string fastaFilePath, std::string shapeType){
 
   return "Output file is in folder of " + outputFile;
 }
+

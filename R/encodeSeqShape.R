@@ -332,4 +332,3 @@ encodeKmerHbond <- function ( k, dnaStringSet ){
   return ( featureVector )
 
 }
-

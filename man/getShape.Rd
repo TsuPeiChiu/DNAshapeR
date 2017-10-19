@@ -51,4 +51,3 @@ pred <- getShape(fn)
 Federico Comoglio & Tsu-Pei Chiu
 }
 \keyword{core}
-

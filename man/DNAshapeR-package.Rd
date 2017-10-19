@@ -22,4 +22,3 @@ DNAshapeR reference:
 T.-P. Chiu*, F. Comoglio*, T. Zhou, L. Yang, R. Paro, and R. Rohs: DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding (2016). Bioinformatics \url{http://bioinformatics.oxfordjournals.org/content/early/2016/01/09/bioinformatics.btv735} (*equal contributor in alphabetic order)
 }
 \keyword{package}
-

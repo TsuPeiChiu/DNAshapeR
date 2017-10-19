@@ -19,7 +19,7 @@ export(
     getFasta,
     getShape,
     heatShape,
-	  readShape,
+	readShape,
     plotShape,
     trackShape
 )

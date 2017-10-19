@@ -31,3 +31,4 @@ void process_querytable_file(std::string,DNA_to_properties&,bool debug);
 void process_querytable(DNA_to_properties&,bool debug);
 
 #endif
+

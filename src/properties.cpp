@@ -807,3 +807,4 @@ void properties::load_data_from_vector(double_vector dv){
   MGW_md_ave = dv[89]; MGW_md_sd = 0; MGW_md_num = 0;
 
 }
+

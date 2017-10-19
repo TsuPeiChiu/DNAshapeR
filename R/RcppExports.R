@@ -4,4 +4,3 @@
 getDNAShape <- function(fastaFilePath, shapeType) {
     .Call('_DNAshapeR_getDNAShape', PACKAGE = 'DNAshapeR', fastaFilePath, shapeType)
 }
-

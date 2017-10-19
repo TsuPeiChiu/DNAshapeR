@@ -25,3 +25,4 @@ bool found_str_in_map(std::string str, DNA_to_properties &onemap){
   else 
     return false;
 }
+

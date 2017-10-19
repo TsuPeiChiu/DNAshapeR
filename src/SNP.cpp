@@ -1,5 +1,3 @@
-
-
 #include "SNP.h"
 
 //calculate the effect of SNP for all 9-mers
@@ -65,3 +63,4 @@ double pairwise_Euclidean(double_vector &v1,double_vector &v2){
   return sum;
 
 }
+
