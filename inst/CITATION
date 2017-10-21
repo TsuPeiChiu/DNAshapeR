@@ -1,6 +1,6 @@
 citEntry(entry="article",
          title = "DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding",
-         author = personList( as.person("T-P Chiu"), 
+         author = personList( as.person("TP Chiu"),
 					as.person("F Comoglio"),
 					as.person("T Zhou"),
 					as.person("L Yang"),
@@ -12,14 +12,29 @@ citEntry(entry="article",
          pages = "1211-1213",
          doi = "10.1093/bioinformatics/btv735",
          url = "",
-         
-         textVersion = 
-         paste("T.-P. Chiu*, F. Comoglio*, T. Zhou, L. Yang, R. Paro, and R. Rohs", 
+
+         textVersion =
+         paste("T.P. Chiu*, F. Comoglio*, T. Zhou, L. Yang, R. Paro, and R. Rohs",
                "DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding.",
                "Bioinformatics 2016;32:1211-1213." ) )
-				
-				
-				
-				
-				
+
+
+citEntry(entry="article",
+         title = "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA binding",
+         author = personList(as.person("TP Chiu"),
+					as.person("S Rao"),
+					as.person("RS Mann"),
+					as.person("B Honig"),
+					as.person("R Rohs")),
+         year = "2017",
+         journal = "Nucleic Acids Res.",
+         volume = "",
+         pages = "",
+         doi = "10.1093/nar/gkx915",
+         url = "https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx915",
+
+         textVersion =
+         paste("T.P. Chiu, S. Rao, R.S. Mann, B. Honig, and R. Rohs",
+               "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA bindin.",
+               "Nucleic Acids Res. 2017;In press." ) )
 
