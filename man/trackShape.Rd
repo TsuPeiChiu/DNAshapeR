@@ -30,4 +30,3 @@ trackShape(fn2, pred2) # Only for single sequence file
 Tsu-Pei Chiu
 }
 \keyword{core}
-

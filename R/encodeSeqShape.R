@@ -206,7 +206,7 @@ encodeNstOrderShape <- function( n, shapeMatrix, shapeType ){
 
     }else if( shapeType == "Roll" || shapeType == "HelT" ||
             shapeType == "Tilt" || shapeType == "Rise" ||
-            shapeType == "Shift" || shapeTyep == "Slide" ){
+            shapeType == "Shift" || shapeType == "Slide" ){
       shapeMatrix <- shapeMatrix[, -c(1, ncol( shapeMatrix ))]
     }
 

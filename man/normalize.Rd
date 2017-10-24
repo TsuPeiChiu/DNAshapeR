@@ -23,4 +23,3 @@ Min-Max normalization
 \author{
 Tsu-Pei Chiu
 }
-

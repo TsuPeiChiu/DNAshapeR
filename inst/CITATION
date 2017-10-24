@@ -20,7 +20,7 @@ citEntry(entry="article",
 
 
 citEntry(entry="article",
-         title = "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA binding",
+         title = "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein-DNA binding",
          author = personList(as.person("TP Chiu"),
 					as.person("S Rao"),
 					as.person("RS Mann"),
@@ -35,6 +35,6 @@ citEntry(entry="article",
 
          textVersion =
          paste("T.P. Chiu, S. Rao, R.S. Mann, B. Honig, and R. Rohs",
-               "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA bindin.",
+               "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein-DNA bindin.",
                "Nucleic Acids Res. 2017;In press." ) )
 
