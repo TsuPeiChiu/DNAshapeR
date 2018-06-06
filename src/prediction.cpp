@@ -27,7 +27,12 @@ void predict_groove_width(std::stringstream &outs,std::vector<pointers_vector> &
 				outs<<std::setprecision(2)<< (*pointers_matrix[i][f_index]).get_ave(objectname);
 			}
 			else
-				outs<<std::setprecision(2)<< (*pointers_matrix[i][f_index]).get_ave(objectname);
+			  if (objectname=="Shear" || objectname=="Buckle"){
+			    outs<<std::setprecision(2)<< -(*pointers_matrix[i][f_index]).get_ave(objectname);
+			  }else{
+			    outs<<std::setprecision(2)<< (*pointers_matrix[i][f_index]).get_ave(objectname);
+			  }
+
 		}
 		print_newline_or_delimiter(outs,no_of_printed,width,delimiter);
     }
@@ -71,8 +76,13 @@ void predict_step_parameters(std::stringstream &outs,std::vector<pointers_vector
 	else{
 	  if (status_matrix[i][f1_index]==1)
 	    outs<<std::setprecision(2)<<(*pointers_matrix[i][f1_index]).get_ave(object1);
-	  else
-	    outs<<std::setprecision(2)<<(*pointers_matrix[i][f1_index]).get_ave(object2);
+	  else{
+	    if (objectname=="Shift" || objectname=="Tilt"){
+	      outs<<std::setprecision(2)<<-(*pointers_matrix[i][f1_index]).get_ave(object2);
+	    }else{
+	      outs<<std::setprecision(2)<<(*pointers_matrix[i][f1_index]).get_ave(object2);
+	    }
+	  }
 	}
 	print_newline_or_delimiter(outs,no_of_printed,width,delimiter);
 	continue;
@@ -84,8 +94,13 @@ void predict_step_parameters(std::stringstream &outs,std::vector<pointers_vector
 	else{
 	  if (status_matrix[i][f1_index]==1)
 	    outs<<std::setprecision(2)<<(*pointers_matrix[i][f1_index]).get_ave(object2);
-	  else
-	    outs<<std::setprecision(2)<<(*pointers_matrix[i][f1_index]).get_ave(object1);
+	  else{
+	    if (objectname=="Shift" || objectname=="Tilt"){
+	      outs<<std::setprecision(2)<<-(*pointers_matrix[i][f1_index]).get_ave(object1);
+	    }else{
+	      outs<<std::setprecision(2)<<(*pointers_matrix[i][f1_index]).get_ave(object1);
+	    }
+	  }
 	}
 	print_newline_or_delimiter(outs,no_of_printed,width,delimiter);
 	continue;
@@ -100,8 +115,14 @@ void predict_step_parameters(std::stringstream &outs,std::vector<pointers_vector
       else {
 	if (status_matrix[i][f1_index]==1)
 	  value1 = (*pointers_matrix[i][f1_index]).get_ave(object1);
-	else
-	  value1 = (*pointers_matrix[i][f1_index]).get_ave(object2);
+	else{
+	  if (objectname=="Shift" || objectname=="Tilt"){
+	    value1 = -(*pointers_matrix[i][f1_index]).get_ave(object2);
+	  }else{
+	    value1 = (*pointers_matrix[i][f1_index]).get_ave(object2);
+	  }
+
+	}
       }
 
       if (status_matrix[i][f2_index]==0)
@@ -109,8 +130,13 @@ void predict_step_parameters(std::stringstream &outs,std::vector<pointers_vector
       else{
 	if (status_matrix[i][f2_index]==1)
 	  value2 = (*pointers_matrix[i][f2_index]).get_ave(object2);
-	else
-	  value2 = (*pointers_matrix[i][f2_index]).get_ave(object1);
+	else{
+	  if (objectname=="Shift" || objectname=="Tilt"){
+	    value2 = -(*pointers_matrix[i][f2_index]).get_ave(object1);
+	  }else{
+	    value2 = (*pointers_matrix[i][f2_index]).get_ave(object1);
+	  }
+	}
       }
       //std::cout<<flag1<<flag2<<value1<<value2<<std::endl;
 
