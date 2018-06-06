@@ -35,6 +35,46 @@ citEntry(entry="article",
 
          textVersion =
          paste("T.P. Chiu, S. Rao, R.S. Mann, B. Honig, and R. Rohs",
-               "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein-DNA bindin.",
+               "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein-DNA binding.",
+               "Nucleic Acids Res. 2017;In press." ) )
+
+
+citEntry(entry="article",
+         title = "Expanding the repertoire of DNA shape features for genome-scale studies of transcription factor binding.",
+         author = personList(as.person("TP Chiu"),
+					as.person("S Rao"),
+					as.person("RS Mann"),
+					as.person("B Honig"),
+					as.person("R Rohs")),
+         year = "2017",
+         journal = "Nucleic Acids Res.",
+         volume = "",
+         pages = "",
+         doi = "10.1093/nar/gkx915",
+         url = "https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx915",
+
+         textVersion =
+         paste("T.P. Chiu, S. Rao, R.S. Mann, B. Honig, and R. Rohs",
+               "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA bindin.",
+               "Nucleic Acids Res. 2017;In press." ) )
+
+
+citEntry(entry="article",
+         title = "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA binding",
+         author = personList(as.person("TP Chiu"),
+					as.person("S Rao"),
+					as.person("RS Mann"),
+					as.person("B Honig"),
+					as.person("R Rohs")),
+         year = "2017",
+         journal = "Nucleic Acids Res.",
+         volume = "",
+         pages = "",
+         doi = "10.1093/nar/gkx915",
+         url = "https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx915",
+
+         textVersion =
+         paste("T.P. Chiu, S. Rao, R.S. Mann, B. Honig, and R. Rohs",
+               "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA bindin.",
                "Nucleic Acids Res. 2017;In press." ) )
 
