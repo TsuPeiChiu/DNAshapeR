@@ -16,6 +16,7 @@ useDynLib(DNAshapeR)
 
 export(
     encodeSeqShape,
+	encodeKMerSeq,
     getFasta,
     getShape,
     heatShape,

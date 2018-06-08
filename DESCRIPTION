@@ -1,8 +1,8 @@
 Package: DNAshapeR
 Type: Package
 Title: High-throughput prediction of DNA shape features
-Version: 1.9.2
-Date: 2017-10-24
+Version: 1.9.3
+Date: 2018-06-08
 Author: Tsu-Pei Chiu and Federico Comoglio
 Maintainer: Tsu-Pei Chiu <tsupeich@usc.edu>
 Description: DNAhapeR is an R/BioConductor package for ultra-fast,
