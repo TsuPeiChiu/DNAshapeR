@@ -28,53 +28,54 @@ citEntry(entry="article",
 					as.person("R Rohs")),
          year = "2017",
          journal = "Nucleic Acids Res.",
-         volume = "",
-         pages = "",
+         volume = "45(21)",
+         pages = "12565-12576",
          doi = "10.1093/nar/gkx915",
          url = "https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx915",
 
          textVersion =
          paste("T.P. Chiu, S. Rao, R.S. Mann, B. Honig, and R. Rohs",
                "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein-DNA binding.",
-               "Nucleic Acids Res. 2017;In press." ) )
+               "Nucleic Acids Res. 2017;45(21):12565-12576." ) )
 
 
 citEntry(entry="article",
-         title = "Expanding the repertoire of DNA shape features for genome-scale studies of transcription factor binding.",
-         author = personList(as.person("TP Chiu"),
-					as.person("S Rao"),
-					as.person("RS Mann"),
-					as.person("B Honig"),
+         title = "Expanding the repertoire of DNA shape features for genome-scale studies of transcription factor binding",
+         author = personList(as.person("J Li"),
+					as.person("JM Sagendorf"),
+					as.person("TP Chiu"),
+					as.person("M Pasi"),
+					as.person("A Perez")),
 					as.person("R Rohs")),
          year = "2017",
          journal = "Nucleic Acids Res.",
-         volume = "",
-         pages = "",
-         doi = "10.1093/nar/gkx915",
-         url = "https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx915",
+         volume = "45(22)",
+         pages = "12877-12887",
+         doi = "10.1093/nar/gkx1145",
+         url = "https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx1145",
 
          textVersion =
-         paste("T.P. Chiu, S. Rao, R.S. Mann, B. Honig, and R. Rohs",
-               "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA bindin.",
-               "Nucleic Acids Res. 2017;In press." ) )
-
-
+         paste("J. Li, J.M. Sagendorf, T.P. Chiu, M. Pasi, A. Perez, and R. Rohs",
+               "Expanding the repertoire of DNA shape features for genome-scale studies of transcription factor binding.",
+               "Nucleic Acids Res. 2017;15;45(22):12877-12887." ) )
+			   
+			   
 citEntry(entry="article",
-         title = "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA binding",
-         author = personList(as.person("TP Chiu"),
-					as.person("S Rao"),
+         title = "Systematic prediction of DNA shape changes due to CpG methylation explains epigenetic effects on protein–DNA binding.",
+         author = personList(as.person("S Rao"),
+					as.person("TP Chiu"),
+					as.person("JF Kribelbauer"),
 					as.person("RS Mann"),
-					as.person("B Honig"),
+					as.person("HJ Bussemaker"),
 					as.person("R Rohs")),
-         year = "2017",
-         journal = "Nucleic Acids Res.",
-         volume = "",
+         year = "2018",
+         journal = "Epigenetics Chromatin",
+         volume = "11:6",
          pages = "",
-         doi = "10.1093/nar/gkx915",
-         url = "https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx915",
+         doi = "10.1186/s13072-018-0174-4",
+         url = "https://epigeneticsandchromatin.biomedcentral.com/articles/10.1186/s13072-018-0174-4",
 
          textVersion =
-         paste("T.P. Chiu, S. Rao, R.S. Mann, B. Honig, and R. Rohs",
-               "Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein–DNA bindin.",
-               "Nucleic Acids Res. 2017;In press." ) )
-
+         paste("S. Rao, T.P. Chiu, J.F. Kribelbauer, R.S. Mann, H.J. Bussemaker*, and R. Rohs",
+               "Systematic prediction of DNA shape changes due to CpG methylation explains epigenetic effects on protein–DNA binding",
+               "Epigenetics Chromatin 2018;11,6." ) )
