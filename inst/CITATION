@@ -61,7 +61,7 @@ citEntry(entry="article",
 			   
 			   
 citEntry(entry="article",
-         title = "Systematic prediction of DNA shape changes due to CpG methylation explains epigenetic effects on protein–DNA binding.",
+         title = "Systematic prediction of DNA shape changes due to CpG methylation explains epigenetic effects on protein-DNA binding.",
          author = personList(as.person("S Rao"),
 					as.person("TP Chiu"),
 					as.person("JF Kribelbauer"),
@@ -77,5 +77,5 @@ citEntry(entry="article",
 
          textVersion =
          paste("S. Rao, T.P. Chiu, J.F. Kribelbauer, R.S. Mann, H.J. Bussemaker*, and R. Rohs",
-               "Systematic prediction of DNA shape changes due to CpG methylation explains epigenetic effects on protein–DNA binding",
+               "Systematic prediction of DNA shape changes due to CpG methylation explains epigenetic effects on protein-DNA binding",
                "Epigenetics Chromatin 2018;11,6." ) )
