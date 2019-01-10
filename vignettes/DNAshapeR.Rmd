@@ -336,7 +336,7 @@ DNA structural features on a genomic scale. Nucleic Acids Res 2013;41
 
 If you use DNAshapeR for your work, please cite the following publication:
 
-Chiu, T-P., et al. DNAshapeR: an R/Bioconductor package for DNA shape 
+Chiu, TP., et al. DNAshapeR: an R/Bioconductor package for DNA shape 
 prediction and feature encoding (2016).
 
 
