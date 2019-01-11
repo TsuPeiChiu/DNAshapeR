@@ -37,13 +37,13 @@ or **you can [Download the PDF documentation](./DNAshapeR_document.pdf)**.
 
 ### Citation
 If you are using DNAshapeR for your analysis, please cite:
-* Chiu T, Comoglio F, Zhou T, Yang L, Paro R, Rohs R (2016). “DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding.” Bioinformatics, 32, 1211-1213. doi: 10.1093/bioinformatics/btv735.
+* Chiu T, Comoglio F, Zhou T, Yang L, Paro R, Rohs R (2016). “DNAshapeR: an R/Bioconductor package for DNA shape prediction and feature encoding.” Bioinformatics, 32, 1211-1213.
 
-* Chiu T, Rao S, Mann R, Honig B, Rohs R (2017). “Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein-DNA binding.” Nucleic Acids Res., 45(21), 12565-12576. doi: 10.1093/nar/gkx915, https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx915.
+* Chiu T, Rao S, Mann R, Honig B, Rohs R (2017). “Genome-wide prediction of minor-groove electrostatic potential enables biophysical modeling of protein-DNA binding.” Nucleic Acids Res., 45(21), 12565-12576.
 
-* Li J, Sagendorf J, Chiu T, Pasi M, Perez A, Rohs R (2017). “Expanding the repertoire of DNA shape features for genome-scale studies of transcription factor binding.” Nucleic Acids Res., 45(22), 12877-12887. doi: 10.1093/nar/gkx1145, https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx1145.
+* Li J, Sagendorf J, Chiu T, Pasi M, Perez A, Rohs R (2017). “Expanding the repertoire of DNA shape features for genome-scale studies of transcription factor binding.” Nucleic Acids Res., 45(22), 12877-12887.
 
-* Rao S, Chiu T, Kribelbauer J, Mann R, Bussemaker H, Rohs R (2018). “Systematic prediction of DNA shape changes due to CpG methylation explains epigenetic effects on protein-DNA binding.” Epigenetics Chromatin, 11:6. doi: 10.1186/s13072-018-0174-4, https://epigeneticsandchromatin.biomedcentral.com/articles/10.1186/s13072-018-0174-4.
+* Rao S, Chiu T, Kribelbauer J, Mann R, Bussemaker H, Rohs R (2018). “Systematic prediction of DNA shape changes due to CpG methylation explains epigenetic effects on protein-DNA binding.” Epigenetics Chromatin, 11:6.
 
 
 
