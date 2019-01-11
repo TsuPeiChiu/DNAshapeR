@@ -33,7 +33,7 @@ The package provides a vignette detailing all steps required to analyze your DNA
 browseVignettes("DNAshapeR")
 ```
 
-or **you can [Download the PDF documentation](https://rohslab.cmb.usc.edu/Documents/DNAshapeR_document.pdf)**.
+or **you can [Download the PDF documentation](./DNAshapeR_document.pdf)**.
 
 ### Citation
 If you are using DNAshapeR for your analysis, please cite:
