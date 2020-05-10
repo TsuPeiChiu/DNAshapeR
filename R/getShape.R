@@ -59,7 +59,7 @@
 #' @param parse A logical value indicating whether parse the prediction
 #' result
 #'
-#' @return shapeList A List containing shapre prediction result
+#' @return shapeList A List containing shape prediction results
 #'
 #' @author Federico Comoglio & Tsu-Pei Chiu
 #'
