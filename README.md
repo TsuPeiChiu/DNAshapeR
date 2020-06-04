@@ -6,6 +6,7 @@ DNAshapeR is a R/BioConductor package for DNA shape prediction and feature encod
 
 Before installation one can try a demo of this package in Google Colaboratory
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mateuszrezler/DNAshapeR/blob/master/demo.ipynb)
+
 Static preview: [`demo.ipynb`](demo.ipynb)
 
 ## Installation
