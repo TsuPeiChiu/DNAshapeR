@@ -141,7 +141,7 @@ including ENCODE, NCBI, Ensembl, etc. The AnnotationHub package
 (see <http://bioconductor.org/packages/release/bioc/html/AnnotationHub.html> 
 for more information) provides an interface to retrieve genomic intervals 
 from these multiple online project resources.The genomic intervals of interest
-can be selected progressively through the functions of **sebset** and **query** 
+can be selected progressively through the functions of **subset** and **query** 
 with keywords, and can be subjected as 
 an input of GRanges object to **getFasta** function.
 
