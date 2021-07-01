@@ -10,8 +10,8 @@
 #' DNAshapeR can be used to generate feature vectors for a user-defined model.
 #' These models can be based on DNA sequence (1-mer, 2-mer, 3-mer) or DNA
 #' shape (MGW, Roll, ProT, HelT) features or any combination thereof. Sequence
-#' is encoded as four binary features (i.e., 0001 for adenine, 0010 for
-#' cytosine, 0100 for guanine, and 1000 for thymine, for encoding of 1-mers)
+#' is encoded as four binary features (i.e., 1000 for adenine, 0100 for
+#' cytosine, 0010 for guanine, and 0001 for thymine, for encoding of 1-mers)
 #' at each nucleotide position (Zhou, et al., 2015). Encoding of 2-mers and
 #' 3-mers (16 and 64 binary features at each position, respectively) is also
 #' supported. Shape features include first and second order (or higher order)
